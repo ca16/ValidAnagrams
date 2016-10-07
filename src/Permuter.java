@@ -45,4 +45,12 @@ public class Permuter {
         return ret;
 
     }
+
+    public static List<String> permutationsWordList(List<String> words){
+        List<String> ret = new ArrayList<>();
+        for (String word: words){
+            ret.addAll(singleWordPermutations(word));
+        }
+        return ret;
+    }
 }
