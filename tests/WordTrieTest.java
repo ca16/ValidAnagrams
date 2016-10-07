@@ -61,7 +61,6 @@ public class WordTrieTest {
         Assert.assertTrue(smallTree.contains("of"));
         Assert.assertTrue(smallTree.contains("fire"));
 
-
     }
 
 }
