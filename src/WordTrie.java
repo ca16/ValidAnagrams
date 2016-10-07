@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Created by Chloe on 10/7/16.
  */
@@ -49,6 +51,12 @@ public class WordTrie {
         String rest = word.substring(1, word.length());
         return this.root.getChildWithLetter(first).containsWord(rest);
 
+    }
+
+    public void addWordList(List<String> words){
+        for (String word: words){
+            this.addToTrie(word);
+        }
     }
 
     @Override
