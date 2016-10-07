@@ -25,6 +25,9 @@ public class StartTest {
 
         Start.main(argsWithFile);
 
+        System.out.println("\n\n\n");
+
+
         String[] argsNoFile = new String[4];
         argsNoFile[0] = "stab";
         argsNoFile[1] = "tickle";
@@ -33,6 +36,17 @@ public class StartTest {
 
         Start.main(argsNoFile);
 
+        System.out.println("\n\n\n");
+
+        String[] argsWithBigFile = new String[6];
+        argsWithBigFile[0] = "--file";
+        argsWithBigFile[1] = "./wordsEn.txt";
+        argsWithBigFile[2] = "stab";
+        argsWithBigFile[3] = "tickle";
+        argsWithBigFile[4] = "globe";
+        argsWithBigFile[5] = "bat";
+
+        Start.main(argsWithBigFile);
 
     }
 

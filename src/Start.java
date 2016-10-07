@@ -16,8 +16,8 @@ public class Start {
             throw new RuntimeException("Gimme some arguments please. Like a word to permute. Maybe a file...");
         }
 
-        String defaultPathV1 = "./TestSmallDict.txt";
-        String defaultPathV2 = "../../../TestSmallDict.txt";
+        String defaultPathV1 = "./wordsEn.txt";
+        String defaultPathV2 = "../../../wordsEn.txt";
 
         List<String> words = new ArrayList<>();
         int index = 0;

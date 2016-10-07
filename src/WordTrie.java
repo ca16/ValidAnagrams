@@ -29,6 +29,9 @@ public class WordTrie {
         if (null == word || word == ""){
             return; // throw exception here
         }
+        if (word.length() < 1){
+            return;
+        }
         word = word.toLowerCase();
         char first = word.charAt(0);
         if (first < 'a' || first > 'z'){
