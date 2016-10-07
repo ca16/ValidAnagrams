@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,9 @@ public class Start {
             throw new RuntimeException("Gimme some arguments please. Like a word to permute. Maybe a file...");
         }
 
+        String defaultPathV1 = "./TestSmallDict.txt";
+        String defaultPathV2 = "../../../TestSmallDict.txt";
+
         List<String> words = new ArrayList<>();
         int index = 0;
         String filePath = null;
@@ -30,13 +34,27 @@ public class Start {
         }
 
         if (filePath == null){
-            filePath = "./TestSmallDict.txt";
+            filePath = defaultPathV1;
         }
 
         WordTrie trie = new WordTrie();
-        DictParser parser = new DictParser(filePath);
-        List<String> dictWords = parser.wordsToList();
-        trie.addWordList(dictWords);
+
+        try {
+            DictParser parser = new DictParser(filePath);
+            List<String> dictWords = parser.wordsToList();
+            trie.addWordList(dictWords);
+        }
+        catch(FileNotFoundException fnfe){
+            filePath = defaultPathV2;
+        }
+        try {
+            DictParser parser = new DictParser(filePath);
+            List<String> dictWords = parser.wordsToList();
+            trie.addWordList(dictWords);
+        }
+        catch(FileNotFoundException fnfe){
+            throw new RuntimeException("tough luck");
+        }
 
         List<String> permutedWords = Permuter.permutationsWordList(words);
         for (String word: permutedWords){

@@ -16,7 +16,7 @@ public class DictParser {
         this.filePath = path;
     }
 
-    public List<String> wordsToList(){
+    public List<String> wordsToList() throws FileNotFoundException{
 
         List<String> ret = new ArrayList<>();
 
@@ -30,9 +30,8 @@ public class DictParser {
 //                System.out.println(word);
             }
         }
-        catch (FileNotFoundException fnfe){
-            throw new RuntimeException("tough luck");
-
+        catch(FileNotFoundException fnfe){
+            throw new FileNotFoundException("catch me if you can!");
         }
         catch (IOException ioe){
             throw new RuntimeException("dude seriously");
