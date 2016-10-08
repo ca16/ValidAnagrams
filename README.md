@@ -1,7 +1,5 @@
 # ValidAnagrams
 
-----
-
 A program that takes one or more words, and prints the anagrams of those words that appear in a dictionary file. The user can provide their own dictionary file if they wish. 
 
 ----
