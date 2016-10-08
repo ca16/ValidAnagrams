@@ -36,7 +36,7 @@ prints
     pods
   
   
-Note: the order that the anagrams of the given words appear in my be different depending on which algorithm is chosen for finding anagrams.
+Note: the order that the anagrams of the given words appear in may be different depending on which algorithm is chosen for finding anagrams.
 
 ----
 
