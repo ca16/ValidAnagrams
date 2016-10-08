@@ -16,17 +16,17 @@ To run:
 
     1. Scenario 1 - You want to use your own dictionary file.
 
-    1. Input 'y' or 'yes'.
+      1. Input 'y' or 'yes'.
 
-    1. The program asks you for the path to that dictionary file.
+      1. The program asks you for the path to that dictionary file.
 
-    1. Input the path to it. e.g.:
+      1. Input the path to it. e.g.:
 
       ../TestSmallDict.txt
 
     1. Scenario 2 - You don't want to use your own dictionary file.
 
-    1. Input 'n' or 'no'.
+      1. Input 'n' or 'no'.
 
   1. The program asks you to enter the word or words you want to find anagrams of (or quit).
 
