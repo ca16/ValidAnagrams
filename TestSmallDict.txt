@@ -10,3 +10,5 @@ bats
 cringe
 Pickle
 tickle
+deed
+misty

@@ -1,5 +1,8 @@
+package vaf.anagrammakers;
+
 import java.util.ArrayList;
 import java.util.List;
+import vaf.WordTrie;
 
 /**
  * Created by Chloe on 10/4/16.
@@ -9,7 +12,7 @@ public class IterAnagramMaker implements IAnagramMaker {
     private WordTrie trie;
     private List<Character> vowels;
 
-    public IterAnagramMaker(WordTrie trie){
+    IterAnagramMaker(WordTrie trie){
         this.trie = trie;
         this.vowels = new ArrayList<>();
         vowels.add('a');
@@ -19,17 +22,17 @@ public class IterAnagramMaker implements IAnagramMaker {
         vowels.add('u');
     }
 
-    public List<String> lstOfWordsAM(List<String> words){
+    public List<String> lstOfWordsAnagrams(List<String> words){
         List<String> ret = new ArrayList<>();
         for (String word: words){
-            ret.addAll(singleWordAM(reorder(word)));
-//            ret.addAll(singleWordAM(word));
+//            ret.addAll(singleWordAnagrams(reorder(word)));
+            ret.addAll(singleWordAnagrams(word));
         }
         return ret;
     }
 
 
-    public List<String> singleWordAM(String word){
+    public List<String> singleWordAnagrams(String word){
         Integer counter = 0;
 
         List<String> ret = new ArrayList<>();
@@ -42,6 +45,7 @@ public class IterAnagramMaker implements IAnagramMaker {
         ret.add(empty);
 
         word = IAnagramMaker.preprocessWord(word);
+        word = reorder(word);
         len = word.length();
 
         for (int i = 0; i < len; i++){

@@ -1,13 +1,16 @@
+package vaf.anagrammakers;
 import java.util.List;
+
+import vaf.WordTrie;
 
 /**
  * Created by Chloe on 10/7/16.
  */
 public interface IAnagramMaker {
 
-    List<String> lstOfWordsAM(List<String> words);
+    List<String> lstOfWordsAnagrams(List<String> words);
 
-    List<String> singleWordAM(String word);
+    List<String> singleWordAnagrams(String word);
 
     static GraphAnagramMaker getGraphAM(WordTrie trie){
         return new GraphAnagramMaker(trie);

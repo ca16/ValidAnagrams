@@ -1,5 +1,9 @@
+package vaf.anagrammakers;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import vaf.WordTrie;
 
 /**
  * Created by Chloe on 10/7/16.
@@ -11,14 +15,14 @@ public class GraphAnagramMaker implements IAnagramMaker {
     private List<List<Integer>> currGraph;
     private String currWord;
 
-    public GraphAnagramMaker(WordTrie trie){
+    GraphAnagramMaker(WordTrie trie){
         this.trie = trie;
     }
 
-    public List<String> lstOfWordsAM(List<String> words){
+    public List<String> lstOfWordsAnagrams(List<String> words){
         List<String> ret = new ArrayList<>();
         for (String word : words){
-            List<String> anagrams = singleWordAM(word);
+            List<String> anagrams = singleWordAnagrams(word);
             for (String anagram : anagrams){
                 if (!ret.contains(anagram)){
                     ret.add(anagram);
@@ -28,7 +32,7 @@ public class GraphAnagramMaker implements IAnagramMaker {
         return ret;
     }
 
-    public List<String> singleWordAM(String word){
+    public List<String> singleWordAnagrams(String word){
         word = IAnagramMaker.preprocessWord(word);
         this.currWord = word;
         makeGraph();

@@ -1,6 +1,8 @@
+package vaf;
+
 import org.junit.Assert;
 
-import static org.junit.Assert.*;
+import vaf.WordTrie;
 
 /**
  * Created by Chloe on 10/7/16.

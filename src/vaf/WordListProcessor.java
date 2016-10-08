@@ -1,6 +1,10 @@
+package vaf;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import vaf.anagrammakers.IAnagramMaker;
 
 /**
  * Created by Chloe on 10/8/16.
@@ -30,7 +34,7 @@ public class WordListProcessor {
                 continue;
             }
             word = word.toLowerCase().trim();
-            List<String> anagrams = anagramMaker.singleWordAM(word);
+            List<String> anagrams = anagramMaker.singleWordAnagrams(word);
             compareAnagrams(anagrams);
             System.out.print("\n");
         }

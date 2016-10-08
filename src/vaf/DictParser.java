@@ -1,3 +1,5 @@
+package vaf;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,8 +22,6 @@ public class DictParser {
                 word = word.toLowerCase();
                 word = word.trim();
                 ret.add(word);
-
-//                System.out.println(word);
             }
         }
         catch(FileNotFoundException fnfe){

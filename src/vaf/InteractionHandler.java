@@ -1,7 +1,7 @@
+package vaf;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-
-import javafx.beans.binding.BooleanExpression;
 
 /**
  * Created by Chloe on 10/8/16.

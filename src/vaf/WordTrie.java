@@ -1,3 +1,5 @@
+package vaf;
+
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -62,7 +64,7 @@ public class WordTrie {
 
     @Override
     public String toString() {
-        return "WordTrie{" +
+        return "vaf.WordTrie{" +
                 "root=" + root +
                 '}';
     }

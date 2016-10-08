@@ -1,3 +1,5 @@
+package vaf;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +28,7 @@ public class ProgramStartVAFTest {
 //        argsWithFile[4] = "globe";
 //        argsWithFile[5] = "bat";
 //
-//        ProgramStartVAF.main(argsWithFile);
+//        vaf.ProgramStartVAF.main(argsWithFile);
 //
 //        System.out.println("\n\n\n");
 //
@@ -37,7 +39,7 @@ public class ProgramStartVAFTest {
 //        argsNoFile[2] = "globe";
 //        argsNoFile[3] = "bat";
 //
-//        ProgramStartVAF.main(argsNoFile);
+//        vaf.ProgramStartVAF.main(argsNoFile);
 //
 //        System.out.println("\n\n\n");
 //
@@ -49,7 +51,7 @@ public class ProgramStartVAFTest {
 //        argsWithBigFile[4] = "globe";
 //        argsWithBigFile[5] = "bat";
 //
-//        ProgramStartVAF.main(argsWithBigFile);
+//        vaf.ProgramStartVAF.main(argsWithBigFile);
 //
 //        List<String> one = new ArrayList<>();
 //        one.add("hi");
@@ -61,13 +63,13 @@ public class ProgramStartVAFTest {
 
 //        String[] exampleGiven = new String[1];
 //        exampleGiven[0] = "stab";
-//        ProgramStartVAF.main(exampleGiven);
+//        vaf.ProgramStartVAF.main(exampleGiven);
 //
-//        WordTrie trie = new WordTrie("./wordsEn.txt");
-////        DictParser parser = new DictParser("./wordsEn.txt");
+//        vaf.WordTrie trie = new vaf.WordTrie("./wordsEn.txt");
+////        vaf.DictParser parser = new vaf.DictParser("./wordsEn.txt");
 ////        List<String> dictWords = parser.wordsToList();
 ////        trie.addWordList(dictWords);
-//        IAnagramMaker permuter = new IterAnagramMaker(trie);
+//        vaf.anagrammakers.IAnagramMaker permuter = new ValidAnagramFinder.IterAnagramMakerrs.IterAnagramMaker(trie);
 //        List<String> lst = new ArrayList<>();
 //        lst.add("hhoh");
 //        permuter.permuteListOfWords(lst);
@@ -98,7 +100,7 @@ public class ProgramStartVAFTest {
 
 //    @Test
 //    public void parseWordList() throws Exception {
-//        String[] words = ProgramStartVAF.parseWordList("hi there how are you");
+//        String[] words = vaf.ProgramStartVAF.parseWordList("hi there how are you");
 //        for (int i = 0; i < words.length; i++){
 //            System.out.println(words[i]);
 //        }
