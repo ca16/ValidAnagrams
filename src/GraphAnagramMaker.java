@@ -29,6 +29,8 @@ public class GraphAnagramMaker implements IAnagramMaker {
     }
 
     public List<String> singleWordAM(String word){
+        word = IAnagramMaker.preprocessWord(word);
+        System.out.println("preprocessed word" + word);
         this.currWord = word;
         makeGraph();
         List<List<Integer>> paths = dfsAll();

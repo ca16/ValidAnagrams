@@ -38,9 +38,12 @@ public class IterAnagramMaker implements IAnagramMaker {
         if (len == 0){
             return ret;
         }
-
         String empty = "";
         ret.add(empty);
+
+        word = IAnagramMaker.preprocessWord(word);
+        len = word.length();
+        System.out.println("prepro:" + word);
 
         for (int i = 0; i < len; i++){
             String addMe = word.substring(i, i+1);

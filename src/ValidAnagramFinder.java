@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Chloe on 10/7/16.
  */
-public class Start {
+public class ValidAnagramFinder {
 
     public static void main(String[] args){
 
@@ -62,7 +62,7 @@ public class Start {
                 }
             }
             while (true){
-                System.out.println("Please enter the word or words you'd like me to find anagrams of." +
+                System.out.println("Please enter the word or words you'd like to find anagrams of." +
                         "\nOtherwise, to quit please enter 'Quit!'");
                 String instructions = reader.readLine();
                 if (instructions.equals("Quit!")){

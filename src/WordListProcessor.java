@@ -25,14 +25,20 @@ public class WordListProcessor {
     void findAnagramsAndCompare(){
         for (String word : words){
             System.out.println("\nFor word: " + word);
+            word = word.toLowerCase().trim();
             List<String> anagrams = anagramMaker.singleWordAM(word);
-            for (String anagram : anagrams){
-                if (trie.contains(anagram)){
-                    System.out.println(anagram);
-                }
-            }
+            compareAnagrams(anagrams);
             System.out.print("\n");
         }
+    }
+
+    void compareAnagrams(List<String> anagrams){
+        for (String anagram : anagrams){
+            if (trie.contains(anagram)){
+                System.out.println(anagram);
+            }
+        }
+        System.out.print("\n");
     }
 
     List<String> parseWordList(String words){

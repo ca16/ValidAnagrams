@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Chloe on 10/7/16.
  */
-public class StartTest {
+public class ValidAnagramFinderTest {
     @Before
     public void setUp() throws Exception {
 
@@ -26,7 +26,7 @@ public class StartTest {
 //        argsWithFile[4] = "globe";
 //        argsWithFile[5] = "bat";
 //
-//        Start.main(argsWithFile);
+//        ValidAnagramFinder.main(argsWithFile);
 //
 //        System.out.println("\n\n\n");
 //
@@ -37,7 +37,7 @@ public class StartTest {
 //        argsNoFile[2] = "globe";
 //        argsNoFile[3] = "bat";
 //
-//        Start.main(argsNoFile);
+//        ValidAnagramFinder.main(argsNoFile);
 //
 //        System.out.println("\n\n\n");
 //
@@ -49,7 +49,7 @@ public class StartTest {
 //        argsWithBigFile[4] = "globe";
 //        argsWithBigFile[5] = "bat";
 //
-//        Start.main(argsWithBigFile);
+//        ValidAnagramFinder.main(argsWithBigFile);
 //
 //        List<String> one = new ArrayList<>();
 //        one.add("hi");
@@ -61,7 +61,7 @@ public class StartTest {
 
 //        String[] exampleGiven = new String[1];
 //        exampleGiven[0] = "stab";
-//        Start.main(exampleGiven);
+//        ValidAnagramFinder.main(exampleGiven);
 //
 //        WordTrie trie = new WordTrie("./wordsEn.txt");
 ////        DictParser parser = new DictParser("./wordsEn.txt");
@@ -98,7 +98,7 @@ public class StartTest {
 
 //    @Test
 //    public void parseWordList() throws Exception {
-//        String[] words = Start.parseWordList("hi there how are you");
+//        String[] words = ValidAnagramFinder.parseWordList("hi there how are you");
 //        for (int i = 0; i < words.length; i++){
 //            System.out.println(words[i]);
 //        }
