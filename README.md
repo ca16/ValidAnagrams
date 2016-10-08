@@ -2,6 +2,10 @@
 
 ----
 
+A program that takes one or more words, and prints the anagrams of those words that appear in a dictionary file. The user can provide their own dictionary file if they wish. 
+
+----
+
 ### To run:
 
 1. Clone the repository.
@@ -12,7 +16,7 @@
 
 1. do 'java ProgramStart'
 
-1. The program itself will ask you for input, and give you the instructions you need. For an outline see section 'While it's running below'. 
+1. The program itself will ask you for input, and give you the instructions you need. For an outline, see section 'While it's running below'. 
 
 ----
 
@@ -24,7 +28,7 @@ Note: I added the word 'I' to it.
 
 ----
 
-#### While it's running:
+### While it's running:
 
 An outline of how it should go:
 
