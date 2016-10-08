@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Chloe on 10/7/16.
  */
-public class ValidAnagramFinder {
+public class ProgramStartVAF {
 
     public static void main(String[] args){
 
