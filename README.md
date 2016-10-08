@@ -22,7 +22,7 @@ To run:
 
     1. Input the path to it. e.g.:
 
-    ../TestSmallDict.txt
+../TestSmallDict.txt
 
   1. Scenario 2 - You don't want to use your own dictionary file.
 
@@ -34,8 +34,7 @@ To run:
 
   three stab jump
 
-  1. The program asks you if you would like to stick to the default algorithm used to find
-anagrams (it proceeds iteratively), or switch to the other option (using a graph).
+  1. The program asks you if you would like to stick to the default algorithm used to find anagrams (it proceeds iteratively), or switch to the other option (using a graph).
 
   1. Scenario 1 - You want to switch to the graph search option.
 
@@ -49,9 +48,9 @@ anagrams (it proceeds iteratively), or switch to the other option (using a graph
 
   1. Steps 5.ii - 5.v repeat until you enter 'Quit!' after being prompted for the words you want to find anagrams of. e.g.
 
-  PROGRAM: "Please enter the word or words you'd like to find anagrams of. Otherwise, to quit please enter 'Quit!'"
+PROGRAM: "Please enter the word or words you'd like to find anagrams of. Otherwise, to quit please enter 'Quit!'"
 
-  USER: Quit!
+USER: Quit!
 
 
 Default Dictionary File Found at:
