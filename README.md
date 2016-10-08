@@ -1,5 +1,7 @@
 # ValidAnagrams
 
+----
+
 ### To run:
 
 1. Clone the repository.
@@ -52,6 +54,7 @@
 
     USER: Quit!
 
+----
 
 ### Other Notes:
 Default Dictionary File Found at:
