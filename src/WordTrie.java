@@ -10,11 +10,12 @@ public class WordTrie {
     private String filePath;
 
     public WordTrie() {
-        trieSetup(); // can I just start with the root? figure out later
+        this.root = new TrieNode(' ');
         // no special characters
     }
+
     public WordTrie(String filePath){
-        trieSetup();
+        this.root = new TrieNode(' ');
         this.filePath = filePath;
         try {
             List<String> dictWords = DictParser.wordsToList(filePath);
@@ -27,35 +28,33 @@ public class WordTrie {
 
     private void trieSetup() {
         this.root = new TrieNode(' ');
-        char toAdd = 'a';
-        for (int i = 0; i < 26; i++) {
-            TrieNode child = new TrieNode(toAdd);
-            this.root.addToChildren(child, i);
-            // Assuming we're working with English.
-            if (i == 0 || i == 8) {
-                child.setEndOfWord(true);
-            }
-            // words start from all letters in English.
-            child.setPrefix(true);
-            child.setParent(root);
-            toAdd++;
-        }
+//        char toAdd = 'a';
+//        for (int i = 0; i < 26; i++) {
+//            TrieNode child = new TrieNode(toAdd);
+//            this.root.addToChildren(child, i);
+//            // Assuming we're working with English.
+//            if (i == 0 || i == 8) {
+//                child.setEndOfWord(true);
+//            }
+//            // words start from all letters in English.
+//            child.setPrefix(true);
+//            child.setParent(root);
+//            toAdd++;
+//        }
     }
 
     public void addToTrie(String word){
         if (null == word || word == "" || word.length() < 1){
             return; // throw exception here
         }
-//        if (word.length() < 1){
-//            return;
-//        }
         word = word.toLowerCase();
-        char first = word.charAt(0);
-        if (first < 'a' || first > 'z'){
-            return; // throw exception here
-        }
-        String rest = word.substring(1, word.length());
-        this.root.getChildWithLetter(first).addWord(rest);
+//        char first = word.charAt(0);
+//        if (first < 'a' || first > 'z'){
+//            return; // throw exception here
+//        }
+//        String rest = word.substring(1, word.length());
+//        this.root.getChildWithLetter(first).addWord(rest);
+        this.root.addWord(word);
 
     }
 
@@ -64,12 +63,13 @@ public class WordTrie {
             return false;
         }
         word = word.toLowerCase();
-        char first = word.charAt(0);
-        if (first < 'a' || first > 'z'){
-            return false; // throw exception here
-        }
-        String rest = word.substring(1, word.length());
-        return this.root.getChildWithLetter(first).containsWord(rest);
+//        char first = word.charAt(0);
+//        if (first < 'a' || first > 'z'){
+//            return false; // throw exception here
+//        }
+//        String rest = word.substring(1, word.length());
+//        return this.root.getChildWithLetter(first).containsWord(rest);
+        return this.root.containsWord(word);
 
     }
 
@@ -81,12 +81,13 @@ public class WordTrie {
             return true;
         }
         word = word.toLowerCase();
-        char first = word.charAt(0);
-        if (first < 'a' || first > 'z'){
-            return false; // throw exception here
-        }
-        String rest = word.substring(1, word.length());
-        return this.root.getChildWithLetter(first).isPrefix(rest);
+//        char first = word.charAt(0);
+//        if (first < 'a' || first > 'z'){
+//            return false; // throw exception here
+//        }
+//        String rest = word.substring(1, word.length());
+//        return this.root.getChildWithLetter(first).isPrefix(rest);
+        return this.root.isPrefix(word);
 
     }
 

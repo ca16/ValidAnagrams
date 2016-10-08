@@ -66,8 +66,10 @@ public class WordTrieTest {
     @org.junit.Test
     public void isPrefix() throws Exception {
 
+        Assert.assertFalse(babyTree.isPrefix("z"));
+        babyTree.addToTrie("zoo");
         Assert.assertTrue(babyTree.isPrefix("z"));
-        Assert.assertFalse(babyTree.isPrefix("zo"));
+        Assert.assertTrue(babyTree.isPrefix("zo"));
 
         Assert.assertTrue(smallTree.isPrefix("go"));
         Assert.assertFalse(smallTree.isPrefix("bo"));

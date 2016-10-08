@@ -19,21 +19,9 @@ public class TrieNode {
 
     }
 
-//    public Boolean isLetter(char letter){
-//        return (this.letter == letter);
-//    }
-//
-//    public Boolean getEndOfWord() {
-//        return endOfWord;
-//    }
-
     public void setEndOfWord(Boolean endOfWord) {
         this.endOfWord = endOfWord;
     }
-
-//    public Boolean isPrefix() {
-//        return prefix;
-//    }
 
     public void setPrefix(Boolean prefix) {
         this.prefix = prefix;
@@ -65,7 +53,7 @@ public class TrieNode {
             return false;
         }
 
-        // There are still letters left in othe word, but
+        // There are still letters left in other word, but
         // the collection of letters so far is not a prefix
         // to any word, so the given word is not contained
         if (!this.prefix){
@@ -85,7 +73,7 @@ public class TrieNode {
             return next.containsWord(rest);
         }
         // The next letter in the word is not a child of the
-        // current node, so the given node is not in the trie
+        // current node, so the given word is not in the trie
         else{
             return false;
         }
@@ -93,8 +81,15 @@ public class TrieNode {
     }
 
     public Boolean isPrefix(String word){
+        // The letter in this TrieNode is the last letter in the potential prefix.
         if (word.length() == 0 ){
             return this.prefix;
+        }
+
+        // If the first part of the potential prefix is not the prefix of a valid word,
+        // the whole string is not the prefix of a valid word.
+        if (!this.prefix){
+            return false;
         }
         char first = word.charAt(0);
         // only have lower case alphabetic characters in the trie
@@ -107,7 +102,8 @@ public class TrieNode {
             return next.isPrefix(rest);
         }
         // The next letter in the word is not a child of the
-        // current node, so the given node is not in the trie
+        // current node, so the given word is not in the trie at all
+        // so it cannot be a prefix
         else{
             return false;
         }
