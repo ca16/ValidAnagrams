@@ -8,7 +8,7 @@ public class GraphAnagramMaker implements IAnagramMaker {
 
     private WordTrie trie;
 
-    private List<Integer>[] currGraph;
+    private List<List<Integer>> currGraph;
     private String currWord;
 
     public GraphAnagramMaker(WordTrie trie){
@@ -37,9 +37,9 @@ public class GraphAnagramMaker implements IAnagramMaker {
         return anagrams;
     }
 
-    private List<Integer>[] makeGraph(){
+    private List<List<Integer>> makeGraph(){
         Integer len = currWord.length();
-        List[] ret = new List[len];
+        List<List<Integer>> ret = new ArrayList<>();
         int counter = 0;
         while (counter < len) {
             List<Integer> destinations = new ArrayList<>();
@@ -47,8 +47,8 @@ public class GraphAnagramMaker implements IAnagramMaker {
                 if (counter != i){
                     destinations.add(i);
                 }
-                ret[counter] = destinations;
             }
+            ret.add(counter, destinations);
             counter++;
         }
         this.currGraph = ret;
@@ -59,7 +59,7 @@ public class GraphAnagramMaker implements IAnagramMaker {
 
     private List<List<Integer>> dfsAll(){
         List<List<Integer>> ret = new ArrayList<>();
-        int len = currGraph.length;
+        int len = currGraph.size();
 
         // No search needed if we only have one letter.
         if (len == 1){
@@ -70,7 +70,7 @@ public class GraphAnagramMaker implements IAnagramMaker {
         }
 
         // More than one letter in the word - search.
-        for (int i = 0; i < currGraph.length; i++){
+        for (int i = 0; i < len; i++){
             ret.addAll(dfs(i));
         }
         return ret;
@@ -80,7 +80,7 @@ public class GraphAnagramMaker implements IAnagramMaker {
         List<List<Integer>> pathList = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
         path.add(node);
-        for (Integer succ : currGraph[node]){
+        for (Integer succ : currGraph.get(node)){
             List<Integer> pathCopy = new ArrayList<>();
             pathCopy.addAll(path);
             dfsHelper(succ, pathCopy, pathList);
@@ -93,14 +93,14 @@ public class GraphAnagramMaker implements IAnagramMaker {
 
     private void dfsHelper(Integer node, List<Integer> path, List<List<Integer>> pathList){
         path.add(node);
-        if (path.size() == currGraph.length){
+        if (path.size() == currGraph.size()){
             pathList.add(path);
             return;
         }
         if (!trie.isPrefix(pathToWord(path))){
             return;
         }
-        for (Integer succ : currGraph[node]){
+        for (Integer succ : currGraph.get(node)){
             if (!path.contains(succ)){
                 List<Integer> pathCopy = new ArrayList<>();
                 pathCopy.addAll(path);
