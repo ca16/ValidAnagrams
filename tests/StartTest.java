@@ -59,18 +59,18 @@ public class StartTest {
 //        two.add("hi");
 //        System.out.println(one.equals(two));
 
-        String[] exampleGiven = new String[1];
-        exampleGiven[0] = "stab";
-        Start.main(exampleGiven);
-
-        WordTrie trie = new WordTrie("./wordsEn.txt");
-//        DictParser parser = new DictParser("./wordsEn.txt");
-//        List<String> dictWords = parser.wordsToList();
-//        trie.addWordList(dictWords);
-        IPermuter permuter = new IterPermuter(trie);
-        List<String> lst = new ArrayList<>();
-        lst.add("hhoh");
-        permuter.permuteListOfWords(lst);
+//        String[] exampleGiven = new String[1];
+//        exampleGiven[0] = "stab";
+//        Start.main(exampleGiven);
+//
+//        WordTrie trie = new WordTrie("./wordsEn.txt");
+////        DictParser parser = new DictParser("./wordsEn.txt");
+////        List<String> dictWords = parser.wordsToList();
+////        trie.addWordList(dictWords);
+//        IPermuter permuter = new IterPermuter(trie);
+//        List<String> lst = new ArrayList<>();
+//        lst.add("hhoh");
+//        permuter.permuteListOfWords(lst);
 //
 //        List<String> list1 = new ArrayList<>();
 //        list1.add("1");
@@ -90,6 +90,18 @@ public class StartTest {
 //        arr[3] = 'e';
 //        System.out.println("alone" + arr);
 //        System.out.println("to string" + new String(arr));
+
+
+
+
+    }
+
+    @Test
+    public void parseWordList() throws Exception {
+        String[] words = Start.parseWordList("hi there how are you");
+        for (int i = 0; i < words.length; i++){
+            System.out.println(words[i]);
+        }
     }
 
 }
