@@ -43,49 +43,10 @@ public class ProgramStartVAF {
             needFile = true;
         }
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))){
-                System.out.println("Would you like to use your own dictionary file? Please respond with 'yes' or 'no'.");
-            while(true) {
-                String instructions = reader.readLine();
-                String fileResponse = instructions.toLowerCase().trim();
-                if (fileResponse.equals("yes") || fileResponse.equals("y")) {
-                    System.out.println("Please enter the path to your dictionary file.");
-                    String newFilePath = reader.readLine();
-                    filePath = newFilePath;
-                    WordTrie newTrie = new WordTrie(filePath);
-                    trie = newTrie;
-                    break;
-                } else if (!fileResponse.equals("no") && !fileResponse.equals("n")) {
-                    System.out.println("I'm sorry. I didn't understand your response. Please respond with 'yes' or 'no'.");
-                }else {
-                    break;
-                }
-            }
-            while (true){
-                System.out.println("Please enter the word or words you'd like to find anagrams of." +
-                        "\nOtherwise, to quit please enter 'Quit!'");
-                String instructions = reader.readLine();
-                if (instructions.equals("Quit!")){
-                    break;
-                }
-                Boolean defaultPermMethod = true;
-                System.out.println("Would you like to use a different anagram making method? Default: iterative. " +
-                        "Other option: graph. Please response with 'yes' to change or 'no' otherwise.");
-                while (true) {
-                    String response = reader.readLine();
-                    response = response.toLowerCase().trim();
-                    if (response.equals("yes") || response.equals("y")) {
-                        defaultPermMethod = false;
-                        break;
-                    } else if (!response.equals("no") && !response.equals("n")) {
-                        System.out.println("I'm sorry. I didn't understand your response. Please respond with 'yes' or 'no'.");
-                    }else{
-                        break;
-                    }
-                }
-                WordListProcessor proc = new WordListProcessor(instructions, trie, defaultPermMethod);
-                proc.findAnagramsAndCompare();
-            }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+            InteractionHandler communicator = new InteractionHandler(trie, reader);
+            communicator.talkAboutDictionary();
+            communicator.talkAboutInputWords();
         } catch (IOException e) {
             e.printStackTrace();
         }
