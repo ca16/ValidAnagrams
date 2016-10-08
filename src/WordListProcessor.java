@@ -25,6 +25,10 @@ public class WordListProcessor {
     void findAnagramsAndCompare(){
         for (String word : words){
             System.out.println("\nFor word: " + word);
+            if (word.length() == 0){
+                System.out.println("\n");
+                continue;
+            }
             word = word.toLowerCase().trim();
             List<String> anagrams = anagramMaker.singleWordAM(word);
             compareAnagrams(anagrams);

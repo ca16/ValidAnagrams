@@ -30,7 +30,6 @@ public class GraphAnagramMaker implements IAnagramMaker {
 
     public List<String> singleWordAM(String word){
         word = IAnagramMaker.preprocessWord(word);
-        System.out.println("preprocessed word" + word);
         this.currWord = word;
         makeGraph();
         List<List<Integer>> paths = dfsAll();
@@ -60,6 +59,17 @@ public class GraphAnagramMaker implements IAnagramMaker {
 
     private List<List<Integer>> dfsAll(){
         List<List<Integer>> ret = new ArrayList<>();
+        int len = currGraph.length;
+
+        // No search needed if we only have one letter.
+        if (len == 1){
+            List<Integer> single = new ArrayList<>();
+            single.add(0);
+            ret.add(single);
+            return ret;
+        }
+
+        // More than one letter in the word - search.
         for (int i = 0; i < currGraph.length; i++){
             ret.addAll(dfs(i));
         }
