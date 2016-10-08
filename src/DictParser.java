@@ -10,13 +10,7 @@ import java.util.List;
  */
 public class DictParser {
 
-    private String filePath;
-
-    public DictParser(String path){
-        this.filePath = path;
-    }
-
-    public List<String> wordsToList() throws FileNotFoundException{
+    public static List<String> wordsToList(String filePath) throws FileNotFoundException{
 
         List<String> ret = new ArrayList<>();
 

@@ -62,8 +62,15 @@ public class StartTest {
         String[] exampleGiven = new String[1];
         exampleGiven[0] = "stab";
         Start.main(exampleGiven);
-//
-////        IterPermuter.dfsPermutations("hhow");
+
+        WordTrie trie = new WordTrie("./wordsEn.txt");
+//        DictParser parser = new DictParser("./wordsEn.txt");
+//        List<String> dictWords = parser.wordsToList();
+//        trie.addWordList(dictWords);
+        IPermuter permuter = new IterPermuter(trie);
+        List<String> lst = new ArrayList<>();
+        lst.add("hhoh");
+        permuter.permuteListOfWords(lst);
 //
 //        List<String> list1 = new ArrayList<>();
 //        list1.add("1");

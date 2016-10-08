@@ -40,16 +40,14 @@ public class Start {
         WordTrie trie = new WordTrie();
 
         try {
-            DictParser parser = new DictParser(filePath);
-            List<String> dictWords = parser.wordsToList();
+            List<String> dictWords = DictParser.wordsToList(filePath);
             trie.addWordList(dictWords);
         }
         catch(FileNotFoundException fnfe){
             filePath = defaultPathV2;
         }
         try {
-            DictParser parser = new DictParser(filePath);
-            List<String> dictWords = parser.wordsToList();
+            List<String> dictWords = DictParser.wordsToList(filePath);
             trie.addWordList(dictWords);
         }
         catch(FileNotFoundException fnfe){

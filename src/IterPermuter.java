@@ -74,8 +74,8 @@ public class IterPermuter implements IPermuter {
             ret = addTo;
         }
 
-//        System.out.println("counter: " + counter);
-//        System.out.println(ret);
+        System.out.println("counter: " + counter);
+        System.out.println(ret);
         return ret;
 
     }
