@@ -92,6 +92,28 @@ public class TrieNode {
 
     }
 
+    public Boolean isPrefix(String word){
+        if (word.length() == 0 ){
+            return this.prefix;
+        }
+        char first = word.charAt(0);
+        // only have lower case alphabetic characters in the trie
+        if (first < 'a' || first > 'z'){
+            return false; // throw exception here
+        }
+        String rest = word.substring(1, word.length());
+        TrieNode next = getChildWithLetter(first);
+        if (next != null){
+            return next.isPrefix(rest);
+        }
+        // The next letter in the word is not a child of the
+        // current node, so the given node is not in the trie
+        else{
+            return false;
+        }
+
+    }
+
     public void addWord(String word){
         // We've added all the letters, mark this node (holding
         // the last letter as the end of a word
@@ -122,6 +144,7 @@ public class TrieNode {
         next.addWord(rest);
 
     }
+
 
     @Override
     public String toString() {

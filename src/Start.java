@@ -56,7 +56,9 @@ public class Start {
             throw new RuntimeException("tough luck");
         }
 
-        List<String> permutedWords = Permuter.permutationsWordList(words);
+//        List<String> permutedWords = Permuter.permutationsWordList(words, trie);
+        List<String> permutedWords = Permuter.dfsPermsList(words, trie);
+
         for (String word: permutedWords){
             if (trie.contains(word)){
                 System.out.println(word);

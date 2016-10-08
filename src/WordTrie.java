@@ -26,12 +26,12 @@ public class WordTrie {
     // no special characters
 
     public void addToTrie(String word){
-        if (null == word || word == ""){
+        if (null == word || word == "" || word.length() < 1){
             return; // throw exception here
         }
-        if (word.length() < 1){
-            return;
-        }
+//        if (word.length() < 1){
+//            return;
+//        }
         word = word.toLowerCase();
         char first = word.charAt(0);
         if (first < 'a' || first > 'z'){
@@ -43,7 +43,7 @@ public class WordTrie {
     }
 
     public Boolean contains(String word){
-        if (null == word || word == ""){
+        if (null == word || word == "" || word.length() < 1){
             return false;
         }
         word = word.toLowerCase();
@@ -53,6 +53,20 @@ public class WordTrie {
         }
         String rest = word.substring(1, word.length());
         return this.root.getChildWithLetter(first).containsWord(rest);
+
+    }
+
+    public Boolean isPrefix(String word){
+        if (null == word || word == "" || word.length() < 1){
+            return false;
+        }
+        word = word.toLowerCase();
+        char first = word.charAt(0);
+        if (first < 'a' || first > 'z'){
+            return false; // throw exception here
+        }
+        String rest = word.substring(1, word.length());
+        return this.root.getChildWithLetter(first).isPrefix(rest);
 
     }
 
