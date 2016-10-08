@@ -63,7 +63,7 @@ public class StartTest {
         exampleGiven[0] = "stab";
         Start.main(exampleGiven);
 
-//        Permuter.dfsPermutations("hhow");
+//        IterPermuter.dfsPermutations("hhow");
 
         List<String> list1 = new ArrayList<>();
         list1.add("1");
