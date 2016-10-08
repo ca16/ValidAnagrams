@@ -39,11 +39,11 @@ anagrams (it proceeds iteratively), or switch to the other option (using a graph
 
     1. Scenario 1 - You want to switch to the graph search option.
 
-    1. Input 'y' or 'yes'.
+      1. Input 'y' or 'yes'.
 
     1. Scenario 1 - You want to tick to the iterative search option.
 
-    1. Input 'n' or 'no'.
+      1. Input 'n' or 'no'.
 
   1. The program prints out the anagrams of the given words that are in the dictionary file.
 
