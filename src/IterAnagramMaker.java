@@ -1,19 +1,15 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.zip.CheckedInputStream;
 
 /**
  * Created by Chloe on 10/4/16.
  */
-public class IterPermuter implements IPermuter {
+public class IterAnagramMaker implements IAnagramMaker {
 
     private WordTrie trie;
     private List<Character> vowels;
 
-    public IterPermuter(WordTrie trie){
+    public IterAnagramMaker(WordTrie trie){
         this.trie = trie;
         this.vowels = new ArrayList<>();
         vowels.add('a');
@@ -23,18 +19,17 @@ public class IterPermuter implements IPermuter {
         vowels.add('u');
     }
 
-    public List<String> permuteListOfWords(List<String> words){
+    public List<String> lstOfWordsAM(List<String> words){
         List<String> ret = new ArrayList<>();
         for (String word: words){
-            ret.addAll(permuteSingleWord(reorder(word)));
-//            ret.addAll(singleWordPermutations(word));
+            ret.addAll(singleWordAM(reorder(word)));
+//            ret.addAll(singleWordAM(word));
         }
         return ret;
     }
 
 
-    public List<String> permuteSingleWord(String word){
-//        System.out.println("in permute single word iter");
+    public List<String> singleWordAM(String word){
         Integer counter = 0;
 
         List<String> ret = new ArrayList<>();
@@ -55,7 +50,7 @@ public class IterPermuter implements IPermuter {
                 for (int j = 0; j <= wLen; j++){
 
                     // If we're inserting the final character, we don't need to construct
-                    // permutations where the substring before the insertion is not a
+                    // anagrams where the substring before the insertion is not a
                     // prefix to a word.
                     // E.g. suppose word = "stab" addMe = "a", w = "bts", j = 2
                     // and no words in the dictionary file start with "bt"
@@ -76,6 +71,10 @@ public class IterPermuter implements IPermuter {
                     // i letters to the list.
                     String toAdd = w.substring(0, j) + addMe + w.substring(j, wLen);
                     counter++;
+
+                    // Covering cases where two anagrams that are the same can be formed from
+                    // the same word that are also not covered by the above check. E.g. "dead"
+                    // and "dead."
                     if (!addTo.contains(toAdd)) {
                         addTo.add(toAdd);
                     }
@@ -83,9 +82,6 @@ public class IterPermuter implements IPermuter {
             }
             ret = addTo;
         }
-
-//        System.out.println("counter: " + counter);
-//        System.out.println(ret);
         return ret;
 
     }

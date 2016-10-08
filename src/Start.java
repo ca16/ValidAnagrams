@@ -11,8 +11,6 @@ import java.util.regex.Pattern;
  */
 public class Start {
 
-    private final String DICT_OPT = "Would you like to use your own dictionary file? Please respond with 'yes' or 'no'.";
-
     public static void main(String[] args){
 
         String defaultPathV1 = "./wordsEn.txt";
@@ -53,9 +51,9 @@ public class Start {
                 if (fileResponse.equals("yes") || fileResponse.equals("y")) {
                     System.out.println("Please enter the path to your dictionary file.");
                     String newFilePath = reader.readLine();
-                    WordTrie newTrie = new WordTrie(newFilePath);
-                    trie = newTrie;
                     filePath = newFilePath;
+                    WordTrie newTrie = new WordTrie(filePath);
+                    trie = newTrie;
                     break;
                 } else if (!fileResponse.equals("no") && !fileResponse.equals("n")) {
                     System.out.println("I'm sorry. I didn't understand your response. Please respond with 'yes' or 'no'.");
@@ -64,14 +62,14 @@ public class Start {
                 }
             }
             while (true){
-                System.out.println("Please enter the word or words you'd like me to find permutations of." +
-                        "\nTo quit please enter 'Quit!'");
+                System.out.println("Please enter the word or words you'd like me to find anagrams of." +
+                        "\nOtherwise, to quit please enter 'Quit!'");
                 String instructions = reader.readLine();
                 if (instructions.equals("Quit!")){
                     break;
                 }
                 Boolean defaultPermMethod = true;
-                System.out.println("Would you like to use a different permutation method? Default: iterative. " +
+                System.out.println("Would you like to use a different anagram making method? Default: iterative. " +
                         "Other option: graph. Please response with 'yes' to change or 'no' otherwise.");
                 while (true) {
                     String response = reader.readLine();
@@ -86,7 +84,7 @@ public class Start {
                     }
                 }
                 WordListProcessor proc = new WordListProcessor(instructions, trie, defaultPermMethod);
-                proc.findPermsandCompare();
+                proc.findAnagramsAndCompare();
             }
         } catch (IOException e) {
             e.printStackTrace();

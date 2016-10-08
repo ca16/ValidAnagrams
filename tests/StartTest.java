@@ -67,7 +67,7 @@ public class StartTest {
 ////        DictParser parser = new DictParser("./wordsEn.txt");
 ////        List<String> dictWords = parser.wordsToList();
 ////        trie.addWordList(dictWords);
-//        IPermuter permuter = new IterPermuter(trie);
+//        IAnagramMaker permuter = new IterAnagramMaker(trie);
 //        List<String> lst = new ArrayList<>();
 //        lst.add("hhoh");
 //        permuter.permuteListOfWords(lst);

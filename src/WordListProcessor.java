@@ -8,27 +8,27 @@ import java.util.regex.Pattern;
 public class WordListProcessor {
 
     private List<String> words;
-    private IPermuter permuter;
+    private IAnagramMaker anagramMaker;
     private WordTrie trie;
 
-    public WordListProcessor(String words, WordTrie trie, Boolean defaultPermuter){
+    public WordListProcessor(String words, WordTrie trie, Boolean defaultAM){
         this.words = parseWordList(words);
         this.trie = trie;
-        if (defaultPermuter){
-            permuter = IPermuter.getIterPermuter(trie);
+        if (defaultAM){
+            anagramMaker = IAnagramMaker.getIterAM(trie);
         }
         else {
-            permuter = IPermuter.getGraphPermuter(trie);
+            anagramMaker = IAnagramMaker.getGraphAM(trie);
         }
     }
 
-    void findPermsandCompare(){
+    void findAnagramsAndCompare(){
         for (String word : words){
             System.out.println("\nFor word: " + word);
-            List<String> permutedWord = permuter.permuteSingleWord(word);
-            for (String perm : permutedWord){
-                if (trie.contains(perm)){
-                    System.out.println(perm);
+            List<String> anagrams = anagramMaker.singleWordAM(word);
+            for (String anagram : anagrams){
+                if (trie.contains(anagram)){
+                    System.out.println(anagram);
                 }
             }
             System.out.print("\n");

@@ -4,39 +4,36 @@ import java.util.List;
 /**
  * Created by Chloe on 10/7/16.
  */
-public class GraphPermuter implements IPermuter {
+public class GraphAnagramMaker implements IAnagramMaker {
 
     private WordTrie trie;
 
     private List<Integer>[] currGraph;
     private String currWord;
 
-    public GraphPermuter(WordTrie trie){
+    public GraphAnagramMaker(WordTrie trie){
         this.trie = trie;
     }
 
-    public List<String> permuteListOfWords(List<String> words){
+    public List<String> lstOfWordsAM(List<String> words){
         List<String> ret = new ArrayList<>();
         for (String word : words){
-            List<String> perms = permuteSingleWord(word);
-            for (String perm : perms){
-                if (!ret.contains(perm)){
-                    ret.add(perm);
+            List<String> anagrams = singleWordAM(word);
+            for (String anagram : anagrams){
+                if (!ret.contains(anagram)){
+                    ret.add(anagram);
                 }
             }
         }
-//        System.out.println(ret);
         return ret;
     }
 
-    public List<String> permuteSingleWord(String word){
-//        System.out.println("in permute single word graph");
+    public List<String> singleWordAM(String word){
         this.currWord = word;
         makeGraph();
         List<List<Integer>> paths = dfsAll();
-        List<String> perms = pathsToWords(paths);
-//        System.out.println("perms: " + perms);
-        return perms;
+        List<String> anagrams = pathsToWords(paths);
+        return anagrams;
     }
 
     private List<Integer>[] makeGraph(){
