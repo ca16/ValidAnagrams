@@ -96,12 +96,12 @@ public class StartTest {
 
     }
 
-    @Test
-    public void parseWordList() throws Exception {
-        String[] words = Start.parseWordList("hi there how are you");
-        for (int i = 0; i < words.length; i++){
-            System.out.println(words[i]);
-        }
-    }
+//    @Test
+//    public void parseWordList() throws Exception {
+//        String[] words = Start.parseWordList("hi there how are you");
+//        for (int i = 0; i < words.length; i++){
+//            System.out.println(words[i]);
+//        }
+//    }
 
 }

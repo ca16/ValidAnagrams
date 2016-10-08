@@ -5,13 +5,15 @@ import java.util.List;
  */
 public interface IPermuter {
 
-    public List<String> permuteListOfWords(List<String> words);
+    List<String> permuteListOfWords(List<String> words);
 
-    public static GraphPermuter getGraphPermuter(WordTrie trie){
+    List<String> permuteSingleWord(String word);
+
+    static GraphPermuter getGraphPermuter(WordTrie trie){
         return new GraphPermuter(trie);
     }
 
-    public static IterPermuter getIterPermuter(WordTrie trie){
+    static IterPermuter getIterPermuter(WordTrie trie){
         return new IterPermuter(trie);
     }
 }

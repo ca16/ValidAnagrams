@@ -18,19 +18,19 @@ public class GraphPermuter implements IPermuter {
     public List<String> permuteListOfWords(List<String> words){
         List<String> ret = new ArrayList<>();
         for (String word : words){
-            this.currWord = word;
-            List<String> perms = dfsPermutations();
+            List<String> perms = permuteSingleWord(word);
             for (String perm : perms){
                 if (!ret.contains(perm)){
                     ret.add(perm);
                 }
             }
         }
-        System.out.println(ret);
+//        System.out.println(ret);
         return ret;
     }
 
-    private List<String> dfsPermutations(){
+    public List<String> permuteSingleWord(String word){
+        this.currWord = word;
         makeGraph(currWord);
         List<List<Integer>> paths = dfsAll();
         List<String> perms = pathsToWords(paths);

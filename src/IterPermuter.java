@@ -23,10 +23,17 @@ public class IterPermuter implements IPermuter {
         vowels.add('u');
     }
 
+    public List<String> permuteListOfWords(List<String> words){
+        List<String> ret = new ArrayList<>();
+        for (String word: words){
+            ret.addAll(permuteSingleWord(reorder(word)));
+//            ret.addAll(singleWordPermutations(word));
+        }
+        return ret;
+    }
 
-    private List<String> singleWordPermutations(String word){
 
-
+    public List<String> permuteSingleWord(String word){
         Integer counter = 0;
 
         List<String> ret = new ArrayList<>();
@@ -74,20 +81,13 @@ public class IterPermuter implements IPermuter {
             ret = addTo;
         }
 
-        System.out.println("counter: " + counter);
-        System.out.println(ret);
+//        System.out.println("counter: " + counter);
+//        System.out.println(ret);
         return ret;
 
     }
 
-    public List<String> permuteListOfWords(List<String> words){
-        List<String> ret = new ArrayList<>();
-        for (String word: words){
-            ret.addAll(singleWordPermutations(reorder(word)));
-//            ret.addAll(singleWordPermutations(word));
-        }
-        return ret;
-    }
+
 
     private String reorder(String word){
         char[] arrayVersion = word.toCharArray();
