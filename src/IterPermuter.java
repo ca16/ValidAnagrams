@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.CheckedInputStream;
 
 /**
  * Created by Chloe on 10/4/16.
@@ -10,9 +11,16 @@ import java.util.Map;
 public class IterPermuter implements IPermuter {
 
     private WordTrie trie;
+    private List<Character> vowels;
 
     public IterPermuter(WordTrie trie){
         this.trie = trie;
+        this.vowels = new ArrayList<>();
+        vowels.add('a');
+        vowels.add('e');
+        vowels.add('i');
+        vowels.add('o');
+        vowels.add('u');
     }
 
 
@@ -31,104 +39,57 @@ public class IterPermuter implements IPermuter {
         String empty = "";
         ret.add(empty);
 
-        for (int i = 0; i < len-1; i++){
+        for (int i = 0; i < len; i++){
             String addMe = word.substring(i, i+1);
             List<String> addTo = new ArrayList<>();
             for (String w: ret){
                 Integer wLen = w.length();
                 for (int j = 0; j <= wLen; j++){
-                    String comp = "";
-                    if (j < wLen){
-                        comp = w.substring(j, j+1);
-                        if (!addMe.equals(comp)){
-//                            IterPermuter.insertLetter(addMe, w, j, addTo, counter, trie);
-                            String toAdd = w.substring(0, j) + addMe + w.substring(j, wLen);
-                            counter++;
-                            addTo.add(toAdd);
 
-                        }
+                    // If we're inserting the final character, we don't need to construct
+                    // permutations where the substring before the insertion is not a
+                    // prefix to a word.
+                    // E.g. suppose word = "stab" addMe = "a", w = "bts", j = 2
+                    // and no words in the dictionary file start with "bt"
+                    // No need to add "btas" or "btsa" because no words start with "bt"
+                    if ((i == len-1) && (j < wLen) && !trie.isPrefix(w.substring(0, j))){
+                        break;
                     }
-                    else {
-//                        IterPermuter.insertLetter(addMe, w, j, addTo, counter, trie);
-                        String toAdd = w.substring(0, j) + addMe + w.substring(j, wLen);
-                        counter++;
-                        addTo.add(toAdd);
+
+                    // If there is more than one of a letter, don't add the same word more than
+                    // once to account for different arrangements within those letters that are
+                    // the same. E.g. given "doom". "mood" should not be added twice even though
+                    // one arrangement has the first 'o' first, and the second has it second.
+                    if (j < wLen && addMe.equals(w.substring(j, j+1))) {
+                        continue;
                     }
+
+                    // No special case if we get to this point, add this permutation of the first
+                    // i letters to the list.
+                    String toAdd = w.substring(0, j) + addMe + w.substring(j, wLen);
+                    counter++;
+                    addTo.add(toAdd);
                 }
             }
             ret = addTo;
         }
 
-        String addMe = word.substring(len-1, len);
-        List<String> addTo = new ArrayList<>();
-        for (String w: ret){
-            Integer wLen = w.length();
-            for (int j = 0; j <= wLen; j++){
-                if ((j < wLen) && !trie.isPrefix(w.substring(0, j))){
-                    break;
-                }
-                String comp = "";
-                if (j < wLen){
-                    comp = w.substring(j, j+1);
-                    if (!addMe.equals(comp)){
-//                            IterPermuter.insertLetter(addMe, w, j, addTo, counter, trie);
-                        String toAdd = w.substring(0, j) + addMe + w.substring(j, wLen);
-                        counter++;
-                        addTo.add(toAdd);
-
-                    }
-                }
-                else {
-//                        IterPermuter.insertLetter(addMe, w, j, addTo, counter, trie);
-                    String toAdd = w.substring(0, j) + addMe + w.substring(j, wLen);
-                    counter++;
-                    addTo.add(toAdd);
-                }
-
-            }
-        }
-        ret = addTo;
-
-
-//        System.out.println("Counter: " + counter);
+//        System.out.println("counter: " + counter);
 //        System.out.println(ret);
         return ret;
 
     }
 
-    private void insertLetter(String letter, String word, int index, List<String> addTo, Integer counter, WordTrie trie){
-        String toAdd = word.substring(0, index) + letter + word.substring(index, word.length());
-        counter++;
-        if (trie.isPrefix(toAdd)) {
-            addTo.add(toAdd);
-        }
-    }// doesn't work, next round someone else could shove something in there
-    // would only work for final letter. worth it?
-
     public List<String> permuteListOfWords(List<String> words){
         List<String> ret = new ArrayList<>();
         for (String word: words){
-//            ret.addAll(singleWordPermutations(reorder(word)));
-            ret.addAll(singleWordPermutations(word));
+            ret.addAll(singleWordPermutations(reorder(word)));
+//            ret.addAll(singleWordPermutations(word));
         }
         return ret;
     }
 
-//    private List<String> reorderAll(List<String> words){
-//        List<String> ret = new ArrayList<>();
-//        for (String word: words){
-//            ret.add(reorder(word));
-//        }
-//        return ret;
-//    }
-
     private String reorder(String word){
-        List<Character> vowels = new ArrayList<>();
-        vowels.add('a');
-        vowels.add('e');
-        vowels.add('i');
-        vowels.add('o');
-        vowels.add('u');
         char[] arrayVersion = word.toCharArray();
         int len = arrayVersion.length;
         int last = len-1;
@@ -139,35 +100,25 @@ public class IterPermuter implements IPermuter {
             }
             first++;
         }
-        System.out.println("first is" + first);
         while (last >= 0){
             if (!vowels.contains(arrayVersion[last])){
                 break;
             }
             last--;
         }
-        System.out.println("last is" + first);
         while (first < last){
             char temp = arrayVersion[last];
             arrayVersion[last] = arrayVersion[first];
             arrayVersion[first] = temp;
-            while (first < len){
-                if (vowels.contains(arrayVersion[first])){
-                    break;
-                }
+            while (!vowels.contains(arrayVersion[first])){
                 first++;
             }
-            while (last >= 0){
-                if (!vowels.contains(arrayVersion[last])){
-                    break;
-                }
+            while (vowels.contains(arrayVersion[last])){
                 last--;
             }
         }
-//        System.out.println(arrayVersion);
-//        Character.
+
         String reordered = new String(arrayVersion);
-//        System.out.println("reordered" + reordered);
         return reordered;
 
     }
