@@ -12,13 +12,21 @@
 
 1. do 'java ProgramStart'
 
-1. The program itself should ask you for input, and give you the instructions you need. 
+1. The program itself will ask you for input, and give you the instructions you need. 
+
+----
+
+### Some Notes:
+Default Dictionary File Found at:
+http://www-01.sil.org/linguistics/wordlists/english/
+
+Note: I added the word 'I' to it.
 
 ----
 
 #### While it's running:
 
-Here's how it should go:
+An outline of how it should go:
 
 1. The program asks you if you would like to use your own dictionary file.
 
@@ -59,11 +67,3 @@ Here's how it should go:
   PROGRAM: "Please enter the word or words you'd like to find anagrams of. Otherwise, to quit please enter 'Quit!'"
 
   USER: Quit!
-
-----
-
-### Other Notes:
-Default Dictionary File Found at:
-http://www-01.sil.org/linguistics/wordlists/english/
-
-Note: I added the word 'I' to it.
