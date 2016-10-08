@@ -6,22 +6,35 @@ For example, if the dictionary file contains all English words:
 
 Given
 
-  snag three pond
+
+    snag three pond
+
 
 prints
 
-  For word: snag
-  nags
-  sang
-  snag
+
+    For word: snag
   
-  For word: three
-  ether
-  there
-  three
+    nags
   
-  For word: pod
-  pod
+    sang
+  
+    snag
+  
+  
+    For word: three
+  
+    ether
+  
+    there
+  
+    three
+  
+  
+    For word: pod
+  
+    pod
+  
   
 Note: the order that the anagrams of the given words appear in my be different depending on which algorithm is chosen for finding anagrams.
 
