@@ -1,6 +1,29 @@
 # ValidAnagrams
 
-A program that takes one or more words, and prints the anagrams of those words that appear in a dictionary file. The user can provide their own dictionary file if they wish. 
+A program that takes one or more words as input, and prints the anagrams of those words that appear in a dictionary file. The user can provide their own dictionary file if they wish. 
+
+For example, if the dictionary file contains all English words:
+
+Given
+
+  snag three pond
+
+prints
+
+  For word: snag
+  nags
+  sang
+  snag
+  
+  For word: three
+  ether
+  there
+  three
+  
+  For word: pod
+  pod
+  
+Note: the order that the anagrams of the given words appear in my be different depending on which algorithm is chosen for finding anagrams.
 
 ----
 
