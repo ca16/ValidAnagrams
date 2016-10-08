@@ -4,7 +4,7 @@ To run:
 
 1. Clone the repository.
 
-1. Using the terminal to the src folder.
+1. Using the terminal, navigate to the src folder.
 
 1. do 'javac *.java'
 
