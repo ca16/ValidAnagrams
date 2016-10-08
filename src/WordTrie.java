@@ -7,7 +7,6 @@ import java.util.List;
 public class WordTrie {
 
     private TrieNode root;
-    private String filePath;
 
     public WordTrie() {
         this.root = new TrieNode(' ');
@@ -16,7 +15,6 @@ public class WordTrie {
 
     public WordTrie(String filePath){
         this.root = new TrieNode(' ');
-        this.filePath = filePath;
         try {
             List<String> dictWords = DictParser.wordsToList(filePath);
             this.addWordList(dictWords);
@@ -75,20 +73,12 @@ public class WordTrie {
         private Boolean endOfWord;
         private Boolean prefix;
         private TrieNode[] children;
-        private TrieNode parent;
-
 
         private TrieNode(char letter) {
             this.letter = letter;
             endOfWord = false;
             prefix = false;
             children = new TrieNode[26];
-
-
-        }
-
-        private void setParent(TrieNode node) {
-            this.parent = node;
         }
 
         private TrieNode getChildWithLetter(char let) {
@@ -137,7 +127,7 @@ public class WordTrie {
         }
 
         private Boolean isPrefix(String word) {
-            // The letter in this TrieNode is the last letter in the potential prefix.
+            // The letter in this Trie.TrieNode is the last letter in the potential prefix.
             if (word.length() == 0) {
                 return this.prefix;
             }
@@ -188,7 +178,6 @@ public class WordTrie {
             // to the current node's children
             if (null == next) {
                 next = new TrieNode(first);
-                next.setParent(this);
                 this.children[first - 'a'] = next;
             }
 
@@ -200,7 +189,7 @@ public class WordTrie {
 
         @Override
         public String toString() {
-            return "TrieNode{" +
+            return "Trie.TrieNode{" +
                     "letter=" + letter +
                     ", endOfWord=" + endOfWord +
                     ", prefix=" + prefix +
