@@ -15,12 +15,14 @@ To run:
   1. The program asks you if you would like to use your own dictionary file.
 
   1. Scenario 1 - You want to use your own dictionary file. Input the path to it. e.g.:
-\n ../TestSmallDict.txt
+
+      ../TestSmallDict.txt
 
     1. The program asks you to enter the word or words you want to find anagrams of.
 
     1. Input one or more words e.g.
-\n three stab jump
+
+      three stab jump
 
     1. The program asks you if you would like to stick to the default algorithm used to find
 anagrams (it proceeds iteratively), or switch to the other option (using a graph).
