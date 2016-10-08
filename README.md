@@ -12,23 +12,23 @@
 
 1. do 'java ProgramStart'
 
-1. The program itself should prompt you for input. Here's how it should go:
+1. The program itself should ask you for input, and give you the instructions you need. Here's how it should go:
 
-  1. The program asks you if you would like to use your own dictionary file.
+> The program asks you if you would like to use your own dictionary file.
 
-  1. Scenario 1 - You want to use your own dictionary file.
+> Scenario 1 - You want to use your own dictionary file.
 
-    1. Input 'y' or 'yes'.
+>> Input 'y' or 'yes'.
 
-    1. The program asks you for the path to that dictionary file.
+>> The program asks you for the path to that dictionary file.
 
-    1. Input the path to it. e.g.:
+>> Input the path to it. e.g.:
 
       ../TestSmallDict.txt
 
-  1. Scenario 2 - You don't want to use your own dictionary file.
+> Scenario 2 - You don't want to use your own dictionary file.
 
-    1. Input 'n' or 'no'.
+>> Input 'n' or 'no'.
 
   1. The program asks you to enter the word or words you want to find anagrams of (or quit).
 
