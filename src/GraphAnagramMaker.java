@@ -39,7 +39,7 @@ public class GraphAnagramMaker implements IAnagramMaker {
 
     private List<Integer>[] makeGraph(){
         Integer len = currWord.length();
-        List<Integer>[] ret = new List[len];
+        List[] ret = new List[len];
         int counter = 0;
         while (counter < len) {
             List<Integer> destinations = new ArrayList<>();
