@@ -48,7 +48,7 @@ Note: the order that the anagrams of the given words appear in may be different 
 
 1. run 'javac *.java'
 
-1. run 'java ProgramStart'
+1. run 'java ProgramStartVAF'
 
 1. The program itself will ask you for input, and give you the instructions you need. For an outline, see section 'While it's running below'. 
 
