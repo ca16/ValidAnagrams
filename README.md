@@ -38,7 +38,7 @@ Here's how it should go:
 
 1. The program asks you to enter the word or words you want to find anagrams of (or quit).
 
-1. Assuming you don't want to quit just yet, input one or more words, seperating them by spaces, e.g.
+1. Assuming you don't want to quit just yet, input one or more words, separating them by spaces, e.g.
 
   three stab jump
 
