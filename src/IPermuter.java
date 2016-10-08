@@ -11,7 +11,7 @@ public interface IPermuter {
         return new GraphPermuter(trie);
     }
 
-    public static IterPermuter getIterPermuter(){
-        return new IterPermuter();
+    public static IterPermuter getIterPermuter(WordTrie trie){
+        return new IterPermuter(trie);
     }
 }

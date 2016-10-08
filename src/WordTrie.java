@@ -57,8 +57,11 @@ public class WordTrie {
     }
 
     public Boolean isPrefix(String word){
-        if (null == word || word == "" || word.length() < 1){
+        if (null == word){
             return false;
+        }
+        if (word == "" || word.length() < 1){
+            return true;
         }
         word = word.toLowerCase();
         char first = word.charAt(0);

@@ -62,19 +62,27 @@ public class StartTest {
         String[] exampleGiven = new String[1];
         exampleGiven[0] = "stab";
         Start.main(exampleGiven);
-
-//        IterPermuter.dfsPermutations("hhow");
-
-        List<String> list1 = new ArrayList<>();
-        list1.add("1");
-        list1.add("2");
-        list1.add("3");
-        list1.add("4");
-        System.out.println(list1);
-
-        List<String> list2 = new ArrayList<>();
-        list2.addAll(list1);
-        System.out.println(list2);
+//
+////        IterPermuter.dfsPermutations("hhow");
+//
+//        List<String> list1 = new ArrayList<>();
+//        list1.add("1");
+//        list1.add("2");
+//        list1.add("3");
+//        list1.add("4");
+//        System.out.println(list1);
+//
+//        List<String> list2 = new ArrayList<>();
+//        list2.addAll(list1);
+////        System.out.println(list2);
+//
+//        char[] arr = new char[4];
+//        arr[0] = 'a';
+//        arr[1] = 'c';
+//        arr[2] = 'v';
+//        arr[3] = 'e';
+//        System.out.println("alone" + arr);
+//        System.out.println("to string" + new String(arr));
     }
 
 }

@@ -56,7 +56,7 @@ public class Start {
             throw new RuntimeException("tough luck");
         }
 
-        IPermuter permuter = IPermuter.getIterPermuter();
+        IPermuter permuter = IPermuter.getIterPermuter(trie);
         List<String> permutedWords = permuter.permuteListOfWords(words);
 //        IPermuter permuter = IPermuter.getGraphPermuter(trie);
 //        List<String> permutedWords = permuter.permuteListOfWords(words);
