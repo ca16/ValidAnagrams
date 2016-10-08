@@ -14,6 +14,10 @@
 
 1. The program itself should ask you for input, and give you the instructions you need. 
 
+----
+
+#### While it's running:
+
 Here's how it should go:
 
 > The program asks you if you would like to use your own dictionary file.
