@@ -12,7 +12,7 @@
 
 1. do 'java ProgramStart'
 
-1. The program itself will ask you for input, and give you the instructions you need. 
+1. The program itself will ask you for input, and give you the instructions you need. For an outline see section 'While it's running below'. 
 
 ----
 
