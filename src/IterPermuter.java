@@ -34,6 +34,7 @@ public class IterPermuter implements IPermuter {
 
 
     public List<String> permuteSingleWord(String word){
+//        System.out.println("in permute single word iter");
         Integer counter = 0;
 
         List<String> ret = new ArrayList<>();
@@ -75,7 +76,9 @@ public class IterPermuter implements IPermuter {
                     // i letters to the list.
                     String toAdd = w.substring(0, j) + addMe + w.substring(j, wLen);
                     counter++;
-                    addTo.add(toAdd);
+                    if (!addTo.contains(toAdd)) {
+                        addTo.add(toAdd);
+                    }
                 }
             }
             ret = addTo;

@@ -30,15 +30,17 @@ public class GraphPermuter implements IPermuter {
     }
 
     public List<String> permuteSingleWord(String word){
+//        System.out.println("in permute single word graph");
         this.currWord = word;
-        makeGraph(currWord);
+        makeGraph();
         List<List<Integer>> paths = dfsAll();
         List<String> perms = pathsToWords(paths);
+//        System.out.println("perms: " + perms);
         return perms;
     }
 
-    private List<Integer>[] makeGraph(String word){
-        Integer len = word.length();
+    private List<Integer>[] makeGraph(){
+        Integer len = currWord.length();
         List<Integer>[] ret = new List[len];
         int counter = 0;
         while (counter < len) {
@@ -103,14 +105,9 @@ public class GraphPermuter implements IPermuter {
     private List<String> pathsToWords(List<List<Integer>> paths){
         List<String> words = new ArrayList<>();
         for (List<Integer> path : paths){
-            // fix buffer thing
-            String toAdd = "";
-            for (Integer node : path){
-                String letter = currWord.substring(node, node+1);
-                toAdd = toAdd + letter;
-            }
-            if (!words.contains(toAdd)) {
-                words.add(toAdd);
+            String word = pathToWord(path);
+            if (!words.contains(word)) {
+                words.add(word);
             }
         }
         return words;
@@ -120,6 +117,7 @@ public class GraphPermuter implements IPermuter {
 
     private String pathToWord(List<Integer> path){
         String ret = ""; //fix
+        // fix buffer thing
         for (Integer node : path){
             ret = ret + currWord.substring(node, node+1);
         }

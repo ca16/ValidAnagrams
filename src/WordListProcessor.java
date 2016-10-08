@@ -23,11 +23,15 @@ public class WordListProcessor {
     }
 
     void findPermsandCompare(){
-        List<String> permutedWords = permuter.permuteListOfWords(words);
-        for (String word: permutedWords){
-            if (trie.contains(word)){
-                System.out.println(word);
+        for (String word : words){
+            System.out.println("\nFor word: " + word);
+            List<String> permutedWord = permuter.permuteSingleWord(word);
+            for (String perm : permutedWord){
+                if (trie.contains(perm)){
+                    System.out.println(perm);
+                }
             }
+            System.out.print("\n");
         }
     }
 

@@ -76,10 +76,10 @@ public class Start {
                 while (true) {
                     String response = reader.readLine();
                     response = response.toLowerCase().trim();
-                    if (response.equals("no") || response.equals("n")) {
+                    if (response.equals("yes") || response.equals("y")) {
                         defaultPermMethod = false;
                         break;
-                    } else if (!response.equals("yes") && !response.equals("y")) {
+                    } else if (!response.equals("no") && !response.equals("n")) {
                         System.out.println("I'm sorry. I didn't understand your response. Please respond with 'yes' or 'no'.");
                     }else{
                         break;
