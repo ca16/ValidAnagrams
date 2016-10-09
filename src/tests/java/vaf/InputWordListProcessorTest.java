@@ -1,5 +1,7 @@
 package vaf;
 
+import com.sun.tools.doclets.internal.toolkit.util.DocFinder;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +11,9 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import vaf.anagrammakers.GraphAnagramMaker;
 import vaf.anagrammakers.IAnagramMaker;
+import vaf.anagrammakers.IterAnagramMaker;
 
 /**
  * Created by Chloe on 10/8/16.
@@ -120,10 +124,10 @@ public class InputWordListProcessorTest {
         bigTrie = new Trie(bigFile);
         littleTrie = new Trie(littleFile);
 
-        gmBig = IAnagramMaker.getAnagramMaker(bigTrie, true);
-        gmSmall = IAnagramMaker.getAnagramMaker(littleTrie, true);
-        imBig = IAnagramMaker.getAnagramMaker(bigTrie, false);
-        imSmall = IAnagramMaker.getAnagramMaker(bigTrie, false);
+        gmBig = new GraphAnagramMaker(bigTrie);
+        gmSmall = new GraphAnagramMaker(littleTrie);
+        imBig = new IterAnagramMaker(bigTrie);
+        imSmall = new IterAnagramMaker(bigTrie);
 
         procBig = new InputWordListProcessor(emptyInput, bigTrie, true);
         procSmall = new InputWordListProcessor(emptyInput, littleTrie, true);
@@ -273,6 +277,15 @@ public class InputWordListProcessorTest {
         Assert.assertEquals(fewWordLst, procBig.arrayToList(fewWords));
         Assert.assertEquals(manyWordLst, procBig.arrayToList(manyWords));
 
+    }
+
+    @Test
+    public void preprocessWord() throws Exception {
+
+        Assert.assertEquals("quit", InputWordListProcessor.preprocessWord("Qui!t"));
+        Assert.assertEquals("quit", InputWordListProcessor.preprocessWord("quit"));
+        Assert.assertEquals("findme", InputWordListProcessor.preprocessWord("-298findme029!*"));
+        Assert.assertEquals("ohio", InputWordListProcessor.preprocessWord("Ohio"));
     }
 
 }
