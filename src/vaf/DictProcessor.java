@@ -24,7 +24,7 @@ public class DictProcessor {
      *
      * @param filePath the file path to the dictionary file
      * @return a list containing the words in the given file
-     * @throws FileNotFoundException if the file cannot be found
+     * @throws IOException if there is a problem reading the file or with the reader
      */
     public static List<String> wordsToList(String filePath) throws IOException{
 

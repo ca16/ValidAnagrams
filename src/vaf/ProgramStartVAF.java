@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 public class ProgramStartVAF {
 
     private static final String FAILED_MSG = "Apologies. I was unable to find a dictionary file. ";
+    private static final String FAILED_MSG2 = "Apologies. I encountered a problem. ";
 
     public static void main(String[] args){
 
@@ -35,7 +36,7 @@ public class ProgramStartVAF {
                 System.out.println(FAILED_MSG);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(FAILED_MSG2);
         }
     }
 

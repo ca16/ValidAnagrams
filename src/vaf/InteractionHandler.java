@@ -54,7 +54,7 @@ public class InteractionHandler {
      * Gives the user the option of using their own dictionary file. Populates a trie based on that
      * file or the default dictionary file.
      * @return true if a dictionary file was successfuly processed into a trie, false otherwise
-     * @throws IOException if a file is not found
+     * @throws IOException if there is a problem with reading the file or with the reader
      */
     public Boolean talkAboutDictionary() throws IOException {
         System.out.println(OWN_DICT_QU + RESPONSE_INSTR);
@@ -72,7 +72,7 @@ public class InteractionHandler {
                 // Problem getting the user's dictionary file
                 catch(FileNotFoundException fnfe) {
                     System.out.println(FNFE_ISSUE + RESPONSE_INSTR);
-                    Boolean success = askForFile(reader);
+                    Boolean success = askForFile();
 
                     // A dictionary file has been successfully obtained
                     if (success) {
@@ -81,7 +81,7 @@ public class InteractionHandler {
 
                     // Try to use the default dictionary file.
                     else {
-                        return useDefaultOrPrompt(reader);
+                        return useDefaultOrPrompt();
                     }
                 }
                 // User's dictionary file obtained successfully
@@ -95,7 +95,7 @@ public class InteractionHandler {
 
             // The user does not want to use their own file.
             else {
-                return useDefaultOrPrompt(reader);
+                return useDefaultOrPrompt();
             }
         }
     }
@@ -103,8 +103,9 @@ public class InteractionHandler {
     /**
      * Populates the trie based on the default dictionary file.
      * @return true if the trie is successfilly populated, false otherwise.
+     * @throws IOException if there is a problem with reading the file or with the reader
      */
-    private Boolean useDefaultFile(){
+    private Boolean useDefaultFile() throws IOException{
 
         // For Intellij
         String defaultPathV1 = CURR_DIRECTORY + FILE_SEPARATOR + DEFAULT_DICT_NAME;
@@ -117,7 +118,7 @@ public class InteractionHandler {
             List<String> dictWords = DictProcessor.wordsToList(filePath);
             trie.addWordList(dictWords);
         }
-        catch(IOException ioe){
+        catch(FileNotFoundException fnfe){
             filePath = defaultPathV2;
         }
         try {
@@ -126,7 +127,7 @@ public class InteractionHandler {
         }
 
         // Neither file could be successfully used
-        catch(IOException ioe){
+        catch(FileNotFoundException fnfe){
             return false;
         }
         // The trie was successfully updated.
@@ -136,11 +137,10 @@ public class InteractionHandler {
     /**
      * Attempts to populate the trie based on the default dictionary file. If it fails, it asks
      * the user for a dictionary file.
-     * @param reader a reader for the user's input
      * @return true if the trie was successfully populated, false otherwise
-     * @throws IOException if a file is not found
+     * @throws IOException if there is a problem with reading the file or with the reader
      */
-    private Boolean useDefaultOrPrompt(BufferedReader reader) throws IOException{
+    private Boolean useDefaultOrPrompt() throws IOException{
         Boolean ret = useDefaultFile();
         // default file used successfully
         if (ret){
@@ -150,18 +150,17 @@ public class InteractionHandler {
         // problem with default file, ask user for a file
         else {
             System.out.println(OPENING_ISSUE + OWN_DICT_QU);
-            ret = askForFile(reader);
+            ret = askForFile();
             return ret;
         }
     }
 
     /**
      * Asks the user to provide a dictionary file and populates the trie based on it.
-     * @param reader a reader for the user's input
      * @return true if a dictionary file was successfully processed, false otherwise
-     * @throws IOException if a file is not found
+     * @throws IOException if there is a problem with reading the file or with the reader
      */
-    public Boolean askForFile(BufferedReader reader) throws IOException{
+    public Boolean askForFile() throws IOException{
         while(true) {
             String instructions = reader.readLine();
 
@@ -207,7 +206,7 @@ public class InteractionHandler {
      * Asks the user to input the words for which anagrams will be found. Gathers the data needed
      * to set the anagram-finding in motion (words, trie and which anagram finding method will
      * be used), and sets it in motion.
-     * @throws IOException
+     * @throws IOException if there is a problem with the reader
      */
     public void talkAboutInputWords() throws IOException{
         while (true){
@@ -231,7 +230,7 @@ public class InteractionHandler {
      * based search. Other option: a more iterative approach. It is recommended to stick to
      * the default option when handling words of about 9+ characters.
      * @return true if the default strategy will be used, false otherwise
-     * @throws IOException
+     * @throws IOException if there is a problem with the reader
      */
     public Boolean talkAboutAnagramFindingStrategy() throws IOException{
         Boolean ret = true;
