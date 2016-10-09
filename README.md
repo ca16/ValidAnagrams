@@ -7,7 +7,7 @@ For example, if the dictionary file contains all English words:
 Given
 
 
-    snag three pond
+    snag three pods
 
 
 prints
