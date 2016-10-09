@@ -47,11 +47,16 @@ Note: the order that the anagrams of the given words appear in may be different 
 1. Using the command line, navigate to A.
 
 1. do 'cd ValidAnagrams/src/main/java'
+       
        (navigate to the java folder under main under src)
 
 1. do 'javac vaf/*.java'
 
+       (compiles the program)
+
 1. do 'java vaf/ProgramStartVAF'
+
+       (runs the program)
 
 1. The program itself will ask you for input, and give you the instructions you need. For an outline, see the section 'While it's running below'. 
 
