@@ -42,13 +42,16 @@ Note: the order that the anagrams of the given words appear in may be different 
 
 ### To run:
 
-1. Clone the repository.
+1. Clone the repository into some location A.
 
-1. Using the terminal, navigate to the src folder.
+1. Using the terminal, navigate to A.
 
-1. run 'javac vaf/*.java'
+1. do 'cd ValidAnagrams/src/main/java'
+       (navigate to the java folder under main under src)
 
-1. run 'java vaf/ProgramStartVAF'
+1. do 'javac vaf/*.java'
+
+1. do 'java vaf/ProgramStartVAF'
 
 1. The program itself will ask you for input, and give you the instructions you need. For an outline, see the section 'While it's running below'. 
 
