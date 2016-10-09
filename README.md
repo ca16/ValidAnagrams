@@ -36,7 +36,7 @@ prints
     pods
 
 
-Note: the order that the anagrams of the given words appear in may be different depending on which algorithm is chosen for finding anagrams.
+Note: the order that the anagrams of the given words appear in may be different depending on which algorithm is chosen for finding anagrams (see 'a little on strategy section' below).
 
 ----
 
@@ -52,13 +52,15 @@ Note: the order that the anagrams of the given words appear in may be different 
 
 1. The program itself will ask you for input, and give you the instructions you need. For an outline, see section 'While it's running below'. 
 
+Note: vaf as in 'valid anagram finder'.
+
 ----
 
 ### A little on the strategy
 
 ----
 
-There were two main problems to tackle: finding possible anagrams for words, and figuring out which of those anagrams appear in the dictionary file.
+There were two main problems to tackle: finding potential anagrams for a given word, and figuring out which of those anagrams appear in the dictionary file.
 
 ##### Finding anagrams
 
@@ -66,63 +68,43 @@ I considered two options for finding anagrams.
 
 The first was constructing a graph out of the word, and using a search to find anagrams.
 
-Each letter is a node, and there are edges between all nodes (any letter from a word can follow any other letter from that word in an anagram). Moving from one
-node to another represents adding the letter corresponding to the second node to the substring ending in the letter corresponding to the first.
+Each letter is a node, and there are edges between all nodes (any letter from a word can follow any other letter from that word in an anagram). Moving from one node to another represents adding the letter corresponding to the second node to the substring ending in the letter corresponding to the first.
 
-The search is similar to depth-first search, only instead of adding nodes to a visited set, and not visiting them again if I've ever seen them before, I
-visit all the neighbors of a node, unless they are on the path I've taken to get there (visiting them even then would be the equivalent of using a letter more
-times than it appears in a word, e.g. making "lada" from "lad", and would mean the search would never end)*.
-Each neighbor of a given node that I visit gets it's own copy of the path taken to get to its parent that it can add itself to. This allows me to differentiate
-between the different orders in which I can visit all the nodes, and allows me to reconstruct the word associated with a given order.
-I collect the result from starting this search at every node in the graph, to ensure that I find anagrams starting with any letter in the word. When I accumulate
-the results, I make sure not to add an anagram to the final list if it is already there.
+The search is similar to depth-first search. However, instead of adding nodes to a visited set, and not visiting them again if they've ever been visited before, all neighbors of a node are visited, unless they are on the path that was taken to get there (visiting them even then would be the equivalent of using a letter more times than it appears in a word, e.g. making "lada" from "lad", and would mean the search would never end)*.
 
-*To make this more efficient, instead of passing the search along to all of a node's neighbors, I only do so when the path ending in the current node corresponds
-to a string that is the prefix of some word in the dictionary (which I can check using the trie structure that keeps track of the words in the dictionary list).
+Each neighbor of a node that is visited gets its own copy of the path taken to get to its parent that it can add itself to. This allows the program to differentiate between the different orders in which all the nodes can be visited (i.e. the various letter permutations possible), and allows me to reconstruct the word associated with a given order.
+
+The results from starting this search at every node in the graph are collected, to ensure that anagrams starting with any letter in the word are found. When the results are accumulated, a given permutation is not added to the final list if it is already there.
+
+*To make this more efficient, the search is not always passed along to all of a node's neighbors. This only happens when the path ending in the current node corresponds to a string that is the prefix of some word in the dictionary (which can be checked using the trie structure that keeps track of the words in the dictionary list - see the 'searching the dictionary file section' below). For example, if my path so far is {g,r,z} there is no need to build the path further by exploring z's neighbors (assuming no words in the dictionary start with "grz"), so the program can return to searching 'r''s other neighbors, and building paths starting with "gr".
 
 
-The second option I considered was about building on all the anagrams of a substring of a given word to construct anagrams of the full word.
+The second option I considered was about building on all the letter pemutations of a substring of the given word to construct potential anagrams of the full word.
 
-For example, suppose one word is given: 'gee'.
+I ended up favoring the graph option above instead. Especially for larger words, using the graph-based search described above is much faster than the option described below. I describe it briefly below, and If you're curious, you can choose to have the program conduct its search using this algorithm instead: after asking you to provide a list of words, it will ask you whether you want to change from the default search algorithm (graph-based), to the other option (a more iterative version). If you respond 'yes' or 'y', it will honor your wishes. To really see the difference, input a eight-letter word first (e.g. "throwing"), have the program run the search, and then input a nine-letter word (e.g. "throbbing"). The graph-based algorithm finishes almost immediately in both cases. The other option takes a moment for the eight-letter word, and takes much longer for the nine-letter word.
+
+A brief description of the second option:
+
+It is probably best understood through an example. Suppose one word is given: "gee".
 
 Step 1: Substring of length 0 = {""}.
 
 Step 2: Using the first character of the word, make substrings of length 1 from substrings of length 0: {"g"}.
 
-Step 3: Using the next character of the word, make substrings of length 2 from substrings of length 1: {"eg, "ge"}.
+Step 3: Using the next character of the word, make substrings of length 2 from substrings of length 1: {"eg, "ge"} - insert 'e' before and after 'g'.
 
-Step 4: Using the next character of the word, make substrings of length 3 from substrings of length 2: {"eeg", "eeg", "ege", "ege", "gee", "gee"}
+Step 4: Using the next character of the word, make substrings of length 3 from substrings of length 2: {"eeg", "eeg", "ege", "ege", "gee", "gee"} - insert 'e' before the first character of the first string, between the two characters and after the two characters, do the same for the second string.
 
 Step 5: We're out of characters, we have our permutations.
 
-I added a couple of checks to try to make the algorithm more efficient.
+I added a few more steps to try to make the algorithm more efficient. One dealt with limiting duplicates by not inserting a letter both before and after a letter which is identical to it. For example above, going from step 3 to step 4, only one "eeg" would be produced from "eg" and 'e'.
 
-The first: try to cut down on duplicate anagrams. For example "gee" has two 'e's. So the list of anagrams include the same word multiple times
-to account for different arrangements within the same letters. Instead of always inserting a letter in every possible position in a string, I only insert it
-before a letter that is identical to it. So, if I'm looking for places to build on the subtring "eg" by inserting the letter "e", I'll add "e" to the front of
-"eg", resulting in "eeg", but I will not also add a second "eeg" (where I insert the "e" between the two letters). Instead, I move straight to adding the "e"
-after the "g", resulting in "ege". This means that the list of anagrams becomes:  {"eeg", "ege", "ege", "gee"}. Unfortunately, this strategy doesn't help when
-the identical letters are seperated by another letter (so "ege" still appears in the list twice.).
+The other, to some extent, prevents the creation of unusable letter permutations when the final letter is being inserted into the substrngs of smaller length: it stops building permutations when the substring before the letter to be inserted is not the prefix of a word in the dictionary. For example given the word "crack", suppose we have the four-letter substirng "ccra" and are about to insert 'k' into various positions in it. There is no point in inserting 'k' after any of the letters after the second 'c' in "ccra'" (assuming no words in the dictionary start with "ccr").
 
-The second: when we get to inserting the final letter, we know there is no need to consider anagrams where the substring before the letter we're about to insert
-is not the prefix of a word (which we can check using the trie structure in charge of keeping track of dictionary entries - see the searching the dictionary file
-below). For example, if we were using the word "crack" and were about to use the letter 'k' to make five-letter anagrams based on four-letter anagrams, we know
-there is no point in adding 'k' after any of the letters after the second 'c' in 'ccra', because no words in our dictionary start with 'ccr'.
-How usful this is also depends on which order the letters are inserted in (it seems more likely to get to substrings that are not prefixes if all the consonants
-are bunched up at the front of the substring - e.g. "snck" from "snack", instead of "sank"). For this reason a reorder the word before I start looking for anagrams:
-consonants to the front, vowels to the back.
-
-
+The final step tried to maximize the effects of the second step by re-ordering the letters of the given word to bring the consonants to the front and the vowels to the back. It seems more likely to get to substrings that are not prefixes if all the consonants are bunched up at the front of the substring - e.g. "snck" from "snack", instead of "sank").
 
 ##### Searching the dictionary file
 
-----
-
-### Some Notes:
-Default Dictionary File Found at:
-http://www-01.sil.org/linguistics/wordlists/english/
-
-Note: I added the word 'I' to it.
 
 ----
 
@@ -170,3 +152,12 @@ An outline of how it should go:
        PROGRAM: "Please enter the word or words you'd like to find anagrams of. Otherwise, to quit please enter 'Quit!'"
 
        USER: Quit!
+       
+
+----
+
+### Some Notes:
+Default Dictionary File Found at:
+http://www-01.sil.org/linguistics/wordlists/english/
+
+Note: I added the word 'I' to it.
