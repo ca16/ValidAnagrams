@@ -64,9 +64,10 @@ There were two main problems to tackle: finding possible anagrams for words, and
 
 I considered two options for finding anagrams.
 
-The first is constructing a graph out of the word, and using a search to find anagrams.
+The first was constructing a graph out of the word, and using a search to find anagrams.
 
-Each letter is a node, and there are edges between all nodes.
+Each letter is a node, and there are edges between all nodes (any letter from a word can follow any other letter from that word in an anagram). Moving from one
+node to another represents adding the letter corresponding to the second node to the substring ending in the letter corresponding to the first.
 
 The search is similar to depth-first search, only instead of adding nodes to a visited set, and not visiting them again if I've ever seen them before, I
 visit all the neighbors of a node, unless they are on the path I've taken to get there (visiting them even then would be the equivalent of using a letter more
@@ -80,7 +81,7 @@ the results, I make sure not to add an anagram to the final list if it is alread
 to a string that is the prefix of some word in the dictionary (which I can check using the trie structure that keeps track of the words in the dictionary list).
 
 
-The second option I considered is about building on all the anagrams of a substring of a given word to construct anagrams of the full word.
+The second option I considered was about building on all the anagrams of a substring of a given word to construct anagrams of the full word.
 
 For example, suppose one word is given: 'gee'.
 
