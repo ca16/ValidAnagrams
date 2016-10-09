@@ -3,6 +3,7 @@ package vaf.anagrammakers;
 import java.util.ArrayList;
 import java.util.List;
 
+import vaf.InputWordListProcessor;
 import vaf.Trie;
 
 /**
@@ -19,7 +20,7 @@ public class IterAnagramMaker implements IAnagramMaker {
      * Creates a list of vowels that will be used by the reorder() method.
      * @param trie the trie we're using to find valid anagrams
      */
-    IterAnagramMaker(Trie trie){
+    public IterAnagramMaker(Trie trie){
         this.trie = trie;
         this.vowels = new ArrayList<>();
         vowels.add('a');
@@ -56,7 +57,7 @@ public class IterAnagramMaker implements IAnagramMaker {
         ret.add(empty);
 
         // pre-process the word a little
-        word = IAnagramMaker.preprocessWord(word);
+        word = InputWordListProcessor.preprocessWord(word);
         word = reorder(word);
         len = word.length();
 

@@ -3,6 +3,7 @@ package vaf.anagrammakers;
 import java.util.ArrayList;
 import java.util.List;
 
+import vaf.InputWordListProcessor;
 import vaf.Trie;
 
 /**
@@ -19,7 +20,7 @@ public class GraphAnagramMaker implements IAnagramMaker {
      * Initialize the anagram maker.
      * @param trie the trie the anagram make will use to find valid anagrams.
      */
-    GraphAnagramMaker(Trie trie){
+    public GraphAnagramMaker(Trie trie){
         this.trie = trie;
     }
 
@@ -43,7 +44,7 @@ public class GraphAnagramMaker implements IAnagramMaker {
      * @inheritdoc
      */
     public List<String> singleWordAnagrams(String word){
-        word = IAnagramMaker.preprocessWord(word);
+        word = InputWordListProcessor.preprocessWord(word);
         this.currWord = word;
         makeGraph();
         List<List<Integer>> paths = anagramDfsAll();

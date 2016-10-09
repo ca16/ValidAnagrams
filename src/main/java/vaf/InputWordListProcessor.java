@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import vaf.anagrammakers.GraphAnagramMaker;
 import vaf.anagrammakers.IAnagramMaker;
+import vaf.anagrammakers.IterAnagramMaker;
 
 /**
  * Responsible for processing the users input for word for which anagrams will be found.
@@ -19,7 +21,12 @@ public class InputWordListProcessor {
     public InputWordListProcessor(String words, Trie trie, Boolean defaultAM){
         this.words = parseWordList(words);
         this.trie = trie;
-        this.anagramMaker = IAnagramMaker.getAnagramMaker(trie, defaultAM);
+        if (defaultAM){
+            anagramMaker = new GraphAnagramMaker(trie);
+        }
+        else{
+            anagramMaker = new IterAnagramMaker(trie);
+        }
     }
 
     /**
@@ -81,6 +88,25 @@ public class InputWordListProcessor {
         List<String> ret = new ArrayList<>();
         for (int i = 0; i < words.length; i++){
             ret.add(words[i]);
+        }
+        return ret;
+    }
+
+    /**
+     * Processes a word before an anagram finder tries to find anagrams for it. It removes spaces,
+     * makes everything lower-case and removes special cahracters.
+     * @param word a word
+     * @return the word in a form that can be processed by an anagram finder
+     */
+    public static String preprocessWord(String word){
+        //fix with buffer
+        String ret = "";
+        word = word.toLowerCase().trim(); //decide whether to do this here to before
+        for (int i = 0; i < word.length(); i++){
+            char letter = word.charAt(i);
+            if (letter >= 'a' && letter <= 'z'){
+                ret = ret + word.substring(i, i+1);
+            }
         }
         return ret;
     }
