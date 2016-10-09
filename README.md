@@ -66,6 +66,8 @@ There were two main problems to tackle: finding potential anagrams for a given w
 
 I considered two options for finding anagrams.
 
+##### Option 1 - Graph based
+
 The first was constructing a graph out of the word, and using a search to find anagrams.
 
 Each letter is a node, and there are edges between all nodes (any letter from a word can follow any other letter from that word in an anagram). Moving from one node to another represents adding the letter corresponding to the second node to the substring ending in the letter corresponding to the first.
@@ -78,6 +80,7 @@ The results from starting this search at every node in the graph are collected, 
 
 *To make this more efficient, the search is not always passed along to all of a node's neighbors. This only happens when the path ending in the current node corresponds to a string that is the prefix of some word in the dictionary (which can be checked using the trie structure that keeps track of the words in the dictionary list - see the 'searching the dictionary file section' below). For example, if my path so far is {g,r,z} there is no need to build the path further by exploring z's neighbors (assuming no words in the dictionary start with "grz"), so the program can return to searching 'r''s other neighbors, and building paths starting with "gr".
 
+##### Option 2
 
 The second option I considered was about building on all the letter pemutations of a substring of the given word to construct potential anagrams of the full word.
 
@@ -87,15 +90,15 @@ A brief description of the second option:
 
 It is probably best understood through an example. Suppose one word is given: "gee".
 
-Step 1: Substring of length 0 = {""}.
+1. Substring of length 0 = {""}.
 
-Step 2: Using the first character of the word, make substrings of length 1 from substrings of length 0: {"g"}.
+1. Using the first character of the word, make substrings of length 1 from substrings of length 0: {"g"}.
 
-Step 3: Using the next character of the word, make substrings of length 2 from substrings of length 1: {"eg, "ge"} - insert 'e' before and after 'g'.
+1. Using the next character of the word, make substrings of length 2 from substrings of length 1: {"eg, "ge"} - insert 'e' before and after 'g'.
 
-Step 4: Using the next character of the word, make substrings of length 3 from substrings of length 2: {"eeg", "eeg", "ege", "ege", "gee", "gee"} - insert 'e' before the first character of the first string, between the two characters and after the two characters, do the same for the second string.
+1. Using the next character of the word, make substrings of length 3 from substrings of length 2: {"eeg", "eeg", "ege", "ege", "gee", "gee"} - insert 'e' before the first character of the first string, between the two characters and after the two characters, do the same for the second string.
 
-Step 5: We're out of characters, we have our permutations.
+1. We're out of characters, we have our permutations.
 
 I added a few more steps to try to make the algorithm more efficient. One dealt with limiting duplicates by not inserting a letter both before and after a letter which is identical to it. For example above, going from step 3 to step 4, only one "eeg" would be produced from "eg" and 'e'.
 
