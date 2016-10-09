@@ -7,37 +7,40 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import vaf.WordTrie;
-
-import static org.junit.Assert.*;
+import vaf.Trie;
 
 /**
  * Created by Chloe on 10/8/16.
  */
-public class IterAnagramMakerTest {
+public class GraphAnagramMakerTest {
 
-    private IterAnagramMaker bigMaker;
-    private IterAnagramMaker littleMaker;
+    private GraphAnagramMaker bigMaker;
+    private GraphAnagramMaker littleMaker;
 
+    String inputEmpty;
     String input1;
     String input2;
     String input3;
     String input4;
 
+    private List<String> empty;
+
     @Before
     public void setUp() throws Exception {
 
+        Trie bigTrie = new Trie("./wordsEn.txt");
+        Trie smallTrie = new Trie("./TestSmallDict.txt");
 
-        WordTrie bigTrie = new WordTrie("./wordsEn.txt");
-        WordTrie smallTrie = new WordTrie("./TestSmallDict.txt");
+        bigMaker = new GraphAnagramMaker(bigTrie);
+        littleMaker = new GraphAnagramMaker(smallTrie);
 
-        bigMaker = new IterAnagramMaker(bigTrie);
-        littleMaker = new IterAnagramMaker(smallTrie);
-
+        inputEmpty = "";
         input1 = "a";
         input2 = "to";
         input3 = "how";
         input4 = "deed";
+
+        empty = new ArrayList<>();
 
     }
 
@@ -74,27 +77,22 @@ public class IterAnagramMakerTest {
         fourWordExpectedBig.add("woh");
         fourWordExpectedBig.add("deed");
         fourWordExpectedBig.add("dede");
-        fourWordExpectedBig.add("edde");
         fourWordExpectedBig.add("eded");
-        fourWordExpectedBig.add("eedd");
+        fourWordExpectedBig.add("edde");
 
 
         List<String> fourWordExpectedLittle = new ArrayList<>();
         fourWordExpectedLittle.addAll(twoWordExpectedBig);
-        fourWordExpectedLittle.add("owh");
-        fourWordExpectedLittle.add("ohw");
         fourWordExpectedLittle.add("deed");
-        fourWordExpectedLittle.add("deed");
-        fourWordExpectedLittle.add("edde");
-        fourWordExpectedLittle.add("eded");
-        fourWordExpectedLittle.add("dede");
 
         Assert.assertTrue(compareLists(singleWordExpectedBig, bigMaker.lstOfWordsAnagrams(singleWordLst)));
         Assert.assertTrue(compareLists(twoWordExpectedBig, bigMaker.lstOfWordsAnagrams(twoWordLst)));
         Assert.assertTrue(compareLists(fourWordExpectedBig, bigMaker.lstOfWordsAnagrams(fourWordLst)));
+        Assert.assertTrue(compareLists(empty, bigMaker.lstOfWordsAnagrams(empty)));
         Assert.assertTrue(compareLists(singleWordExpectedBig, littleMaker.lstOfWordsAnagrams(singleWordLst)));
         Assert.assertTrue(compareLists(twoWordExpectedBig, littleMaker.lstOfWordsAnagrams(twoWordLst)));
         Assert.assertTrue(compareLists(fourWordExpectedLittle, littleMaker.lstOfWordsAnagrams(fourWordLst)));
+        Assert.assertTrue(compareLists(empty, littleMaker.lstOfWordsAnagrams(empty)));
 
     }
 
@@ -122,20 +120,24 @@ public class IterAnagramMakerTest {
         input3ExpectedAnagramsBig.add("woh");
 
         // 4 x 3 x 2 x 1 = 24 possible anagrams
-        // 24 /2 = 12 (account for the two 'd's switching positions
+        // 24 / 2 = 12 (account for the two 'd's switching positions
         // 12 /2 = 6 (account for the two 'e's switching positions
-        // 6 -5 = (no words starting with 'dd')
+        // 6 - 1 = 5 (no words starting with 'dd')
+        // 5- 1 = 4 (no words starting with 'eed')
         List<String> input4ExpectedAnagramsBig = new ArrayList<>();
         input4ExpectedAnagramsBig.add("deed");
         input4ExpectedAnagramsBig.add("dede");
-        input4ExpectedAnagramsBig.add("edde");
         input4ExpectedAnagramsBig.add("eded");
-        input4ExpectedAnagramsBig.add("eedd");
+        input4ExpectedAnagramsBig.add("edde");
+
+        List<String> emptyLst = new ArrayList<>();
 
         Assert.assertTrue(compareLists(input1ExpectedAnagramsBig, bigMaker.singleWordAnagrams(input1)));
         Assert.assertTrue(compareLists(input2ExpectedAnagramsBig, bigMaker.singleWordAnagrams(input2)));
         Assert.assertTrue(compareLists(input3ExpectedAnagramsBig, bigMaker.singleWordAnagrams(input3)));
         Assert.assertTrue(compareLists(input4ExpectedAnagramsBig, bigMaker.singleWordAnagrams(input4)));
+        Assert.assertTrue(compareLists(empty, bigMaker.singleWordAnagrams(inputEmpty)));
+
 
         // Using the smaller dictionary file (12 words)
 
@@ -143,33 +145,22 @@ public class IterAnagramMakerTest {
 
         // Same expected output for input 2 with big dictionary
 
-        // 3 x 2 x 1 = 6 possible anagrams
-        // 6 - 2 = 4 no words in small dictionary starting with 'w'
-        // 4 - 2 = 2 no words in small dictionary starting with 'h'
-        List<String> input3ExpectedAnagramsLittle = new ArrayList<>();
-        input3ExpectedAnagramsLittle.add("owh");
-        input3ExpectedAnagramsLittle.add("ohw");
-
+        // No words in the dictionary file start with any two letter combinations of
+        // 'o', 'h' or 'w' so for input 3 we expect an empty list.
 
         // 4 x 3 x 2 x 1 = 24 possible anagrams
         // 24 / 2 = 12 (account for the two 'd's switching positions
-        // "dde" "ded" "edd"
-        // "edde", "dede", -"dd"
-        // "eded", 'deed", 'dede"
-        // "eedd", "-d"
         // 12 /2 = 6 (account for the two 'e's switching positions
-        // 6 - 3 = 4 (no words starting with 'ed', 'ee', 'dd')
+        // 6 - 4 = 2 (no words starting with 'ed', 'ee', 'dd')
         // 2- 1 = 1  (no words starting with 'ded')
         List<String> input4ExpectedAnagramsLittle = new ArrayList<>();
         input4ExpectedAnagramsLittle.add("deed");
-        input4ExpectedAnagramsLittle.add("edde");
-        input4ExpectedAnagramsLittle.add("eded");
-        input4ExpectedAnagramsLittle.add("dede");
 
         Assert.assertTrue(compareLists(input1ExpectedAnagramsBig, littleMaker.singleWordAnagrams(input1)));
         Assert.assertTrue(compareLists(input2ExpectedAnagramsBig, littleMaker.singleWordAnagrams(input2)));
-        Assert.assertTrue(compareLists(input3ExpectedAnagramsLittle, littleMaker.singleWordAnagrams(input3)));
+        Assert.assertTrue(compareLists(emptyLst, littleMaker.singleWordAnagrams(input3)));
         Assert.assertTrue(compareLists(input4ExpectedAnagramsLittle, littleMaker.singleWordAnagrams(input4)));
+        Assert.assertTrue(compareLists(empty, littleMaker.singleWordAnagrams(inputEmpty)));
 
     }
 

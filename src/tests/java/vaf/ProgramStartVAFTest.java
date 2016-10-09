@@ -28,7 +28,7 @@ public class ProgramStartVAFTest {
 //        argsWithFile[4] = "globe";
 //        argsWithFile[5] = "bat";
 //
-//        vaf.ProgramStartVAF.main(argsWithFile);
+//        ProgramStartVAF.main(argsWithFile);
 //
 //        System.out.println("\n\n\n");
 //
@@ -39,7 +39,7 @@ public class ProgramStartVAFTest {
 //        argsNoFile[2] = "globe";
 //        argsNoFile[3] = "bat";
 //
-//        vaf.ProgramStartVAF.main(argsNoFile);
+//        ProgramStartVAF.main(argsNoFile);
 //
 //        System.out.println("\n\n\n");
 //
@@ -51,7 +51,7 @@ public class ProgramStartVAFTest {
 //        argsWithBigFile[4] = "globe";
 //        argsWithBigFile[5] = "bat";
 //
-//        vaf.ProgramStartVAF.main(argsWithBigFile);
+//        ProgramStartVAF.main(argsWithBigFile);
 //
 //        List<String> one = new ArrayList<>();
 //        one.add("hi");
@@ -63,13 +63,13 @@ public class ProgramStartVAFTest {
 
 //        String[] exampleGiven = new String[1];
 //        exampleGiven[0] = "stab";
-//        vaf.ProgramStartVAF.main(exampleGiven);
+//        ProgramStartVAF.main(exampleGiven);
 //
-//        vaf.WordTrie trie = new vaf.WordTrie("./wordsEn.txt");
-////        vaf.DictParser parser = new vaf.DictParser("./wordsEn.txt");
+//        Trie trie = new Trie("./wordsEn.txt");
+////        DictProcessor parser = new DictProcessor("./wordsEn.txt");
 ////        List<String> dictWords = parser.wordsToList();
 ////        trie.addWordList(dictWords);
-//        vaf.anagrammakers.IAnagramMaker permuter = new ValidAnagramFinder.IterAnagramMakerrs.IterAnagramMaker(trie);
+//        IAnagramMaker permuter = new ValidAnagramFinder.IterAnagramMakerrs.IterAnagramMaker(trie);
 //        List<String> lst = new ArrayList<>();
 //        lst.add("hhoh");
 //        permuter.permuteListOfWords(lst);
@@ -100,7 +100,7 @@ public class ProgramStartVAFTest {
 
 //    @Test
 //    public void parseWordList() throws Exception {
-//        String[] words = vaf.ProgramStartVAF.parseWordList("hi there how are you");
+//        String[] words = ProgramStartVAF.parseWordList("hi there how are you");
 //        for (int i = 0; i < words.length; i++){
 //            System.out.println(words[i]);
 //        }

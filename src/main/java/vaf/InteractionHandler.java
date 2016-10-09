@@ -14,7 +14,7 @@ public class InteractionHandler {
     private final String FILE_SEPARATOR = System.getProperty("file.separator");
     private final String DEFAULT_DICT_NAME = "wordsEn.txt";
     private final String CURR_DIRECTORY = ".";
-    private final String PARENT_DIRECTORY = "..";
+    private final String PARENT_DIRECTORY = "";
 
     // Some possible user responses
     private final String POS_LONG = "yes";
@@ -160,7 +160,7 @@ public class InteractionHandler {
      * @return true if a dictionary file was successfully processed, false otherwise
      * @throws IOException if there is a problem with reading the file or with the reader
      */
-    public Boolean askForFile() throws IOException{
+    private Boolean askForFile() throws IOException{
         while(true) {
             String instructions = reader.readLine();
 

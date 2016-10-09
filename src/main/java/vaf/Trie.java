@@ -1,6 +1,5 @@
 package vaf;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -103,7 +102,7 @@ public class Trie {
 
     @Override
     public String toString() {
-        return "vaf.Trie{" +
+        return "Trie{" +
                 "root=" + root +
                 '}';
     }
@@ -243,8 +242,7 @@ public class Trie {
             char first = word.charAt(0);
             // can't add a word with special characters in it
             if (first < 'a' || first > 'z') {
-                throw new RuntimeException("Attempted to add a word with " + first + " in it. " +
-                        "No non-alphabetic characters, please.");
+                return;
             }
             String rest = word.substring(1, word.length());
             TrieNode next = getChildWithLetter(first);
