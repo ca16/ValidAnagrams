@@ -19,19 +19,12 @@ public class InputWordListProcessor {
     public InputWordListProcessor(String words, Trie trie, Boolean defaultAM){
         this.words = parseWordList(words);
         this.trie = trie;
-
-        // Get the right kind of anagram finder
-        if (defaultAM){
-            anagramMaker = IAnagramMaker.getGraphAM(trie);
-        }
-        else {
-            anagramMaker = IAnagramMaker.getIterAM(trie);
-        }
+        this.anagramMaker = IAnagramMaker.getAnagramMaker(trie, defaultAM);
     }
 
     /**
      * Goes through all the words given as input and prints the anagrams of those words that are
-     * in the programs trie. 
+     * in the programs trie.
      */
     void findAnagramsAndCompare(){
         for (String word : words){

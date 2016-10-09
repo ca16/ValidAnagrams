@@ -6,6 +6,7 @@ import java.util.List;
 import vaf.Trie;
 
 /**
+ * A kind of anagram finder that finds anagrams using a graph-based search.
  * Created by Chloe on 10/7/16.
  */
 public class GraphAnagramMaker implements IAnagramMaker {
@@ -19,6 +20,9 @@ public class GraphAnagramMaker implements IAnagramMaker {
         this.trie = trie;
     }
 
+    /**
+     * @inheritdoc
+     */
     public List<String> lstOfWordsAnagrams(List<String> words){
         List<String> ret = new ArrayList<>();
         for (String word : words){
@@ -32,6 +36,9 @@ public class GraphAnagramMaker implements IAnagramMaker {
         return ret;
     }
 
+    /**
+     * @inheritdoc
+     */
     public List<String> singleWordAnagrams(String word){
         word = IAnagramMaker.preprocessWord(word);
         this.currWord = word;

@@ -6,6 +6,7 @@ import java.util.List;
 import vaf.Trie;
 
 /**
+ * A kind of anagram finder that looks for anagrams using a more iterative approach.
  * Created by Chloe on 10/4/16.
  */
 public class IterAnagramMaker implements IAnagramMaker {
@@ -23,16 +24,20 @@ public class IterAnagramMaker implements IAnagramMaker {
         vowels.add('u');
     }
 
+    /**
+     * @inheritdoc
+     */
     public List<String> lstOfWordsAnagrams(List<String> words){
         List<String> ret = new ArrayList<>();
         for (String word: words){
-//            ret.addAll(singleWordAnagrams(reorder(word)));
             ret.addAll(singleWordAnagrams(word));
         }
         return ret;
     }
 
-
+    /**
+     * @inheritdoc
+     */
     public List<String> singleWordAnagrams(String word){
         Integer counter = 0;
 
