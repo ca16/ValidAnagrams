@@ -110,7 +110,8 @@ public class InteractionHandler {
         // For Intellij
         String defaultPathV1 = CURR_DIRECTORY + FILE_SEPARATOR + DEFAULT_DICT_NAME;
         // For command line
-        String defaultPathV2 = PARENT_DIRECTORY + FILE_SEPARATOR + DEFAULT_DICT_NAME;
+        String defaultPathV2 = PARENT_DIRECTORY + FILE_SEPARATOR + PARENT_DIRECTORY + FILE_SEPARATOR
+                + PARENT_DIRECTORY + FILE_SEPARATOR +DEFAULT_DICT_NAME;
 
         String filePath = defaultPathV1;
 
