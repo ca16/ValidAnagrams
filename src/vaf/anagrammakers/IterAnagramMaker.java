@@ -2,17 +2,18 @@ package vaf.anagrammakers;
 
 import java.util.ArrayList;
 import java.util.List;
-import vaf.WordTrie;
+
+import vaf.Trie;
 
 /**
  * Created by Chloe on 10/4/16.
  */
 public class IterAnagramMaker implements IAnagramMaker {
 
-    private WordTrie trie;
+    private Trie trie;
     private List<Character> vowels;
 
-    IterAnagramMaker(WordTrie trie){
+    IterAnagramMaker(Trie trie){
         this.trie = trie;
         this.vowels = new ArrayList<>();
         vowels.add('a');

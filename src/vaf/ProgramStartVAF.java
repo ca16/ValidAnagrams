@@ -1,52 +1,39 @@
 package vaf;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 
 /**
+ * The entry point of the program. Starts communication between user and program. Program
+ * description: given a list of words, finds the anagrams of those words that appear in a
+ * dictionary file. The user may provide their own dictionary file, or use the default one.
  * Created by Chloe on 10/7/16.
  */
 public class ProgramStartVAF {
 
+    private static final String FAILED_MSG = "Apologies. I was unable to find a dictionary file. ";
+
     public static void main(String[] args){
 
-        String defaultPathV1 = "./wordsEn.txt";
-        String defaultPathV2 = "../../../wordsEn.txt";
-        String defaultPathV3 = "../wordsEn.txt";
-        String filePath = defaultPathV1;
-        Boolean needFile = false;
-
-        WordTrie trie = new WordTrie();
-
-        try {
-            List<String> dictWords = DictParser.wordsToList(filePath);
-            trie.addWordList(dictWords);
-        }
-        catch(FileNotFoundException fnfe){
-            filePath = defaultPathV2;
-        }
-        try {
-            List<String> dictWords = DictParser.wordsToList(filePath);
-            trie.addWordList(dictWords);
-        }
-        catch(FileNotFoundException fnfe){
-            filePath = defaultPathV3;
-        }
-        try {
-            List<String> dictWords = DictParser.wordsToList(filePath);
-            trie.addWordList(dictWords);
-        }
-        catch(FileNotFoundException fnfe){
-            needFile = true;
-        }
+        Trie trie = new Trie();
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+
+            // Get the interaction handler to handle populating a trie with the contents of a
+            // dictionary file
             InteractionHandler communicator = new InteractionHandler(trie, reader);
-            communicator.talkAboutDictionary();
-            communicator.talkAboutInputWords();
+            Boolean success = communicator.talkAboutDictionary();
+
+            // Trie population was a success, proceed with finding anagrams
+            if (success) {
+                communicator.talkAboutInputWords();
+            }
+
+            // Trie population was a failure, inform the user and end.
+            else {
+                System.out.println(FAILED_MSG);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

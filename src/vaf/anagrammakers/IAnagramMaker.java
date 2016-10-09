@@ -1,7 +1,7 @@
 package vaf.anagrammakers;
 import java.util.List;
 
-import vaf.WordTrie;
+import vaf.Trie;
 
 /**
  * Created by Chloe on 10/7/16.
@@ -12,11 +12,11 @@ public interface IAnagramMaker {
 
     List<String> singleWordAnagrams(String word);
 
-    static GraphAnagramMaker getGraphAM(WordTrie trie){
+    static GraphAnagramMaker getGraphAM(Trie trie){
         return new GraphAnagramMaker(trie);
     }
 
-    static IterAnagramMaker getIterAM(WordTrie trie){
+    static IterAnagramMaker getIterAM(Trie trie){
         return new IterAnagramMaker(trie);
     }
 

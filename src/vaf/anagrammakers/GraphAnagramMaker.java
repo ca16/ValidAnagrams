@@ -3,19 +3,19 @@ package vaf.anagrammakers;
 import java.util.ArrayList;
 import java.util.List;
 
-import vaf.WordTrie;
+import vaf.Trie;
 
 /**
  * Created by Chloe on 10/7/16.
  */
 public class GraphAnagramMaker implements IAnagramMaker {
 
-    private WordTrie trie;
+    private Trie trie;
 
     private List<List<Integer>> currGraph;
     private String currWord;
 
-    GraphAnagramMaker(WordTrie trie){
+    GraphAnagramMaker(Trie trie){
         this.trie = trie;
     }
 

@@ -2,23 +2,21 @@ package vaf;
 
 import org.junit.Assert;
 
-import vaf.WordTrie;
-
 /**
  * Created by Chloe on 10/7/16.
  */
-public class WordTrieTest {
+public class TrieTest {
 
-    private WordTrie babyTree;
-    private WordTrie smallTree;
-    private WordTrie biggerTree;
+    private Trie babyTree;
+    private Trie smallTree;
+    private Trie biggerTree;
 
     @org.junit.Before
     public void setUp() throws Exception {
 
-        babyTree = new WordTrie();
-        smallTree = new WordTrie();
-        biggerTree = new WordTrie();
+        babyTree = new Trie();
+        smallTree = new Trie();
+        biggerTree = new Trie();
 
         smallTree.addToTrie("goblet");
         smallTree.addToTrie("of");

@@ -1,33 +1,34 @@
 package vaf;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 /**
  * Created by Chloe on 10/7/16.
  */
-public class WordTrie {
+public class Trie {
 
     private TrieNode root;
 
-    public WordTrie() {
+    public Trie() {
         this.root = new TrieNode(' ');
         // no special characters
     }
 
-    public WordTrie(String filePath){
+    public Trie(String filePath){
         this.root = new TrieNode(' ');
         try {
-            List<String> dictWords = DictParser.wordsToList(filePath);
+            List<String> dictWords = DictProcessor.wordsToList(filePath);
             this.addWordList(dictWords);
-        }catch (FileNotFoundException fnfe){
+        }catch (IOException ioe){
             System.out.println("Words could not be added to the trie because the dictionary file " +
                     "could not be found");
         }
     }
 
     public void addToTrie(String word){
-        if (null == word || word == "" || word.length() < 1){
+        if (null == word || word.equals("") || word.length() < 1){
             return; // throw exception here
         }
         word = word.toLowerCase();
@@ -36,7 +37,7 @@ public class WordTrie {
     }
 
     public Boolean contains(String word){
-        if (null == word || word == "" || word.length() < 1){
+        if (null == word || word.equals("") || word.length() < 1){
             return false;
         }
         word = word.toLowerCase();
@@ -48,7 +49,7 @@ public class WordTrie {
         if (null == word){
             return false;
         }
-        if (word == "" || word.length() < 1){
+        if (word.equals("") || word.length() < 1){
             return true;
         }
         word = word.toLowerCase();
@@ -64,7 +65,7 @@ public class WordTrie {
 
     @Override
     public String toString() {
-        return "vaf.WordTrie{" +
+        return "vaf.Trie{" +
                 "root=" + root +
                 '}';
     }
