@@ -44,7 +44,7 @@ Note: the order that the anagrams of the given words appear in may be different 
 
 1. Clone the repository into some location A.
 
-1. Using the terminal, navigate to A.
+1. Using the command line, navigate to A.
 
 1. do 'cd ValidAnagrams/src/main/java'
        (navigate to the java folder under main under src)
