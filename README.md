@@ -157,7 +157,7 @@ An outline of how it should go:
 
     1. Input the path to it. e.g.:
 
-           ../TestSmallDict.txt
+           ../../../TestSmallDict.txt
 
   1. Scenario 2 - You don't want to use your own dictionary file.
 
