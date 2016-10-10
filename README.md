@@ -56,7 +56,7 @@ Note: the order that the anagrams of the given words appear in may be different 
 
 1. do 'java vaf/ProgramStartVAF'
 
-       (runs the program)
+       (runs the program) 
 
 1. The program itself will ask you for input, and give you the instructions you need. For an outline, see the section 'While it's running below'. 
 
