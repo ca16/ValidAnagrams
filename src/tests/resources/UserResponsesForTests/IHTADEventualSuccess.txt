@@ -1,0 +1,8 @@
+yes
+./I/lead/to/now/here
+yes
+./please/find/me
+yes
+./third/times/the/charm
+yes
+./src/tests/resources/TestSmallDict.txt

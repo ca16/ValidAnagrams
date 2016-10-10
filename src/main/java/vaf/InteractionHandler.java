@@ -11,10 +11,15 @@ import java.util.List;
 public class InteractionHandler {
 
     // For default file path
-    private final String FILE_SEPARATOR = System.getProperty("file.separator");
+    private final String FILE_SEP = System.getProperty("file.separator");
     private final String DEFAULT_DICT_NAME = "wordsEn.txt";
-    private final String CURR_DIRECTORY = ".";
-    private final String PARENT_DIRECTORY = "..";
+    private final String CURR_DIR = ".";
+    private final String PARENT_DIR = "..";
+
+    // Important sub-folders
+    private final String SRC_DIR = "src";
+    private final String MN_DIR = "main";
+    private final String REC_DIR = "resources";
 
     // Some possible user responses
     private final String POS_LONG = "yes";
@@ -58,45 +63,17 @@ public class InteractionHandler {
      */
     public Boolean talkAboutDictionary() throws IOException {
         System.out.println(OWN_DICT_QU + RESPONSE_INSTR);
-        while(true) {
-            String instructions = reader.readLine();
+        Boolean success = askForFile();
 
-            // The user wants to provide their own dictionary file.
-            if (positiveResponse(instructions)) {
-                System.out.println(DICT_PATH_INSTR);
-                String newFilePath = reader.readLine();
-                try {
-                    List<String> dictWords = DictProcessor.wordsToList(newFilePath);
-                    trie.addWordList(dictWords);
-                }
-                // Problem getting the user's dictionary file
-                catch(FileNotFoundException fnfe) {
-                    System.out.println(FNFE_ISSUE + RESPONSE_INSTR);
-                    Boolean success = askForFile();
+        // User has provided a dictionary file
+        if (success) {
+            return success;
+        }
 
-                    // A dictionary file has been successfully obtained
-                    if (success) {
-                        return success;
-                    }
-
-                    // Try to use the default dictionary file.
-                    else {
-                        return useDefaultOrPrompt();
-                    }
-                }
-                // User's dictionary file obtained successfully
-                return true;
-            }
-
-            // The user's response is incomprehensible.
-            else if (!negativeResponse(instructions)) {
-                System.out.println(MISUNDERSTOOD + RESPONSE_INSTR);
-            }
-
-            // The user does not want to use their own file.
-            else {
-                return useDefaultOrPrompt();
-            }
+        // User wants to user the default dictionary file or their own dictionary file
+        // could not be obtained. Use the default file.
+        else {
+            return useDefaultOrPrompt();
         }
     }
 
@@ -107,11 +84,14 @@ public class InteractionHandler {
      */
     private Boolean useDefaultFile() throws IOException{
 
+
+
         // For Intellij
-        String defaultPathV1 = CURR_DIRECTORY + FILE_SEPARATOR + DEFAULT_DICT_NAME;
+        String defaultPathV1 = CURR_DIR + FILE_SEP + SRC_DIR + FILE_SEP + MN_DIR + FILE_SEP +
+                REC_DIR + FILE_SEP + DEFAULT_DICT_NAME;
+
         // For command line
-        String defaultPathV2 = PARENT_DIRECTORY + FILE_SEPARATOR + PARENT_DIRECTORY + FILE_SEPARATOR
-                + PARENT_DIRECTORY + FILE_SEPARATOR +DEFAULT_DICT_NAME;
+        String defaultPathV2 = PARENT_DIR + FILE_SEP + REC_DIR + FILE_SEP + DEFAULT_DICT_NAME;
 
         String filePath = defaultPathV1;
 

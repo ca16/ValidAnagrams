@@ -1,0 +1,2 @@
+yes
+./src/tests/resources/TestSmallDict.txt
