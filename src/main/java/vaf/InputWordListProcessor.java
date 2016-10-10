@@ -31,7 +31,7 @@ public class InputWordListProcessor {
 
     /**
      * Goes through all the words given as input and prints the anagrams of those words that are
-     * in the programs trie.
+     * in the program's trie.
      */
     void findAnagramsAndCompare(){
         for (String word : words){
@@ -99,16 +99,15 @@ public class InputWordListProcessor {
      * @return the word in a form that can be processed by an anagram finder
      */
     public static String preprocessWord(String word){
-        //fix with buffer
-        String ret = "";
+        StringBuilder builder = new StringBuilder();
         word = word.toLowerCase().trim(); //decide whether to do this here to before
         for (int i = 0; i < word.length(); i++){
             char letter = word.charAt(i);
             if (letter >= 'a' && letter <= 'z'){
-                ret = ret + word.substring(i, i+1);
+                builder.append(word.substring(i, i+1));
             }
         }
-        return ret;
+        return builder.toString();
     }
 
 

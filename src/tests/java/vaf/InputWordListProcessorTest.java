@@ -137,13 +137,14 @@ public class InputWordListProcessorTest {
     @Test
     public void findAnagramsAndCompare() throws Exception {
         
-        // Longer expected output file names
+        // File names
         String manyWordsBig = "ManyWordsOutput.txt";
         String threeChangeSmall = "SmallDictThreeWordsChangeOutput.txt";
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         System.setOut(new PrintStream(os));
 
+        // One word, the big dictionary, switched anagram finding method
         InputWordListProcessor bigIterOneWord = new InputWordListProcessor(oneWordInput, bigTrie, false);
         os.reset();
         String expectedOutput = "\nFor word: " + word1 + "\nnags\nsang\nsnag\n\n\n";
@@ -151,41 +152,42 @@ public class InputWordListProcessorTest {
         Assert.assertEquals(expectedOutput, os.toString());
         os.reset();
 
+        // One word, the little dictionary, default anagram finding method
         InputWordListProcessor littleGraphOneWord = new InputWordListProcessor(oneWordInput, littleTrie, true);
         expectedOutput = "\nFor word: " + word1 + "\n\n\n";
         littleGraphOneWord.findAnagramsAndCompare();
         Assert.assertEquals(expectedOutput, os.toString());
         os.reset();
 
-        
+        // Many words, the big dictionary, default anagram finding method
         InputWordListProcessor bigGraphManyWords = new InputWordListProcessor(manyWordInput, bigTrie, true);
-        BufferedReader expRespReader = new BufferedReader(new FileReader(PATH_TO_ANA_ANS + FILE_SEP  
-                + manyWordsBig));
-        expectedOutput = ""; // user buffer thing
+        String progOutputFileCase3 = PATH_TO_ANA_ANS + FILE_SEP + manyWordsBig;
+        BufferedReader expRespReader = new BufferedReader(new FileReader(progOutputFileCase3));
+        StringBuilder expOutput = new StringBuilder();
         String line = null;
         while ((line = expRespReader.readLine()) != null){
-            expectedOutput = expectedOutput + line + "\n";
+            expOutput = expOutput.append(line + "\n");
         }
         bigGraphManyWords.findAnagramsAndCompare();
-        Assert.assertEquals(expectedOutput, os.toString());
+        Assert.assertEquals(expOutput.toString(), os.toString());
         os.reset();
 
+        // A few words, the little dictionary, switched anagram finding method
         InputWordListProcessor littleIterFewWords = new InputWordListProcessor(fewWordInput, littleTrie, false);
-        expRespReader = new BufferedReader(new FileReader(PATH_TO_ANA_ANS + FILE_SEP  
-                + threeChangeSmall));
-        expectedOutput = ""; // user buffer thing
+        String progOutputFileCase4 = PATH_TO_ANA_ANS + FILE_SEP + threeChangeSmall;
+        expRespReader = new BufferedReader(new FileReader(progOutputFileCase4));
+        expOutput = new StringBuilder(); 
         line = null;
         while ((line = expRespReader.readLine()) != null){
-            expectedOutput = expectedOutput + line + "\n";
+            expOutput = expOutput.append(line + "\n");
         }
         littleIterFewWords.findAnagramsAndCompare();
-        Assert.assertEquals(expectedOutput, os.toString());
+        Assert.assertEquals(expOutput.toString(), os.toString());
         os.reset();
 
         os.close();
+        expRespReader.close();
         System.setOut(null);
-        
-        
 
     }
 

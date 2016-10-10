@@ -1,0 +1,12 @@
+yes
+./nonexistentpath
+yes
+./imquiteobstinate
+yes
+./justcan'tstop
+yes
+./okayIgiveup
+no
+there sleep dogs
+yes
+Quit!

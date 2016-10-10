@@ -3,6 +3,9 @@ package vaf;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static vaf.PathsAndNames.*;
 /**
  * Created by Chloe on 10/7/16.
@@ -113,6 +116,26 @@ public class TrieTest {
         Assert.assertFalse(biggerTree.isPrefix("lc"));
 
 
+    }
+    
+    @org.junit.Test
+    public void constructionTest() throws Exception {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        System.setErr(new PrintStream(os));
+        
+        String expectedOutput = "Words could not be added to the trie " +
+                "because the dictionary file could not be found or opened. \n";
+        
+        Trie invalidPathTrie1 = new Trie("./not/a/valid-path");
+        Assert.assertEquals(os.toString(), expectedOutput);
+        
+        os.reset();
+
+        Trie invalidPathTrie2 = new Trie("fakeDictionaryFile");
+        Assert.assertEquals(os.toString(), expectedOutput);
+        
+        os.close();
+        System.setErr(null);
     }
 
 

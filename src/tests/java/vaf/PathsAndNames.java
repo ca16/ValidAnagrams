@@ -22,6 +22,7 @@ public class PathsAndNames {
     public static final String S_DICT_NAME = "TestSmallDict.txt";
     public static final String B_DICT_NAME = "wordsEn.txt";
 
+    // Paths used fairly often
     public static final String PATH_TO_MN_REC = CURR_DIR + FILE_SEP + SRC_DIR + FILE_SEP + MN_DIR + FILE_SEP + REC_DIR;
     public static final String PATH_TO_TEST_REC = CURR_DIR + FILE_SEP + SRC_DIR + FILE_SEP + TESTS_DIR + FILE_SEP + REC_DIR;
     public static final String PATH_TO_USER_RESPS = PATH_TO_TEST_REC + FILE_SEP + USER_RESP_DIR;

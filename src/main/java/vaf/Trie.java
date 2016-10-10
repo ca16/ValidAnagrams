@@ -10,6 +10,9 @@ import java.util.List;
  * Created by Chloe on 10/7/16.
  */
 public class Trie {
+    
+    private static final String INVALID_CONSTR_PATH = "Words could not be added to the trie " +
+            "because the dictionary file could not be found or opened. ";
 
     private TrieNode root;
 
@@ -31,8 +34,7 @@ public class Trie {
             List<String> dictWords = DictProcessor.wordsToList(filePath);
             this.addWordList(dictWords);
         }catch (IOException ioe){
-            System.out.println("Words could not be added to the trie because the dictionary file " +
-                    "could not be found");
+            System.err.println(INVALID_CONSTR_PATH);
         }
     }
 
@@ -98,13 +100,6 @@ public class Trie {
         for (String word: words){
             this.addToTrie(word);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Trie{" +
-                "root=" + root +
-                '}';
     }
 
     /**
@@ -258,28 +253,6 @@ public class Trie {
             next.addWord(rest);
 
         }
-
-
-        @Override
-        public String toString() {
-            return "Trie.TrieNode{" +
-                    "letter=" + letter +
-                    ", endOfWord=" + endOfWord +
-                    ", prefix=" + prefix +
-                    ", children=\n" + this.pprintChildren() +
-                    '}';
-        }
-
-        private String pprintChildren() {
-            // fix this
-            String ret = "";
-            for (int i = 0; i < 26; i++) {
-                TrieNode child = this.children[i];
-                if (child != null) {
-                    ret = ret + "\n    " + this.children[i].toString();
-                }
-            }
-            return ret;
-        }
+        
     }
 }

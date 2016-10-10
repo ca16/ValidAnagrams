@@ -45,7 +45,6 @@ public class IterAnagramMaker implements IAnagramMaker {
      * @inheritdoc
      */
     public List<String> singleWordAnagrams(String word){
-        Integer counter = 0;
 
         List<String> ret = new ArrayList<>();
         Integer len = word.length();
@@ -95,7 +94,6 @@ public class IterAnagramMaker implements IAnagramMaker {
                     // No special case if we get to this point, add this permutation of the first
                     // i letters to the list.
                     String toAdd = w.substring(0, j) + toInsert + w.substring(j, wLen);
-                    counter++;
 
                     // Covering cases where two anagrams that are the same can be formed from
                     // the same word that are also not covered by the above check. E.g. "dead"

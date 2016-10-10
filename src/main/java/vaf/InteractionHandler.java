@@ -11,29 +11,29 @@ import java.util.List;
 public class InteractionHandler {
 
     // Some possible user responses
-    private final String POS_LONG = "yes";
-    private final String POS_SHORT = "y";
-    private final String NEG_LONG = "no";
-    private final String NEG_SHORT = "n";
+    private static final String POS_LONG = "yes";
+    private static final String POS_SHORT = "y";
+    private static final String NEG_LONG = "no";
+    private static final String NEG_SHORT = "n";
 
     // Questions
-    private final String OWN_DICT_QU = "Would you like to use your own dictionary file? ";
-    private final String CHANGE_QU = "Would you like to use a different anagram finding method? " +
+    private static final String OWN_DICT_QU = "Would you like to use your own dictionary file? ";
+    private static final String CHANGE_QU = "Would you like to use a different anagram finding method? " +
             "Default: graph-based. Other option: iterative. For words of 9 characters and above " +
             "it is recommended that you stick to the default. ";
 
     // Problems
-    private final String MISUNDERSTOOD = "Apologies. I didn't understand your response. ";
-    private final String OPENING_ISSUE = "I'm have difficulty opening my default dictionary file. ";
-    private final String FNFE_ISSUE = "Apologies. The file was not found. Would  you like to try again? ";
+    private static final String MISUNDERSTOOD = "Apologies. I didn't understand your response. ";
+    private static final String OPENING_ISSUE = "I'm have difficulty opening my default dictionary file. ";
+    private static final String FNFE_ISSUE = "Apologies. The file was not found. Would  you like to try again? ";
 
 
     // Instructions
-    private final String RESPONSE_INSTR = "Please respond with 'y' or 'n'. ";
-    private final String CHANGE_INSTR = "Please respond with 'yes' to change or 'no' otherwise. ";
-    private final String INPUT_INSTR = "Please enter the word or words you'd like to find anagrams of. ";
-    private final String DICT_PATH_INSTR = "Please enter the path to a dictionary file. ";
-    private final String QUIT_INSTR = "\nOtherwise, to quit please enter 'Quit!' ";
+    private static final String RESPONSE_INSTR = "Please respond with 'y' or 'n'. ";
+    private static final String CHANGE_INSTR = "Please respond with 'yes' to change or 'no' otherwise. ";
+    private static final String INPUT_INSTR = "Please enter the word or words you'd like to find anagrams of. ";
+    private static final String DICT_PATH_INSTR = "Please enter the path to a dictionary file. ";
+    private static final String QUIT_INSTR = "\nOtherwise, to quit please enter 'Quit!' ";
 
 
     private Trie trie;

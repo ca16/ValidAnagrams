@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.PrintStream;
 
@@ -24,14 +25,12 @@ public class InteractionHandlerTest {
     private String notUnderstood;
 
     private Trie bigTrie;
-    private Trie littleTrie;
 
 
     @Before
     public void setUp() throws Exception {
 
         bigTrie = new Trie(PATH_TO_B_DICT);
-        littleTrie = new Trie(PATH_TO_S_DICT);
 
         notUnderstood = MISUNDERSTOOD + RESPONSE_INSTR + "\n";
 
@@ -54,61 +53,50 @@ public class InteractionHandlerTest {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         System.setOut(new PrintStream(os));
 
-        // User does not want to provide their own file
-        BufferedReader reader = new BufferedReader(new FileReader(PATH_TO_USER_RESPS + FILE_SEP + defDict));
-        InteractionHandler ih = new InteractionHandler(bigTrie, reader);
-        ih.talkAboutDictionary();
-        String expectedOutput = ownDictQu + RESPONSE_INSTR + "\n";
-        Assert.assertEquals(expectedOutput, os.toString());
+        // Case 1: User does not want to provide their own file
+        String pathToFileCase1 = PATH_TO_USER_RESPS + FILE_SEP + defDict;
+        String expOutputCase1 = ownDictQu + RESPONSE_INSTR + "\n";
+        talkAboutDictionaryTestHelper(pathToFileCase1, expOutputCase1, os);
 
-        os.reset();
+        // Case 2: User successfully provides their own file
+        String pathToFileCase2 = PATH_TO_USER_RESPS + FILE_SEP + ownDictUsable;
+        String expOutputCase2 = ownDictQu + RESPONSE_INSTR + "\n" + dictPathInstr + "\n";
+        talkAboutDictionaryTestHelper(pathToFileCase2, expOutputCase2, os);
 
-        // User successfully provides their own file
-        reader = new BufferedReader(new FileReader(PATH_TO_USER_RESPS + FILE_SEP + ownDictUsable));
-        ih = new InteractionHandler(bigTrie, reader);
-        ih.talkAboutDictionary();
-        expectedOutput = ownDictQu + RESPONSE_INSTR + "\n" + dictPathInstr + "\n";
-        Assert.assertEquals(expectedOutput, os.toString());
-
-        os.reset();
-
-        // User tries to provide their own file but fails
-        reader = new BufferedReader(new FileReader(PATH_TO_USER_RESPS + FILE_SEP + otherDictNotUsable));
-        ih = new InteractionHandler(bigTrie, reader);
-        ih.talkAboutDictionary();
-        expectedOutput = ownDictQu + RESPONSE_INSTR + "\n" + dictPathInstr + "\n" +
+        // Case 3: User tries to provide their own file but fails
+        String pathToFileCase3 = PATH_TO_USER_RESPS + FILE_SEP + otherDictNotUsable;
+        String expOutputCase3 = ownDictQu + RESPONSE_INSTR + "\n" + dictPathInstr + "\n" +
                 fnfeIssue + RESPONSE_INSTR + "\n" + dictPathInstr + "\n" + fnfeIssue +
                 RESPONSE_INSTR + "\n" + notUnderstood;
-        Assert.assertEquals(expectedOutput, os.toString());
+        talkAboutDictionaryTestHelper(pathToFileCase3, expOutputCase3, os);
 
-        os.reset();
-
-        // User tries to provide their own file, fails at first, then succeeds
-        reader = new BufferedReader(new FileReader(PATH_TO_USER_RESPS + FILE_SEP + otherDictFailToSucc));
-        ih = new InteractionHandler(bigTrie, reader);
-        ih.talkAboutDictionary();
-        expectedOutput = ownDictQu + RESPONSE_INSTR + "\n" + dictPathInstr + "\n" +
+        // Case 4: User tries to provide their own file, fails at first, then succeeds
+        String pathToFileCase4 = PATH_TO_USER_RESPS + FILE_SEP + otherDictFailToSucc;
+        String expOutputCase4 = ownDictQu + RESPONSE_INSTR + "\n" + dictPathInstr + "\n" +
                 fnfeIssue + RESPONSE_INSTR + "\n" + notUnderstood + notUnderstood + dictPathInstr
                 + "\n" + fnfeIssue + RESPONSE_INSTR + "\n" + dictPathInstr + "\n" + fnfeIssue +
                 RESPONSE_INSTR + "\n" + dictPathInstr + "\n";
-        Assert.assertEquals(expectedOutput, os.toString());
-
-        os.reset();
+        talkAboutDictionaryTestHelper(pathToFileCase4, expOutputCase4, os);
 
         os.close();
         System.setOut(null);
 
     }
+    
+    private void talkAboutDictionaryTestHelper(String userInputFile, String expectedOutput, ByteArrayOutputStream os) throws Exception{
+
+        // User tries to provide their own file, fails at first, then succeeds
+        BufferedReader reader = new BufferedReader(new FileReader(userInputFile));
+        InteractionHandler ih = new InteractionHandler(bigTrie, reader);
+        ih.talkAboutDictionary();
+        Assert.assertEquals(expectedOutput, os.toString());
+
+        os.reset();
+        reader.close();
+    }
 
     @Test
     public void talkAboutInputWords() throws Exception {
-
-        String inputInstr = "Please enter the word or words you'd like to find anagrams of. ";
-        String quitInstr = "\nOtherwise, to quit please enter 'Quit!' ";
-        String changeQu = "Would you like to use a different anagram finding method? " +
-                "Default: graph-based. Other option: iterative. For words of 9 characters and " +
-                "above it is recommended that you stick to the default. ";
-        String changeInstr = "Please respond with 'yes' to change or 'no' otherwise. ";
 
         // Response file names
         // Input
@@ -128,67 +116,53 @@ public class InteractionHandlerTest {
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         System.setOut(new PrintStream(os));
+        
+        
+        // Case 1: User enters one word and keeps default strategy
+        String userInputCase1 = PATH_TO_USER_RESPS + FILE_SEP + oneWord;
+        String progOutputCase1 = PATH_TO_PROG_RESPS + FILE_SEP  + oneWordResp;
+        talkAboutInputWordsTestHelper(userInputCase1, progOutputCase1, os);
 
-        // User enters one word and keeps default strategy
-        BufferedReader reader = new BufferedReader(new FileReader(PATH_TO_USER_RESPS + FILE_SEP + oneWord));
-        InteractionHandler ih = new InteractionHandler(bigTrie, reader);
-        BufferedReader expRespReader = new BufferedReader(new FileReader(PATH_TO_PROG_RESPS +
-                FILE_SEP  + oneWordResp));
-        String expectedOutput = ""; // user buffer thing
-        String line = null;
-        while ((line = expRespReader.readLine()) != null){
-            expectedOutput = expectedOutput + line + "\n";
-        }
-        ih.talkAboutInputWords();
-        Assert.assertEquals(expectedOutput, os.toString());
+        // Case 2: User enters one word and changes strategy
+        String userInputCase2 = PATH_TO_USER_RESPS + FILE_SEP + oneWordChange;
+        String progOutputCase2 = PATH_TO_PROG_RESPS + FILE_SEP  + oneWordChangeResp;
+        talkAboutInputWordsTestHelper(userInputCase2, progOutputCase2, os);
 
-        os.reset();
+        // Case 3: User enters eight words and keeps the default strategy
+        String userInputCase3 = PATH_TO_USER_RESPS + FILE_SEP + manyWords;
+        String progOutputCase3 = PATH_TO_PROG_RESPS + FILE_SEP  + manyWordsResp;
+        talkAboutInputWordsTestHelper(userInputCase3, progOutputCase3, os);
 
-        // User enters one words and changes strategy
-        reader = new BufferedReader(new FileReader(PATH_TO_USER_RESPS + FILE_SEP + oneWordChange));
-        ih = new InteractionHandler(bigTrie, reader);
-        expRespReader = new BufferedReader(new FileReader(PATH_TO_PROG_RESPS + FILE_SEP  + oneWordChangeResp));
-        expectedOutput = ""; // user buffer thing
-        line = null;
-        while ((line = expRespReader.readLine()) != null){
-            expectedOutput = expectedOutput + line + "\n";
-        }
-        ih.talkAboutInputWords();
-        Assert.assertEquals(expectedOutput, os.toString());
-
-        os.reset();
-
-        // User enters eight words and keeps the default strategy
-        reader = new BufferedReader(new FileReader(PATH_TO_USER_RESPS + FILE_SEP + manyWords));
-        ih = new InteractionHandler(bigTrie, reader);
-        expRespReader = new BufferedReader(new FileReader(PATH_TO_PROG_RESPS + FILE_SEP  + manyWordsResp));
-        expectedOutput = ""; // user buffer thing
-        line = null;
-        while ((line = expRespReader.readLine()) != null){
-            expectedOutput = expectedOutput + line + "\n";
-        }
-        ih.talkAboutInputWords();
-        Assert.assertEquals(expectedOutput, os.toString());
-
-        os.reset();
-
-        // User enters three words, then one word, then four words.
-        // Changes strategy for the first two, goes to default for the last. 
-        reader = new BufferedReader(new FileReader(PATH_TO_USER_RESPS + FILE_SEP + manyRound));
-        ih = new InteractionHandler(bigTrie, reader);
-        expRespReader = new BufferedReader(new FileReader(PATH_TO_PROG_RESPS + FILE_SEP  + manyRoundResp));
-        expectedOutput = ""; // user buffer thing
-        line = null;
-        while ((line = expRespReader.readLine()) != null){
-            expectedOutput = expectedOutput + line + "\n";
-        }
-        ih.talkAboutInputWords();
-        Assert.assertEquals(expectedOutput, os.toString());
-
+        // Case 4: User enters three words, then one word, then four words.
+        // Changes strategy for the first two, goes to default for the last.  
+        String userInputCase4 = PATH_TO_USER_RESPS + FILE_SEP + manyRound;
+        String progOutputCase4 = PATH_TO_PROG_RESPS + FILE_SEP  + manyRoundResp;
+        talkAboutInputWordsTestHelper(userInputCase4, progOutputCase4, os);
+//        
         os.close();
         System.setOut(null);
+        
+    }
+    
+    
+    private void talkAboutInputWordsTestHelper(String userInputFile, String progOutputFile, 
+                                               ByteArrayOutputStream os) throws Exception{
 
+        BufferedReader reader = new BufferedReader(new FileReader(userInputFile));
+        InteractionHandler ih = new InteractionHandler(bigTrie, reader);
+        BufferedReader expRespReader = new BufferedReader(new FileReader(progOutputFile));
+        StringBuilder expectedOutput = new StringBuilder();
+        String line = null;
+        while ((line = expRespReader.readLine()) != null){
+            expectedOutput.append(line + "\n");
+        }
+        ih.talkAboutInputWords();
+        Assert.assertEquals(expectedOutput.toString(), os.toString());
 
+        os.reset();
+        reader.close();
+        expRespReader.close();
+        
     }
 
     @Test
@@ -208,38 +182,36 @@ public class InteractionHandlerTest {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         System.setOut(new PrintStream(os));
 
-        // User wants to change anagram finding strategy
-        BufferedReader reader = new BufferedReader(new FileReader(PATH_TO_USER_RESPS + FILE_SEP + yesFile));
-        InteractionHandler ih = new InteractionHandler(bigTrie, reader);
-        ih.talkAboutAnagramFindingStrategy();
-        String expectedOutput = changeQu + changeInstr + "\n";
-        Assert.assertEquals(expectedOutput, os.toString());
+        // Case 1: User wants to change anagram finding strategy
+        String userInputCase1 = PATH_TO_USER_RESPS + FILE_SEP + yesFile;
+        String progOutputCase1 = changeQu + changeInstr + "\n";
+        talkAboutCAFSTestHelper(userInputCase1, progOutputCase1, os);
 
-        os.reset();
+        // Case 2: User does not want to change anagram finding strategy
+        String userInputCase2 = PATH_TO_USER_RESPS + FILE_SEP + noFile;
+        String progOutputCase2 = changeQu + changeInstr + "\n";
+        talkAboutCAFSTestHelper(userInputCase2, progOutputCase2, os);
 
-        // User does not want to change anagram finding strategy
-        reader = new BufferedReader(new FileReader(PATH_TO_USER_RESPS + FILE_SEP + noFile));
-        ih = new InteractionHandler(bigTrie, reader);
-        ih.talkAboutAnagramFindingStrategy();
-        expectedOutput = changeQu + changeInstr + "\n";
-        Assert.assertEquals(expectedOutput, os.toString());
-
-        os.reset();
-
-
-        // User wants to change anagram strategy but isn't very good at typing
-        reader = new BufferedReader(new FileReader(PATH_TO_USER_RESPS + FILE_SEP + incomprehensible));
-        ih = new InteractionHandler(bigTrie, reader);
-        ih.talkAboutAnagramFindingStrategy();
-        expectedOutput = changeQu + changeInstr + "\n" + notUnderstood + notUnderstood +
+        // Case 3: User wants to change anagram strategy but isn't very good at typing
+        String userInputCase3 = PATH_TO_USER_RESPS + FILE_SEP + incomprehensible;
+        String progOutputCase3 = changeQu + changeInstr + "\n" + notUnderstood + notUnderstood +
                 notUnderstood + notUnderstood + notUnderstood + notUnderstood + notUnderstood +
                 notUnderstood + notUnderstood;
-        Assert.assertEquals(expectedOutput, os.toString());
-
-        os.close();
-        System.setOut(null);
+        talkAboutCAFSTestHelper(userInputCase3, progOutputCase3, os);
 
 
+    }
+    
+    private void talkAboutCAFSTestHelper(String inputFilePath, String expOutput, ByteArrayOutputStream os) throws Exception{
+
+        BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
+        InteractionHandler ih = new InteractionHandler(bigTrie, reader);
+        ih.talkAboutAnagramFindingStrategy();
+        Assert.assertEquals(expOutput, os.toString());
+        
+        os.reset();
+        reader.close();
+        
     }
 
 }

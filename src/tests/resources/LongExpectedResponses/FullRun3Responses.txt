@@ -1,0 +1,3 @@
+Would you like to use your own dictionary file? Please respond with 'y' or 'n'. 
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 

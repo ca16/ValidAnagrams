@@ -200,11 +200,10 @@ public class GraphAnagramMaker implements IAnagramMaker {
      * @return the word corresponding to the path given
      */
     private String pathToWord(List<Integer> path){
-        String ret = ""; //fix
-        // fix buffer thing
+        StringBuilder builder = new StringBuilder();
         for (Integer node : path){
-            ret = ret + currWord.substring(node, node+1);
+            builder.append(currWord.substring(node, node+1));
         }
-        return ret;
+        return builder.toString();
     }
 }
