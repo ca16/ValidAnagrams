@@ -27,7 +27,7 @@ public class DictProcessor {
      * @return a list containing the words in the given file
      * @throws IOException if there is a problem reading the file or with the reader
      */
-    public static List<String> wordsToList(String filePath) throws IOException{
+    public static List<String> dictToList(String filePath) throws IOException{
 
         List<String> ret = new ArrayList<>();
 

@@ -32,7 +32,7 @@ public class Trie {
     public Trie(String filePath){
         this.root = new TrieNode(' ');
         try {
-            List<String> dictWords = DictProcessor.wordsToList(filePath);
+            List<String> dictWords = DictProcessor.dictToList(filePath);
             this.addWordList(dictWords);
         }catch (IOException ioe){
             System.err.println(INVALID_CONSTR_PATH);
@@ -109,7 +109,7 @@ public class Trie {
     private class TrieNode {
 
         // The letter the node corresponds to
-        private char letter;
+        private Character letter;
 
         // True if the string ending at this node is a word, false otherwise
         private Boolean endOfWord;

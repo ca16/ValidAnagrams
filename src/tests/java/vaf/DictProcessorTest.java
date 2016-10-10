@@ -40,12 +40,12 @@ public class DictProcessorTest {
         smallDictContents.add("cereal");
         smallDictContents.add("globe");
         
-        List<String> smallDictComp = DictProcessor.wordsToList(PATH_TO_S_DICT);
+        List<String> smallDictComp = DictProcessor.dictToList(PATH_TO_S_DICT);
 
         Assert.assertTrue(smallDictContents.containsAll(smallDictComp) && 
                 smallDictComp.containsAll(smallDictContents));
 
-        List<String> bigDictComp = DictProcessor.wordsToList(PATH_TO_B_DICT);
+        List<String> bigDictComp = DictProcessor.dictToList(PATH_TO_B_DICT);
         
         Assert.assertTrue(bigDictComp.containsAll(smallDictContents));
         

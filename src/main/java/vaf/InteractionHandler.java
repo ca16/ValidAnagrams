@@ -97,14 +97,14 @@ public class InteractionHandler {
         String filePath = defaultPathV1;
 
         try {
-            List<String> dictWords = DictProcessor.wordsToList(filePath);
+            List<String> dictWords = DictProcessor.dictToList(filePath);
             trie.addWordList(dictWords);
         }
         catch(FileNotFoundException fnfe){
             filePath = defaultPathV2;
         }
         try {
-            List<String> dictWords = DictProcessor.wordsToList(filePath);
+            List<String> dictWords = DictProcessor.dictToList(filePath);
             trie.addWordList(dictWords);
         }
 
@@ -151,7 +151,7 @@ public class InteractionHandler {
                 System.out.println(DICT_PATH_INSTR);
                 String newFilePath = reader.readLine();
                 try {
-                    List<String> dictWords = DictProcessor.wordsToList(newFilePath);
+                    List<String> dictWords = DictProcessor.dictToList(newFilePath);
                     trie.addWordList(dictWords);
                 }
 
