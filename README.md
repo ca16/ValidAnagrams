@@ -56,7 +56,7 @@ Note: the order that the anagrams of the given words appear in may be different 
 
 1. do 'java vaf/ProgramStartVAF'
 
-       (runs the program) 
+       (runs the program)
 
 1. The program itself will ask you for input, and give you the instructions you need. For an outline, see the section 'While it's running below'. 
 
@@ -157,7 +157,7 @@ An outline of how it should go:
 
     1. Input the path to it. e.g.:
 
-           ../../../TestSmallDict.txt
+           ../../tests/resources/TestSmallDict.txt
 
   1. Scenario 2 - You don't want to use your own dictionary file.
 
