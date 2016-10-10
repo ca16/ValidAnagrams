@@ -10,6 +10,7 @@ import vaf.anagrammakers.IterAnagramMaker;
 
 /**
  * Responsible for processing the users input for word for which anagrams will be found.
+ * 
  * Created by Chloe on 10/8/16.
  */
 public class InputWordListProcessor {

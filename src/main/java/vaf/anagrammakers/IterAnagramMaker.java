@@ -8,6 +8,7 @@ import vaf.Trie;
 
 /**
  * A kind of anagram finder that looks for anagrams using a more iterative approach.
+ * 
  * Created by Chloe on 10/4/16.
  */
 public class IterAnagramMaker implements IAnagramMaker {
@@ -31,7 +32,9 @@ public class IterAnagramMaker implements IAnagramMaker {
     }
 
     /**
-     * @inheritdoc
+     * Finds anagrams for many words.
+     * @param words a list of words
+     * @return a list of anagrams of those words.
      */
     public List<String> lstOfWordsAnagrams(List<String> words){
         List<String> ret = new ArrayList<>();
@@ -42,7 +45,9 @@ public class IterAnagramMaker implements IAnagramMaker {
     }
 
     /**
-     * @inheritdoc
+     * Finds anagrams for one word.
+     * @param word a word
+     * @return a list of anagrams for that word.
      */
     public List<String> singleWordAnagrams(String word){
 

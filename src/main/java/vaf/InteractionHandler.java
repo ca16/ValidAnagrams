@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * Responsible for handling the interactions between program and user.
+ * 
  * Created by Chloe on 10/8/16.
  */
 public class InteractionHandler {

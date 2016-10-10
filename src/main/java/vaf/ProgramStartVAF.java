@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * The entry point of the program. Starts communication between user and program. Program
- * description: given a list of words, finds the anagrams of those words that appear in a
+ * The entry point of the program. Starts communication between user and program. 
+ * 
+ * Program description: given a list of words, finds the anagrams of those words that appear in a
  * dictionary file. The user may provide their own dictionary file, or use the default one.
+ * 
  * Created by Chloe on 10/7/16.
  */
 public class ProgramStartVAF {

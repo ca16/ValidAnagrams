@@ -5,6 +5,7 @@ import vaf.Trie;
 
 /**
  * Responsible for finding anagrams of words.
+ * 
  * Created by Chloe on 10/7/16.
  */
 public interface IAnagramMaker {

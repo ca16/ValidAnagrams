@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * Responsible for processing a dictionary file.
+ * 
  * Created by Chloe on 10/7/16.
  */
 public class DictProcessor {

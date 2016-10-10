@@ -7,6 +7,7 @@ import java.util.List;
  * Responsible for keeping track of a set of words.
  * In this case, it keeps track of the words in a dictionary file. Stores words in lower-case, only
  * uses alphabetic characters (a-z).
+ *
  * Created by Chloe on 10/7/16.
  */
 public class Trie {

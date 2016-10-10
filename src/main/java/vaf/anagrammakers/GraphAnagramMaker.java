@@ -8,6 +8,7 @@ import vaf.Trie;
 
 /**
  * A kind of anagram finder that finds anagrams using a graph-based search.
+ * 
  * Created by Chloe on 10/7/16.
  */
 public class GraphAnagramMaker implements IAnagramMaker {
@@ -25,7 +26,9 @@ public class GraphAnagramMaker implements IAnagramMaker {
     }
 
     /**
-     * @inheritdoc
+     * Finds anagrams for many words.
+     * @param words a list of words
+     * @return a list of anagrams of those words.
      */
     public List<String> lstOfWordsAnagrams(List<String> words){
         List<String> ret = new ArrayList<>();
@@ -41,7 +44,9 @@ public class GraphAnagramMaker implements IAnagramMaker {
     }
 
     /**
-     * @inheritdoc
+     * Finds anagrams for one word.
+     * @param word a word
+     * @return a list of anagrams for that word.
      */
     public List<String> singleWordAnagrams(String word){
         word = InputWordListProcessor.preprocessWord(word);
