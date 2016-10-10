@@ -1,16 +1,19 @@
 package vaf;
 
 import org.junit.Assert;
+import org.junit.Test;
+
 import static vaf.PathsAndNames.*;
+import junit.framework.TestCase;
 /**
  * Created by Chloe on 10/7/16.
  */
-public class TrieTest {
+public class TrieTest extends TestCase {
 
     private Trie babyTree;
     private Trie smallTree;
     private Trie biggerTree;
-
+    
     @org.junit.Before
     public void setUp() throws Exception {
 
@@ -26,7 +29,7 @@ public class TrieTest {
         
     }
 
-    @org.junit.Test
+    @Test
     public void addToTrie() throws Exception {
 
         Assert.assertFalse(smallTree.contains("z"));
