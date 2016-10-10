@@ -36,7 +36,7 @@ prints
     pods
 
 
-Note: the order that the anagrams of the given words appear in may be different depending on which algorithm is chosen for finding anagrams (see 'a little on strategy section' below).
+Note: the order that the anagrams of the given words appear in may be different depending on which algorithm is chosen for finding anagrams (see 'on strategy section' below).
 
 ----
 
@@ -68,7 +68,7 @@ On steps 3-5: I've tested these instructions using Mac OS X and Linux. If you're
 
 ### On the Javadocs
 
-If you'd like to take a look at the javadocs for my classes, the easiest way is probably to navigate to the javadocs folder in the project you just cloned (ValidAnagrams/javadocs/) and open up index.html in a browser.
+If you'd like to take a look at the javadocs for my classes, the easiest way is probably to navigate to the javadocs folder in the project you just cloned (ValidAnagrams/javadocs/), and open up index.html in a browser.
 
 ----
 
@@ -78,7 +78,23 @@ I have included JUnit tests for my project (ValidAnagrams/src/tests). Looking th
 
 ----
 
-### On the strategy
+### On the Structure
+
+The program starts at the ProgramStartVAF class, which sets things in motion:
+
+An InteractionHandler is created. It navigates the communication between program and user. 
+
+When the user provides input words, the InteractionHandler creates an InputWordListProcessor.
+
+The InputWordListProcessor brings together the behaviour of the IAnagramMaker (that finds potential anagrams) and the Trie (which checks if stings were in the provided dictionary file), to produce the required output.
+
+The DictProcessor is in charge of processing the dictionary file being used. 
+
+Note: two classes implement IAnagramMaker - GraphAnagramMaker and IterAnagramMaker. See section 'on strategy' below for more information on anagram finding strategies.
+
+----
+
+### On the Strategy
 
 ----
 
