@@ -92,6 +92,8 @@ The DictProcessor is in charge of processing the dictionary file being used.
 
 Note: two classes implement IAnagramMaker - GraphAnagramMaker and IterAnagramMaker. See section 'on the strategy' below for more information on anagram finding strategies.
 
+I've added a class diagram (ValidAnagrams/VAFClassDiagram.png) to the project. The green star marks where the program starts. 
+
 ----
 
 ### On the Strategy
