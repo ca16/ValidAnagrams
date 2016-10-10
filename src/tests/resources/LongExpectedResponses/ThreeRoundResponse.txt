@@ -1,0 +1,60 @@
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
+Would you like to use a different anagram finding method? Default: graph-based. Other option: iterative. For words of 9 characters and above it is recommended that you stick to the default. Please respond with 'yes' to change or 'no' otherwise. 
+
+For word: snag
+nags
+sang
+snag
+
+
+
+For word: three
+ether
+there
+three
+
+
+
+For word: pods
+pods
+
+
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
+Would you like to use a different anagram finding method? Default: graph-based. Other option: iterative. For words of 9 characters and above it is recommended that you stick to the default. Please respond with 'yes' to change or 'no' otherwise. 
+
+For word: stab
+bats
+tabs
+bast
+stab
+
+
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
+Would you like to use a different anagram finding method? Default: graph-based. Other option: iterative. For words of 9 characters and above it is recommended that you stick to the default. Please respond with 'yes' to change or 'no' otherwise. 
+
+For word: helicopter
+helicopter
+
+
+
+For word: kettle
+kettle
+
+
+
+For word: silly
+silly
+slily
+
+
+
+For word: misfortune
+misfortune
+uniformest
+
+
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 

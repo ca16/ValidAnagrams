@@ -1,12 +1,12 @@
 package vaf;
 
-import com.sun.tools.doclets.internal.toolkit.util.DocFinder;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.FileReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,8 @@ import java.util.List;
 import vaf.anagrammakers.GraphAnagramMaker;
 import vaf.anagrammakers.IAnagramMaker;
 import vaf.anagrammakers.IterAnagramMaker;
+import static vaf.PathsAndNames.*;
+
 
 /**
  * Created by Chloe on 10/8/16.
@@ -118,11 +120,8 @@ public class InputWordListProcessorTest {
 
         emptyLst = new ArrayList<>();
 
-        String littleFile = "./TestSmallDict.txt";
-        String bigFile = "./wordsEn.txt";
-
-        bigTrie = new Trie(bigFile);
-        littleTrie = new Trie(littleFile);
+        bigTrie = new Trie(PATH_TO_B_DICT);
+        littleTrie = new Trie(PATH_TO_S_DICT);
 
         gmBig = new GraphAnagramMaker(bigTrie);
         gmSmall = new GraphAnagramMaker(littleTrie);
@@ -137,28 +136,20 @@ public class InputWordListProcessorTest {
 
     @Test
     public void findAnagramsAndCompare() throws Exception {
+        
+        // Longer expected output file names
+        String manyWordsBig = "ManyWordsOutput.txt";
+        String threeChangeSmall = "SmallDictThreeWordsChangeOutput.txt";
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         System.setOut(new PrintStream(os));
 
-        InputWordListProcessor bigGraphOneWord = new InputWordListProcessor(oneWordInput, bigTrie, true);
-        bigGraphOneWord.compareAnagrams(gmBig.singleWordAnagrams(oneWordInput));
-        String intermediateOutput = os.toString();
-        os.reset();
-        String expectedOutput = "\nFor word: " + word1 + "\n" + intermediateOutput + "\n";
-        bigGraphOneWord.findAnagramsAndCompare();
-        Assert.assertEquals(expectedOutput, os.toString());
-        os.reset();
-
         InputWordListProcessor bigIterOneWord = new InputWordListProcessor(oneWordInput, bigTrie, false);
-        bigIterOneWord.compareAnagrams(imBig.singleWordAnagrams(oneWordInput));
-        intermediateOutput = os.toString();
         os.reset();
-        expectedOutput = "\nFor word: " + word1 + "\n" + intermediateOutput + "\n";
+        String expectedOutput = "\nFor word: " + word1 + "\nnags\nsang\nsnag\n\n\n";
         bigIterOneWord.findAnagramsAndCompare();
         Assert.assertEquals(expectedOutput, os.toString());
         os.reset();
-
 
         InputWordListProcessor littleGraphOneWord = new InputWordListProcessor(oneWordInput, littleTrie, true);
         expectedOutput = "\nFor word: " + word1 + "\n\n\n";
@@ -166,25 +157,35 @@ public class InputWordListProcessorTest {
         Assert.assertEquals(expectedOutput, os.toString());
         os.reset();
 
-        InputWordListProcessor littleIterOneWord = new InputWordListProcessor(oneWordInput, littleTrie, true);
-        expectedOutput = "\nFor word: " + word1 + "\n\n\n";
-        littleIterOneWord.findAnagramsAndCompare();
+        
+        InputWordListProcessor bigGraphManyWords = new InputWordListProcessor(manyWordInput, bigTrie, true);
+        BufferedReader expRespReader = new BufferedReader(new FileReader(PATH_TO_ANA_ANS + FILE_SEP  
+                + manyWordsBig));
+        expectedOutput = ""; // user buffer thing
+        String line = null;
+        while ((line = expRespReader.readLine()) != null){
+            expectedOutput = expectedOutput + line + "\n";
+        }
+        bigGraphManyWords.findAnagramsAndCompare();
         Assert.assertEquals(expectedOutput, os.toString());
         os.reset();
 
-
-//        InputWordListProcessor bigGraphFewWords = new InputWordListProcessor(fewWordInput, bigTrie, true);
-//        InputWordListProcessor bigIterFewWords = new InputWordListProcessor(fewWordInput, bigTrie, false);
-//        InputWordListProcessor bigGraphManyWords = new InputWordListProcessor(manyWordInput, bigTrie, true);
-//        InputWordListProcessor bigIterManyWords = new InputWordListProcessor(manyWordInput, bigTrie, false);
-//
-
-//        InputWordListProcessor littleGraphManyWords = new InputWordListProcessor(manyWordInput, littleTrie, true);
-//        InputWordListProcessor littleIterManyWords = new InputWordListProcessor(manyWordInput, littleTrie, false);
-
+        InputWordListProcessor littleIterFewWords = new InputWordListProcessor(fewWordInput, littleTrie, false);
+        expRespReader = new BufferedReader(new FileReader(PATH_TO_ANA_ANS + FILE_SEP  
+                + threeChangeSmall));
+        expectedOutput = ""; // user buffer thing
+        line = null;
+        while ((line = expRespReader.readLine()) != null){
+            expectedOutput = expectedOutput + line + "\n";
+        }
+        littleIterFewWords.findAnagramsAndCompare();
+        Assert.assertEquals(expectedOutput, os.toString());
+        os.reset();
 
         os.close();
         System.setOut(null);
+        
+        
 
     }
 

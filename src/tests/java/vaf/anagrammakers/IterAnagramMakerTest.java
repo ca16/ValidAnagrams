@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vaf.Trie;
+import static vaf.PathsAndNames.*;
+
 
 /**
  * Created by Chloe on 10/8/16.
@@ -29,8 +31,8 @@ public class IterAnagramMakerTest {
     public void setUp() throws Exception {
 
 
-        Trie bigTrie = new Trie("./wordsEn.txt");
-        Trie smallTrie = new Trie("./TestSmallDict.txt");
+        Trie bigTrie = new Trie(PATH_TO_B_DICT);
+        Trie smallTrie = new Trie(PATH_TO_S_DICT);
 
         bigMaker = new IterAnagramMaker(bigTrie);
         littleMaker = new IterAnagramMaker(smallTrie);

@@ -1,8 +1,10 @@
 yes
 ./I/lead/to/now/here
-yes
+why can't you read it?
+fine
+y
 ./please/find/me
 yes
 ./third/times/the/charm
-yes
+y
 ./src/tests/resources/TestSmallDict.txt

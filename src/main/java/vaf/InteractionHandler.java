@@ -10,17 +10,6 @@ import java.util.List;
  */
 public class InteractionHandler {
 
-    // For default file path
-    private final String FILE_SEP = System.getProperty("file.separator");
-    private final String DEFAULT_DICT_NAME = "wordsEn.txt";
-    private final String CURR_DIR = ".";
-    private final String PARENT_DIR = "..";
-
-    // Important sub-folders
-    private final String SRC_DIR = "src";
-    private final String MN_DIR = "main";
-    private final String REC_DIR = "resources";
-
     // Some possible user responses
     private final String POS_LONG = "yes";
     private final String POS_SHORT = "y";
@@ -30,7 +19,8 @@ public class InteractionHandler {
     // Questions
     private final String OWN_DICT_QU = "Would you like to use your own dictionary file? ";
     private final String CHANGE_QU = "Would you like to use a different anagram finding method? " +
-            "Default: graph-based. Other option: iterative. ";
+            "Default: graph-based. Other option: iterative. For words of 9 characters and above " +
+            "it is recommended that you stick to the default. ";
 
     // Problems
     private final String MISUNDERSTOOD = "Apologies. I didn't understand your response. ";
@@ -40,7 +30,7 @@ public class InteractionHandler {
 
     // Instructions
     private final String RESPONSE_INSTR = "Please respond with 'y' or 'n'. ";
-    private final String CHANGE_INSTR = "Please response with 'yes' to change or 'no' otherwise. ";
+    private final String CHANGE_INSTR = "Please respond with 'yes' to change or 'no' otherwise. ";
     private final String INPUT_INSTR = "Please enter the word or words you'd like to find anagrams of. ";
     private final String DICT_PATH_INSTR = "Please enter the path to a dictionary file. ";
     private final String QUIT_INSTR = "\nOtherwise, to quit please enter 'Quit!' ";
@@ -84,14 +74,23 @@ public class InteractionHandler {
      */
     private Boolean useDefaultFile() throws IOException{
 
+        // For default file path
+        String fileSep = System.getProperty("file.separator");
+        String defDict = "wordsEn.txt";
+        String currDir = ".";
+        String parentDir = "..";
 
+        // Important sub-folders
+        String srcDir = "src";
+        String mnDir = "main";
+        String recDir = "resources";
 
         // For Intellij
-        String defaultPathV1 = CURR_DIR + FILE_SEP + SRC_DIR + FILE_SEP + MN_DIR + FILE_SEP +
-                REC_DIR + FILE_SEP + DEFAULT_DICT_NAME;
+        String defaultPathV1 = currDir + fileSep + srcDir + fileSep + mnDir + fileSep +
+                recDir + fileSep + defDict;
 
         // For command line
-        String defaultPathV2 = PARENT_DIR + FILE_SEP + REC_DIR + FILE_SEP + DEFAULT_DICT_NAME;
+        String defaultPathV2 = parentDir + fileSep + recDir + fileSep + defDict;
 
         String filePath = defaultPathV1;
 

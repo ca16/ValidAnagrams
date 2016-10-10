@@ -1,5 +1,6 @@
-yes
+y
 ./blahblahbadPath
 yes
 ./blahbadPathblah
-no
+maybe
+n

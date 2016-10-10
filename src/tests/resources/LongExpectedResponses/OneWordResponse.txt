@@ -1,0 +1,13 @@
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
+Would you like to use a different anagram finding method? Default: graph-based. Other option: iterative. For words of 9 characters and above it is recommended that you stick to the default. Please respond with 'yes' to change or 'no' otherwise. 
+
+For word: stab
+stab
+tabs
+bast
+bats
+
+
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
