@@ -4,11 +4,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static vaf.PathsAndNames.*;
-import junit.framework.TestCase;
 /**
  * Created by Chloe on 10/7/16.
  */
-public class TrieTest extends TestCase {
+public class TrieTest {
 
     private Trie babyTree;
     private Trie smallTree;
@@ -29,7 +28,7 @@ public class TrieTest extends TestCase {
         
     }
 
-    @Test
+    @org.junit.Test
     public void addToTrie() throws Exception {
 
         Assert.assertFalse(smallTree.contains("z"));
