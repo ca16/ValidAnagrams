@@ -62,9 +62,23 @@ Note: the order that the anagrams of the given words appear in may be different 
 
 Note: vaf as in 'valid anagram finder'.
 
+On steps 3-5: I've tested these instructions using Mac OS X and Linux. If you're on a Windows machine, as far as I can tell instances of '/' should be switched to '\'. If you're using something else I suggest trying to apply the steps you usually follow for compiling and running a java program.
+
 ----
 
-### A little on the strategy
+### On the Javadocs
+
+If you'd like to take a look at the javadocs for my classes, the easiest way is probably to navigate to the javadocs folder in the project you just cloned (ValidAnagrams/javadocs/) and open up index.html in a browser.
+
+----
+
+### On the Tests
+
+I have included JUnit tests for my project (ValidAnagrams/src/tests). Looking through them will probably give you an idea of what kind of cases I looked at and how I tested them. If you'd like to run the tests, I recommend using an IDE (I used IntelliJ).
+
+----
+
+### On the strategy
 
 ----
 
@@ -86,7 +100,7 @@ Each neighbor of a node that is visited gets its own copy of the path taken to g
 
 The results from starting this search at every node in the graph are collected, to ensure that anagrams starting with any letter in the word are found. When the results are accumulated, a given permutation is not added to the final list if it is already there.
 
-*To make this more efficient, the search is not always passed along to all of a node's neighbors. This only happens when the path ending in the current node corresponds to a string that is the prefix of some word in the dictionary (which can be checked using the trie structure that keeps track of the words in the dictionary list - see the 'searching the dictionary file section' below). For example, if my path so far is {g,r,z} there is no need to build the path further by exploring z's neighbors (assuming no words in the dictionary start with "grz"), so the program can return to searching 'r''s other neighbors, and building paths starting with "gr".
+*To make this more efficient, the search is not always passed along to all of a node's neighbors. This only happens when the path ending at the current node corresponds to a string that is the prefix of some word in the dictionary (which can be checked using the trie structure that keeps track of the words in the dictionary list - see the 'searching the dictionary file section' below). For example, if my path so far is {g,r,z} there is no need to build the path further by exploring z's neighbors (assuming no words in the dictionary start with "grz"), so the program can return to searching 'r''s other neighbors, and building paths starting with "gr".
 
 ##### Option 2
 
@@ -116,7 +130,7 @@ The final step attempts to amplify the effects of the second step by re-ordering
 
 ##### Searching the dictionary file
 
-My version of this program allows the user to ask for anagrams of words that can be found in a dictionary file repeatedly. For this reason, it seemed like it might be worth doing a little pre-processing of the file to make finding out whether word is in it reasonably fast. 
+My version of this program allows the user to ask for anagrams of words that can be found in a dictionary file repeatedly. For this reason, it seemed like it might be worth doing a little pre-processing of the file to make finding out whether a word is in it reasonably fast. 
 
 The program puts the dictionary file (the default file or the file provided by the user) into a trie. Putting a single word into the trie takes time relative to the length of the word (e.g. for "slam", the program would go down four levels, for "consciousness", 13). This happens for every word in the file. 
 
@@ -124,7 +138,7 @@ Once the trie contains the words in the file, the program can find out whether a
 
 An alternative could be to handle the file only when the program needs to check if a word is in it. No pre-processing costs here, but searching the file for each word seems inefficient - it seems as though the program could end up searching through most of the file for each permutation of each word's letters (though it may not be that bad if the program is only used to find anagrams for one or two short words). 
 
-An option between the two could be to read the file and keep the words in a list in sorted order. Figuring out whether a word is in that list would take O(lgn) time, where n is the number of words in the dictionary (binary search). 
+An option between the two could be to read the file once and keep the words in a list in sorted order. Figuring out whether a word is in that list would take O(lgn) time, where n is the number of words in the dictionary (binary search). 
 
 Creating the trie takes a little longer than creating the list (assuming the words in the file are sorted), but this could be worth it considering that it is quite a bit faster to figure out if a word is in the file, especially for shorter words.
 
