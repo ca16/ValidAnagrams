@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.PrintStream;
 
@@ -30,6 +29,8 @@ public class InteractionHandlerTest {
     @Before
     public void setUp() throws Exception {
 
+        PathsAndNames.populatePaths();
+
         bigTrie = new Trie(PATH_TO_B_DICT);
 
         notUnderstood = MISUNDERSTOOD + RESPONSE_INSTR + "\n";
@@ -51,6 +52,7 @@ public class InteractionHandlerTest {
         String otherDictFailToSucc = "IHTADEventualSuccess.txt";
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
         System.setOut(new PrintStream(os));
 
         // Case 1: User does not want to provide their own file
@@ -79,7 +81,7 @@ public class InteractionHandlerTest {
         talkAboutDictionaryTestHelper(pathToFileCase4, expOutputCase4, os);
 
         os.close();
-        System.setOut(null);
+        System.setOut(oldOut);
 
     }
     
@@ -115,6 +117,7 @@ public class InteractionHandlerTest {
         String progRespsDir = "LongExpectedResponses";
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
         System.setOut(new PrintStream(os));
         
         
@@ -142,7 +145,7 @@ public class InteractionHandlerTest {
         talkAboutInputWordsTestHelper(userInputCase4, progOutputCase4, os);
 //        
         os.close();
-        System.setOut(null);
+        System.setOut(oldOut);
         
     }
     
@@ -182,6 +185,7 @@ public class InteractionHandlerTest {
         String incomprehensible = "Incomprehensible.txt";
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
         System.setOut(new PrintStream(os));
 
         // Case 1: User wants to change anagram finding strategy
@@ -200,6 +204,9 @@ public class InteractionHandlerTest {
                 notUnderstood + notUnderstood + notUnderstood + notUnderstood + notUnderstood +
                 notUnderstood + notUnderstood;
         talkAboutCAFSTestHelper(userInputCase3, progOutputCase3, os);
+        
+        os.close();
+        System.setOut(oldOut);
 
 
     }

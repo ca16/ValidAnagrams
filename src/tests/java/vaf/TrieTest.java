@@ -1,7 +1,6 @@
 package vaf;
 
 import org.junit.Assert;
-import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -18,6 +17,8 @@ public class TrieTest {
     
     @org.junit.Before
     public void setUp() throws Exception {
+
+        PathsAndNames.populatePaths();
 
         babyTree = new Trie();
         smallTree = new Trie();
@@ -121,6 +122,7 @@ public class TrieTest {
     @org.junit.Test
     public void constructionTest() throws Exception {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream oldErr = System.err;
         System.setErr(new PrintStream(os));
         
         String expectedOutput = "Words could not be added to the trie " +
@@ -135,7 +137,7 @@ public class TrieTest {
         Assert.assertEquals(os.toString(), expectedOutput);
         
         os.close();
-        System.setErr(null);
+        System.setErr(oldErr);
     }
 
 

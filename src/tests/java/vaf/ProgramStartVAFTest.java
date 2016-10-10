@@ -8,26 +8,29 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.Assert.*;
 import static vaf.PathsAndNames.FILE_SEP;
 import static vaf.PathsAndNames.PATH_TO_PROG_RESPS;
 import static vaf.PathsAndNames.PATH_TO_USER_RESPS;
-import vaf.PathsAndNames.*;
+
 /**
  * Created by Chloe on 10/7/16.
  */
 public class ProgramStartVAFTest {
 
+    @Before
+    public void setUp() throws Exception {
+
+        PathsAndNames.populatePaths();
+    }
+
     @Test
     public void main() throws Exception {
-
+        
         ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
         System.setOut(new PrintStream(os));
 
         // Case 1: user uses default dictionary, uses both anagram finding algorithms,
@@ -49,7 +52,7 @@ public class ProgramStartVAFTest {
         }
         
         os.close();
-        System.setOut(null);
+        System.setOut(oldOut);
 
 
     }
@@ -64,6 +67,7 @@ public class ProgramStartVAFTest {
         String userInputFile = prefix + testCase + userInputSuffix;
         String progOutputFile = prefix + testCase + progOutputSuffix;
 
+        InputStream oldIn = System.in;
         System.setIn(new FileInputStream(PATH_TO_USER_RESPS + FILE_SEP + userInputFile));
         String[] args = new String[0];
         ProgramStartVAF.main(args);
@@ -77,7 +81,7 @@ public class ProgramStartVAFTest {
         Assert.assertEquals(expectedOutput.toString(), os.toString());
         
         os.reset();
-        System.setIn(null);
+        System.setIn(oldIn);
         expRespReader.close();
     }
 

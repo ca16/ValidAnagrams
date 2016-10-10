@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import vaf.PathsAndNames;
 import vaf.Trie;
 import static vaf.PathsAndNames.*;
 
@@ -30,6 +31,7 @@ public class IterAnagramMakerTest {
     @Before
     public void setUp() throws Exception {
 
+        PathsAndNames.populatePaths();
 
         Trie bigTrie = new Trie(PATH_TO_B_DICT);
         Trie smallTrie = new Trie(PATH_TO_S_DICT);

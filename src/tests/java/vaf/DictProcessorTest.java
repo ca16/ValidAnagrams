@@ -7,20 +7,22 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static vaf.PathsAndNames.*;
 
 /**
  * Created by Chloe on 10/8/16.
  */
 public class DictProcessorTest {
+    
     @Before
     public void setUp() throws Exception {
 
+        PathsAndNames.populatePaths();
     }
 
     @Test
     public void wordsToList() throws Exception {
+        
         
         List<String> smallDictContents = new ArrayList<>();
         smallDictContents.add("pumpkin");

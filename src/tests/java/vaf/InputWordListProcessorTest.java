@@ -66,6 +66,8 @@ public class InputWordListProcessorTest {
     @Before
     public void setUp() throws Exception {
 
+        PathsAndNames.populatePaths();
+
         emptyInput = "";
         spaceInput = " ";
         lotsOfSpaceInput = "    ";
@@ -142,6 +144,7 @@ public class InputWordListProcessorTest {
         String threeChangeSmall = "SmallDictThreeWordsChangeOutput.txt";
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
         System.setOut(new PrintStream(os));
 
         // One word, the big dictionary, switched anagram finding method
@@ -187,7 +190,7 @@ public class InputWordListProcessorTest {
 
         os.close();
         expRespReader.close();
-        System.setOut(null);
+        System.setOut(oldOut);
 
     }
 
@@ -195,6 +198,7 @@ public class InputWordListProcessorTest {
     public void compareAnagrams() throws Exception {
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream oldOut = System.out;
         System.setOut(new PrintStream(os));
 
         List<String> allInDict = new ArrayList<>();
@@ -256,7 +260,7 @@ public class InputWordListProcessorTest {
         Assert.assertEquals(expectedOutput, os.toString().trim());
 
         os.close();
-        System.setOut(null);
+        System.setOut(oldOut);
     }
 
     @Test
