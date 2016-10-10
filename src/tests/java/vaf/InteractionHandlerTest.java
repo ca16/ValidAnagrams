@@ -119,6 +119,8 @@ public class InteractionHandlerTest {
         
         
         // Case 1: User enters one word and keeps default strategy
+        // Here we're using the word 'quit' to ensure that the user can still search
+        // for anagrams of this word, even though the specific string 'Quit!' will end the program.
         String userInputCase1 = PATH_TO_USER_RESPS + FILE_SEP + oneWord;
         String progOutputCase1 = PATH_TO_PROG_RESPS + FILE_SEP  + oneWordResp;
         talkAboutInputWordsTestHelper(userInputCase1, progOutputCase1, os);
