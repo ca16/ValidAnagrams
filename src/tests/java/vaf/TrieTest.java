@@ -2,11 +2,12 @@ package vaf;
 
 import org.junit.Assert;
 import static vaf.PathsAndNames.*;
+import junit.framework.TestCase;
 
 /**
  * Created by Chloe on 10/7/16.
  */
-public class TrieTest {
+public class TrieTest extends TestCase{
 
     private Trie babyTree;
     private Trie smallTree;
