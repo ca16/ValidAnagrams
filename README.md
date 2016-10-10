@@ -36,7 +36,7 @@ prints
     pods
 
 
-Note: the order that the anagrams of the given words appear in may be different depending on which algorithm is chosen for finding anagrams (see 'on strategy section' below).
+Note: the order that the anagrams of the given words appear in may be different depending on which algorithm is chosen for finding anagrams (see 'on the strategy' section below).
 
 ----
 
@@ -58,7 +58,7 @@ Note: the order that the anagrams of the given words appear in may be different 
 
        (runs the program)
 
-1. The program itself will ask you for input, and give you the instructions you need. For an outline, see the section 'While it's running below'. 
+1. The program itself will ask you for input, and give you the instructions you need. For an outline, see the section 'While it's running' below. 
 
 Note: vaf as in 'valid anagram finder'.
 
@@ -90,7 +90,7 @@ The InputWordListProcessor brings together the behaviour of the IAnagramMaker (t
 
 The DictProcessor is in charge of processing the dictionary file being used. 
 
-Note: two classes implement IAnagramMaker - GraphAnagramMaker and IterAnagramMaker. See section 'on strategy' below for more information on anagram finding strategies.
+Note: two classes implement IAnagramMaker - GraphAnagramMaker and IterAnagramMaker. See section 'on the strategy' below for more information on anagram finding strategies.
 
 ----
 
@@ -116,7 +116,7 @@ Each neighbor of a node that is visited gets its own copy of the path taken to g
 
 The results from starting this search at every node in the graph are collected, to ensure that anagrams starting with any letter in the word are found. When the results are accumulated, a given permutation is not added to the final list if it is already there.
 
-*To make this more efficient, the search is not always passed along to all of a node's neighbors. This only happens when the path ending at the current node corresponds to a string that is the prefix of some word in the dictionary (which can be checked using the trie structure that keeps track of the words in the dictionary list - see the 'searching the dictionary file section' below). For example, if my path so far is {g,r,z} there is no need to build the path further by exploring z's neighbors (assuming no words in the dictionary start with "grz"), so the program can return to searching 'r''s other neighbors, and building paths starting with "gr".
+*To make this more efficient, the search is not always passed along to all of a node's neighbors. This only happens when the path ending at the current node corresponds to a string that is the prefix of some word in the dictionary (which can be checked using the trie structure that keeps track of the words in the dictionary list - see the 'searching the dictionary file' section below). For example, if my path so far is {g,r,z} there is no need to build the path further by exploring z's neighbors (assuming no words in the dictionary start with "grz"), so the program can return to searching 'r''s other neighbors, and building paths starting with "gr".
 
 ##### Option 2
 
@@ -140,7 +140,7 @@ It is probably best understood through an example. Suppose the word "gee"is give
 
 I added a few more steps to try to make the algorithm more efficient. One dealt with limiting duplicates by not inserting a letter both before and after a letter which is identical to it. For example above, going from step 3 to step 4, only one "eeg" would be produced from "eg" and 'e'.
 
-The other, to some extent, prevents the creation of unusable letter permutations when the final letter is being inserted into the substrings of smaller length: it stops building permutations when the substring before the letter to be inserted is not the prefix of a word in the dictionary. For example given the word "crack", suppose we have the four-letter substring "rkac" and are about to insert 'c' into various positions in it. There is no point in inserting 'c' after any of the letters after the 'r' in "rkac'" (assuming no words in the dictionary start with "rk").
+The other, to some extent, prevents the creation of unusable letter permutations when the final letter is being inserted into the substrings of smaller length: it stops building permutations when the substring before the letter to be inserted is not the prefix of a word in the dictionary. For example given the word "crack", suppose we have the four-letter substring "rkac" and are about to insert 'c' into various positions in it. There is no point in inserting 'c' after any of the letters after the 'r' in "rkac" (assuming no words in the dictionary start with "rk").
 
 The final step attempts to amplify the effects of the second step by re-ordering the letters of the given word to bring the consonants to the front and the vowels to the back before permutations start being built. It seems more likely to get to substrings that are not prefixes if all the consonants are bunched up at the front of the substring (e.g. "snck" from "snack", instead of "sank"), so the program tries to insert the vowels last.
 
