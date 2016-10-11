@@ -1,5 +1,6 @@
 package vaf.anagrammakers;
 import java.util.List;
+import java.util.Set;
 
 import vaf.Trie;
 
@@ -22,6 +23,6 @@ public interface IAnagramMaker {
      * @param word a word
      * @return a list of anagrams for that word.
      */
-    List<String> singleWordAnagrams(String word);
+    Set<String> singleWordAnagrams(String word);
 
 }

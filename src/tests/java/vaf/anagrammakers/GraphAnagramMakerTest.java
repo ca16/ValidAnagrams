@@ -5,7 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import vaf.PathsAndNames;
 import vaf.Trie;
@@ -26,7 +28,8 @@ public class GraphAnagramMakerTest {
     String input3;
     String input4;
 
-    private List<String> empty;
+    private List<String> emptyList;
+    private Set<String> emptySet;
 
     @Before
     public void setUp() throws Exception {
@@ -45,7 +48,8 @@ public class GraphAnagramMakerTest {
         input3 = "how";
         input4 = "deed";
 
-        empty = new ArrayList<>();
+        emptyList = new ArrayList<>();
+        emptySet = new HashSet<>();
 
     }
 
@@ -93,11 +97,11 @@ public class GraphAnagramMakerTest {
         Assert.assertTrue(compareLists(singleWordExpectedBig, bigMaker.lstOfWordsAnagrams(singleWordLst)));
         Assert.assertTrue(compareLists(twoWordExpectedBig, bigMaker.lstOfWordsAnagrams(twoWordLst)));
         Assert.assertTrue(compareLists(fourWordExpectedBig, bigMaker.lstOfWordsAnagrams(fourWordLst)));
-        Assert.assertTrue(compareLists(empty, bigMaker.lstOfWordsAnagrams(empty)));
+        Assert.assertTrue(compareLists(emptyList, bigMaker.lstOfWordsAnagrams(emptyList)));
         Assert.assertTrue(compareLists(singleWordExpectedBig, littleMaker.lstOfWordsAnagrams(singleWordLst)));
         Assert.assertTrue(compareLists(twoWordExpectedBig, littleMaker.lstOfWordsAnagrams(twoWordLst)));
         Assert.assertTrue(compareLists(fourWordExpectedLittle, littleMaker.lstOfWordsAnagrams(fourWordLst)));
-        Assert.assertTrue(compareLists(empty, littleMaker.lstOfWordsAnagrams(empty)));
+        Assert.assertTrue(compareLists(emptyList, littleMaker.lstOfWordsAnagrams(emptyList)));
 
     }
 
@@ -107,16 +111,16 @@ public class GraphAnagramMakerTest {
         // Using the large dictionary file (roughly all English words)
 
         // 1 possible anagram
-        List<String> input1ExpectedAnagramsBig = new ArrayList<>();
+        Set<String> input1ExpectedAnagramsBig = new HashSet<>();
         input1ExpectedAnagramsBig.add("a");
 
         // 2 x 1 = 2 possible anagrams
-        List<String> input2ExpectedAnagramsBig = new ArrayList<>();
+        Set<String> input2ExpectedAnagramsBig = new HashSet<>();
         input2ExpectedAnagramsBig.add("to");
         input2ExpectedAnagramsBig.add("ot");
 
         // 3 x 2 x 1 = 6 possible anagrams
-        List<String> input3ExpectedAnagramsBig = new ArrayList<>();
+        Set<String> input3ExpectedAnagramsBig = new HashSet<>();
         input3ExpectedAnagramsBig.add("how");
         input3ExpectedAnagramsBig.add("hwo");
         input3ExpectedAnagramsBig.add("ohw");
@@ -129,19 +133,19 @@ public class GraphAnagramMakerTest {
         // 12 /2 = 6 (account for the two 'e's switching positions
         // 6 - 1 = 5 (no words starting with 'dd')
         // 5- 1 = 4 (no words starting with 'eed')
-        List<String> input4ExpectedAnagramsBig = new ArrayList<>();
+        Set<String> input4ExpectedAnagramsBig = new HashSet<>();
         input4ExpectedAnagramsBig.add("deed");
         input4ExpectedAnagramsBig.add("dede");
         input4ExpectedAnagramsBig.add("eded");
         input4ExpectedAnagramsBig.add("edde");
 
-        List<String> emptyLst = new ArrayList<>();
+        Set<String> emptyLst = new HashSet<>();
 
-        Assert.assertTrue(compareLists(input1ExpectedAnagramsBig, bigMaker.singleWordAnagrams(input1)));
-        Assert.assertTrue(compareLists(input2ExpectedAnagramsBig, bigMaker.singleWordAnagrams(input2)));
-        Assert.assertTrue(compareLists(input3ExpectedAnagramsBig, bigMaker.singleWordAnagrams(input3)));
-        Assert.assertTrue(compareLists(input4ExpectedAnagramsBig, bigMaker.singleWordAnagrams(input4)));
-        Assert.assertTrue(compareLists(empty, bigMaker.singleWordAnagrams(inputEmpty)));
+        Assert.assertEquals(input1ExpectedAnagramsBig, bigMaker.singleWordAnagrams(input1));
+        Assert.assertEquals(input2ExpectedAnagramsBig, bigMaker.singleWordAnagrams(input2));
+        Assert.assertEquals(input3ExpectedAnagramsBig, bigMaker.singleWordAnagrams(input3));
+        Assert.assertEquals(input4ExpectedAnagramsBig, bigMaker.singleWordAnagrams(input4));
+        Assert.assertEquals(emptySet, bigMaker.singleWordAnagrams(inputEmpty));
 
 
         // Using the smaller dictionary file (12 words)
@@ -151,21 +155,21 @@ public class GraphAnagramMakerTest {
         // Same expected output for input 2 with big dictionary
 
         // No words in the dictionary file start with any two letter combinations of
-        // 'o', 'h' or 'w' so for input 3 we expect an empty list.
+        // 'o', 'h' or 'w' so for input 3 we expect an emptyList list.
 
         // 4 x 3 x 2 x 1 = 24 possible anagrams
         // 24 / 2 = 12 (account for the two 'd's switching positions
         // 12 /2 = 6 (account for the two 'e's switching positions
         // 6 - 4 = 2 (no words starting with 'ed', 'ee', 'dd')
         // 2- 1 = 1  (no words starting with 'ded')
-        List<String> input4ExpectedAnagramsLittle = new ArrayList<>();
+        Set<String> input4ExpectedAnagramsLittle = new HashSet<>();
         input4ExpectedAnagramsLittle.add("deed");
 
-        Assert.assertTrue(compareLists(input1ExpectedAnagramsBig, littleMaker.singleWordAnagrams(input1)));
-        Assert.assertTrue(compareLists(input2ExpectedAnagramsBig, littleMaker.singleWordAnagrams(input2)));
-        Assert.assertTrue(compareLists(emptyLst, littleMaker.singleWordAnagrams(input3)));
-        Assert.assertTrue(compareLists(input4ExpectedAnagramsLittle, littleMaker.singleWordAnagrams(input4)));
-        Assert.assertTrue(compareLists(empty, littleMaker.singleWordAnagrams(inputEmpty)));
+        Assert.assertEquals(input1ExpectedAnagramsBig, littleMaker.singleWordAnagrams(input1));
+        Assert.assertEquals(input2ExpectedAnagramsBig, littleMaker.singleWordAnagrams(input2));
+        Assert.assertEquals(emptyLst, littleMaker.singleWordAnagrams(input3));
+        Assert.assertEquals(input4ExpectedAnagramsLittle, littleMaker.singleWordAnagrams(input4));
+        Assert.assertEquals(emptySet, littleMaker.singleWordAnagrams(inputEmpty));
 
     }
 

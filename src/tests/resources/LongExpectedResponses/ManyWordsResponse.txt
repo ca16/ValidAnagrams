@@ -5,16 +5,16 @@ Apologies. I didn't understand your response. Please respond with 'y' or 'n'.
 Apologies. I didn't understand your response. Please respond with 'y' or 'n'. 
 
 For word: snag
-snag
 sang
+snag
 nags
 
 
 
 For word: three
+ether
 three
 there
-ether
 
 
 
@@ -24,10 +24,10 @@ pods
 
 
 For word: stab
+bats
 stab
 tabs
 bast
-bats
 
 
 
@@ -48,8 +48,8 @@ slily
 
 
 For word: misfortune
-misfortune
 uniformest
+misfortune
 
 
 Please enter the word or words you'd like to find anagrams of. 

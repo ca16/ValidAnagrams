@@ -1,7 +1,9 @@
 package vaf.anagrammakers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import vaf.InputWordListProcessor;
 import vaf.Trie;
@@ -33,12 +35,8 @@ public class GraphAnagramMaker implements IAnagramMaker {
     public List<String> lstOfWordsAnagrams(List<String> words){
         List<String> ret = new ArrayList<>();
         for (String word : words){
-            List<String> anagrams = singleWordAnagrams(word);
-            for (String anagram : anagrams){
-                if (!ret.contains(anagram)){
-                    ret.add(anagram);
-                }
-            }
+            Set<String> anagrams = singleWordAnagrams(word);
+            ret.addAll(anagrams);
         }
         return ret;
     }
@@ -48,12 +46,12 @@ public class GraphAnagramMaker implements IAnagramMaker {
      * @param word a word
      * @return a list of anagrams for that word.
      */
-    public List<String> singleWordAnagrams(String word){
+    public Set<String> singleWordAnagrams(String word){
         word = InputWordListProcessor.preprocessWord(word);
         this.currWord = word;
         makeGraph();
         List<List<Integer>> paths = anagramDfsAll();
-        List<String> anagrams = pathsToWords(paths);
+        Set<String> anagrams = pathsToWords(paths);
         return anagrams;
     }
 
@@ -187,13 +185,11 @@ public class GraphAnagramMaker implements IAnagramMaker {
      * @param paths the paths we want to convert to words
      * @return a list of words corresponding to the paths given. No duplicates.
      */
-    private List<String> pathsToWords(List<List<Integer>> paths){
-        List<String> words = new ArrayList<>();
+    private Set<String> pathsToWords(List<List<Integer>> paths){
+        Set<String> words = new HashSet<>();
         for (List<Integer> path : paths){
             String word = pathToWord(path);
-            if (!words.contains(word)) {
-                words.add(word);
-            }
+            words.add(word);
         }
         return words;
 

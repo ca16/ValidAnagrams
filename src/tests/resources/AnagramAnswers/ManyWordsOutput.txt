@@ -1,15 +1,15 @@
 
 For word: snag
-snag
 sang
+snag
 nags
 
 
 
 For word: three
+ether
 three
 there
-ether
 
 
 
@@ -19,10 +19,10 @@ pods
 
 
 For word: stab
+bats
 stab
 tabs
 bast
-bats
 
 
 
@@ -43,7 +43,7 @@ slily
 
 
 For word: misfortune
-misfortune
 uniformest
+misfortune
 
 

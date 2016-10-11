@@ -2,6 +2,7 @@ package vaf;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import vaf.anagrammakers.GraphAnagramMaker;
@@ -42,7 +43,7 @@ public class InputWordListProcessor {
                 continue;
             }
             word = word.toLowerCase().trim();
-            List<String> anagrams = anagramMaker.singleWordAnagrams(word);
+            Set<String> anagrams = anagramMaker.singleWordAnagrams(word);
             compareAnagrams(anagrams);
             System.out.print("\n");
         }
@@ -53,7 +54,7 @@ public class InputWordListProcessor {
      * anagrams that are also in the trie (so any words that were also in the dictionary).
      * @param anagrams anagrams of a word
      */
-    void compareAnagrams(List<String> anagrams){
+    void compareAnagrams(Set<String> anagrams){
         for (String anagram : anagrams){
             if (trie.contains(anagram)){
                 System.out.println(anagram);

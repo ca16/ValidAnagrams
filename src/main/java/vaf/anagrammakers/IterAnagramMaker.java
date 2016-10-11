@@ -1,7 +1,9 @@
 package vaf.anagrammakers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import vaf.InputWordListProcessor;
 import vaf.Trie;
@@ -14,7 +16,7 @@ import vaf.Trie;
 public class IterAnagramMaker implements IAnagramMaker {
 
     private Trie trie;
-    private List<Character> vowels;
+    private Set<Character> vowels;
 
     /**
      * Initializes the anagram finder.
@@ -23,7 +25,7 @@ public class IterAnagramMaker implements IAnagramMaker {
      */
     public IterAnagramMaker(Trie trie){
         this.trie = trie;
-        this.vowels = new ArrayList<>();
+        this.vowels = new HashSet<>();
         vowels.add('a');
         vowels.add('e');
         vowels.add('i');
@@ -49,9 +51,9 @@ public class IterAnagramMaker implements IAnagramMaker {
      * @param word a word
      * @return a list of anagrams for that word.
      */
-    public List<String> singleWordAnagrams(String word){
+    public Set<String> singleWordAnagrams(String word){
 
-        List<String> ret = new ArrayList<>();
+        Set<String> ret = new HashSet<>();
         Integer len = word.length();
 
         if (len == 0){
@@ -71,7 +73,7 @@ public class IterAnagramMaker implements IAnagramMaker {
 
             // holds the substrings created by inserting the current letter at various positions
             // in the substrings contained in ret (substrings that are shorter by one letter)
-            List<String> addTo = new ArrayList<>();
+            Set<String> addTo = new HashSet<>();
             for (String w: ret){
                 Integer wLen = w.length();
 
@@ -99,13 +101,8 @@ public class IterAnagramMaker implements IAnagramMaker {
                     // No special case if we get to this point, add this permutation of the first
                     // i letters to the list.
                     String toAdd = w.substring(0, j) + toInsert + w.substring(j, wLen);
-
-                    // Covering cases where two anagrams that are the same can be formed from
-                    // the same word that are also not covered by the above check. E.g. "dead"
-                    // and "dead."
-                    if (!addTo.contains(toAdd)) {
-                        addTo.add(toAdd);
-                    }
+                    
+                    addTo.add(toAdd);
                 }
             }
             ret = addTo;

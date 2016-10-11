@@ -39,7 +39,7 @@ public class PathsAndNames {
         String workingDir = System.getProperty("user.dir");
 
         // For command line I think
-        if (workingDir.endsWith(FILE_SEP + JVA_DIR + FILE_SEP)){
+        if (workingDir.endsWith(FILE_SEP + JVA_DIR)){
             getToSource = PAR_DIR + FILE_SEP + PAR_DIR + FILE_SEP;
         } 
         

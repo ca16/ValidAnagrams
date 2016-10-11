@@ -4,16 +4,16 @@ Otherwise, to quit please enter 'Quit!'
 Would you like to use a different anagram finding method? Default: graph-based. Other option: iterative. For words of 9 characters and above it is recommended that you stick to the default. Please respond with 'yes' to change or 'no' otherwise. 
 
 For word: snag
-snag
 sang
+snag
 nags
 
 
 
 For word: three
+ether
 three
 there
-ether
 
 
 
@@ -28,9 +28,9 @@ Apologies. I didn't understand your response. Please respond with 'y' or 'n'.
 Apologies. I didn't understand your response. Please respond with 'y' or 'n'. 
 
 For word: stab
-bats
 tabs
 bast
+bats
 stab
 
 
@@ -50,8 +50,8 @@ kettle
 
 
 For word: misfortune
-misfortune
 uniformest
+misfortune
 
 
 

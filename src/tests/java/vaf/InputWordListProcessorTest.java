@@ -9,7 +9,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import vaf.anagrammakers.GraphAnagramMaker;
 import vaf.anagrammakers.IAnagramMaker;
@@ -201,9 +203,9 @@ public class InputWordListProcessorTest {
         PrintStream oldOut = System.out;
         System.setOut(new PrintStream(os));
 
-        List<String> allInDict = new ArrayList<>();
-        List<String> noneInDict = new ArrayList<>();
-        List<String> someInDict = new ArrayList<>();
+        Set<String> allInDict = new HashSet<>();
+        Set<String> noneInDict = new HashSet<>();
+        Set<String> someInDict = new HashSet<>();
 
         allInDict.add("stab");
         allInDict.add("harmony");
@@ -221,7 +223,7 @@ public class InputWordListProcessorTest {
         someInDict.add("castle");
 
         procBig.compareAnagrams(allInDict);
-        String expectedOutput = "stab\nharmony\nsymmetry\nmisty";
+        String expectedOutput = "harmony\nstab\nsymmetry\nmisty";
         Assert.assertEquals(expectedOutput, os.toString().trim());
 
         os.reset();
@@ -248,7 +250,7 @@ public class InputWordListProcessorTest {
         os.reset();
 
         procBig.compareAnagrams(someInDict);
-        expectedOutput = "fog\ncarmine\ncastle";
+        expectedOutput = "castle\nfog\ncarmine";
         Assert.assertEquals(expectedOutput, os.toString().trim());
 
         os.reset();
