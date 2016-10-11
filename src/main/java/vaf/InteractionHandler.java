@@ -86,29 +86,29 @@ public class InteractionHandler {
         String srcDir = "src";
         String mnDir = "main";
         String recDir = "resources";
+        String jvaDir = "java";
 
-        // For Intellij
-        String defaultPathV1 = currDir + fileSep + srcDir + fileSep + mnDir + fileSep +
-                recDir + fileSep + defDict;
+        String getToMain = "";
+        String workingDir = System.getProperty("user.dir");
 
         // For command line
-        String defaultPathV2 = parentDir + fileSep + recDir + fileSep + defDict;
+        if (workingDir.endsWith(fileSep + jvaDir)){
+            getToMain = parentDir + fileSep;
+        }
 
-        String filePath = defaultPathV1;
+        // For Intellij
+        else{
+            getToMain = currDir + fileSep + srcDir + fileSep + mnDir + fileSep;
+        }
+
+        String defaultPath = getToMain + recDir + fileSep + defDict;
 
         try {
-            List<String> dictWords = DictProcessor.dictToList(filePath);
-            trie.addWordList(dictWords);
-        }
-        catch(FileNotFoundException fnfe){
-            filePath = defaultPathV2;
-        }
-        try {
-            List<String> dictWords = DictProcessor.dictToList(filePath);
+            List<String> dictWords = DictProcessor.dictToList(defaultPath);
             trie.addWordList(dictWords);
         }
 
-        // Neither file could be successfully used
+        // default dictionary could not be found
         catch(FileNotFoundException fnfe){
             return false;
         }
