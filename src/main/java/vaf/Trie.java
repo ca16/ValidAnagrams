@@ -1,5 +1,6 @@
 package vaf;
 
+import java.io.CharArrayReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -93,6 +94,7 @@ public class Trie {
 
     }
 
+
     /**
      * Adds all the words in a list to the trie
      * @param words the words to be added to the trie
@@ -104,9 +106,28 @@ public class Trie {
     }
 
     /**
+     * Given a letter and a trie node, returns the node that corresponds to the child of the given
+     * node with the given letter if it is in the trie, and null otherwise.
+     * @param letter the letter corresponding to the child we're looking for
+     * @param node the parent corresponding to the child we're looking for
+     * @return the child if it's in the trie, null otherwise.
+     */
+    public TrieNode hasChildWithLetter(Character letter, TrieNode node){
+        return node.getChildWithLetter(letter);
+    }
+
+    /**
+     * Returns the trie's root
+     * @return the root of the trie
+     */
+    public TrieNode getRoot(){
+        return this.root;
+    }
+
+    /**
      * Represents a node in a trie.
      */
-    private class TrieNode {
+    public class TrieNode {
 
         // The letter the node corresponds to
         private Character letter;
@@ -125,7 +146,7 @@ public class Trie {
 
         /**
          * Construct a trie node.
-         * @param letter the letter the node corrresponds to.
+         * @param letter the letter the node corresponds to.
          */
         private TrieNode(char letter) {
             this.letter = letter;

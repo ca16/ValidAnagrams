@@ -18,6 +18,7 @@ public class GraphAnagramMaker implements IAnagramMaker {
     private Trie trie;
     private List<List<Integer>> currGraph;
     private String currWord;
+    private Set<String> pathsSeen;
 
     /**
      * Initialize the anagram maker.
@@ -50,6 +51,7 @@ public class GraphAnagramMaker implements IAnagramMaker {
         word = InputWordListProcessor.preprocessWord(word);
         this.currWord = word;
         makeGraph();
+        pathsSeen = new HashSet<>();
         List<List<Integer>> paths = anagramDfsAll();
         Set<String> anagrams = pathsToWords(paths);
         return anagrams;
@@ -123,15 +125,19 @@ public class GraphAnagramMaker implements IAnagramMaker {
         // New path starting at this node
         List<Integer> path = new ArrayList<>();
         path.add(node);
+        pathsSeen.add(pathToWord(path));
 
         // Continue the search at each of the node's neighbors using a copy of the path so far
         // (containing only the starting node) and anagramDfsHelper.
         for (Integer succ : currGraph.get(node)){
             List<Integer> pathCopy = new ArrayList<>();
             pathCopy.addAll(path);
-            anagramDfsHelper(succ, pathCopy, pathList);
+            Trie.TrieNode self = trie.hasChildWithLetter(nodeToLetter(node), trie.getRoot());
+            if (null != self) {
+                anagramDfsHelper(succ, pathCopy, pathList, self);
+            }
         }
-
+        
         return pathList;
     }
 
@@ -145,10 +151,16 @@ public class GraphAnagramMaker implements IAnagramMaker {
      * @param path the path to that node
      * @param pathList the list of all paths of required length found so far
      */
-    private void anagramDfsHelper(Integer node, List<Integer> path, List<List<Integer>> pathList){
+    private void anagramDfsHelper(Integer node, List<Integer> path, List<List<Integer>> pathList, Trie.TrieNode parent){
 
         // add the node we're exploring to the path
         path.add(node);
+        if (pathsSeen.contains(pathToWord(path))){
+            return;
+        }
+        else {
+            pathsSeen.add(pathToWord(path));
+        }
 
         // the path is the required size, add it to the list of paths
         // we're done with this node/path pair
@@ -160,7 +172,8 @@ public class GraphAnagramMaker implements IAnagramMaker {
         // the substring corresponding to the path so far is not the prefix of a word in the trie
         // there is no point in continuing to search for paths that start with the current path
         // as they will not result in words in the dictionary. Return.
-        if (!trie.isPrefix(pathToWord(path))){
+        Trie.TrieNode self = trie.hasChildWithLetter(nodeToLetter(node), parent);
+        if (null == self){
             return;
         }
 
@@ -173,7 +186,7 @@ public class GraphAnagramMaker implements IAnagramMaker {
             if (!path.contains(succ)){
                 List<Integer> pathCopy = new ArrayList<>();
                 pathCopy.addAll(path);
-                anagramDfsHelper(succ, pathCopy, pathList);
+                anagramDfsHelper(succ, pathCopy, pathList, self);
             }
         }
 
@@ -206,5 +219,9 @@ public class GraphAnagramMaker implements IAnagramMaker {
             builder.append(currWord.substring(node, node+1));
         }
         return builder.toString();
+    }
+
+    private Character nodeToLetter(Integer node){
+        return currWord.charAt(node);
     }
 }

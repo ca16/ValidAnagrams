@@ -89,9 +89,13 @@ public class GraphAnagramMakerTest {
         fourWordExpectedBig.add("eded");
         fourWordExpectedBig.add("edde");
 
+        List<String> twoWordExpectedLittle = new ArrayList<>();
+        twoWordExpectedLittle.addAll(singleWordExpectedBig);
+        twoWordExpectedLittle.add("to");
+
 
         List<String> fourWordExpectedLittle = new ArrayList<>();
-        fourWordExpectedLittle.addAll(twoWordExpectedBig);
+        fourWordExpectedLittle.addAll(twoWordExpectedLittle);
         fourWordExpectedLittle.add("deed");
 
         Assert.assertTrue(compareLists(singleWordExpectedBig, bigMaker.lstOfWordsAnagrams(singleWordLst)));
@@ -99,7 +103,7 @@ public class GraphAnagramMakerTest {
         Assert.assertTrue(compareLists(fourWordExpectedBig, bigMaker.lstOfWordsAnagrams(fourWordLst)));
         Assert.assertTrue(compareLists(emptyList, bigMaker.lstOfWordsAnagrams(emptyList)));
         Assert.assertTrue(compareLists(singleWordExpectedBig, littleMaker.lstOfWordsAnagrams(singleWordLst)));
-        Assert.assertTrue(compareLists(twoWordExpectedBig, littleMaker.lstOfWordsAnagrams(twoWordLst)));
+        Assert.assertTrue(compareLists(twoWordExpectedLittle, littleMaker.lstOfWordsAnagrams(twoWordLst)));
         Assert.assertTrue(compareLists(fourWordExpectedLittle, littleMaker.lstOfWordsAnagrams(fourWordLst)));
         Assert.assertTrue(compareLists(emptyList, littleMaker.lstOfWordsAnagrams(emptyList)));
 
@@ -152,8 +156,11 @@ public class GraphAnagramMakerTest {
 
         // Same expected output for input 1 with big dictionary
 
-        // Same expected output for input 2 with big dictionary
-
+        // 2 x 1 = 2 possible anagrams
+        // 2 - 1 = 1, no words start with 'o' in the little dictionary
+        Set<String> input2ExpectedAnagramsLittle = new HashSet<>();
+        input2ExpectedAnagramsLittle.add("to");
+        
         // No words in the dictionary file start with any two letter combinations of
         // 'o', 'h' or 'w' so for input 3 we expect an emptyList list.
 
@@ -166,7 +173,7 @@ public class GraphAnagramMakerTest {
         input4ExpectedAnagramsLittle.add("deed");
 
         Assert.assertEquals(input1ExpectedAnagramsBig, littleMaker.singleWordAnagrams(input1));
-        Assert.assertEquals(input2ExpectedAnagramsBig, littleMaker.singleWordAnagrams(input2));
+        Assert.assertEquals(input2ExpectedAnagramsLittle, littleMaker.singleWordAnagrams(input2));
         Assert.assertEquals(emptyLst, littleMaker.singleWordAnagrams(input3));
         Assert.assertEquals(input4ExpectedAnagramsLittle, littleMaker.singleWordAnagrams(input4));
         Assert.assertEquals(emptySet, littleMaker.singleWordAnagrams(inputEmpty));
