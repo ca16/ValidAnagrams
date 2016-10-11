@@ -221,6 +221,11 @@ public class GraphAnagramMaker implements IAnagramMaker {
         return builder.toString();
     }
 
+    /**
+     * Converts the given node to a letter using the current words as a map.
+     * @param node the node to be converted
+     * @return the letter it corresponds to
+     */
     private Character nodeToLetter(Integer node){
         return currWord.charAt(node);
     }
