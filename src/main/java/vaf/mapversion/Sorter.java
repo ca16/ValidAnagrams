@@ -38,40 +38,5 @@ public class Sorter {
         return builder.toString();
     }
     
-    public static void main(String[] args){
-
-        // For default file path
-        String fileSep = System.getProperty("file.separator");
-        String defDict = "wordsEn.txt";
-        String currDir = ".";
-        String parentDir = "..";
-
-        // Important sub-folders
-        String srcDir = "src";
-        String mnDir = "main";
-        String recDir = "resources";
-        String jvaDir = "java";
-
-        String getToMain = "";
-        String workingDir = System.getProperty("user.dir");
-
-        // For command line
-        if (workingDir.endsWith(fileSep + jvaDir)){
-            getToMain = parentDir + fileSep;
-        }
-
-        // For Intellij
-        else{
-            getToMain = currDir + fileSep + srcDir + fileSep + mnDir + fileSep;
-        }
-
-//        String defaultPath = getToMain + recDir + fileSep + defDict;
-//        MapDictProcessor proc = new MapDictProcessor(defaultPath);
-//        MapWordsToOutput otherProc = new MapWordsToOutput("hi there find anagrams stab", proc.dictToList());
-//        otherProc.findAnagramsAndCompare();
-
-        
-    }
-    
     // add constants for 0 and 26 to other
 }
