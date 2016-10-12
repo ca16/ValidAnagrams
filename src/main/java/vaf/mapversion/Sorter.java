@@ -6,7 +6,12 @@ import vaf.inputprocessors.AWordsToOutputHandler;
  * Created by Chloe on 10/11/16.
  */
 public class Sorter {
-    
+
+    /**
+     * Sorts the characters of the given word
+     * @param word the word who characters we want to sort
+     * @return the sorted version of the word
+     */
     public static String sortWord(String word){
         String processedWord = AWordsToOutputHandler.preprocessWord(word);
         int len = processedWord.length();

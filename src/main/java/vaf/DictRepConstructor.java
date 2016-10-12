@@ -61,8 +61,8 @@ public class DictRepConstructor {
      * If it throws an exception, it is expected that the exception will be caught
      * by ProgramStartVAF.
      *
+     * @param file the dictionary file
      * @return a list containing the words in the given file
-     * @throws IOException if there is a problem reading the file or with the reader
      */
     public static Map<String, Set<String>> constructMap(String file){
 
