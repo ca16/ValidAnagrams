@@ -1,12 +1,11 @@
-package vaf.anagrammakers;
+package vaf.trieversion;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import vaf.InputWordListProcessor;
-import vaf.Trie;
+import vaf.inputprocessors.AWordsToOutputHandler;
 
 /**
  * A kind of anagram finder that looks for anagrams using a more iterative approach.
@@ -63,7 +62,7 @@ public class IterAnagramMaker implements IAnagramMaker {
         ret.add(empty);
 
         // pre-process the word a little
-        word = InputWordListProcessor.preprocessWord(word);
+        word = AWordsToOutputHandler.preprocessWord(word);
         word = reorder(word);
         len = word.length();
 

@@ -1,9 +1,10 @@
-package vaf;
+package vaf.trieversion;
 
 import org.junit.Assert;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import vaf.DictRepConstructor;
+import vaf.PathsAndNames;
+import vaf.trieversion.Trie;
 
 import static vaf.PathsAndNames.*;
 /**
@@ -28,7 +29,7 @@ public class TrieTest {
         smallTree.addToTrie("of");
         smallTree.addToTrie("fire");
         
-        biggerTree = new Trie(PATH_TO_B_DICT);
+        biggerTree = DictRepConstructor.constructTrie(PATH_TO_B_DICT);
         
     }
 
@@ -118,27 +119,5 @@ public class TrieTest {
 
 
     }
-    
-    @org.junit.Test
-    public void constructionTest() throws Exception {
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        PrintStream oldErr = System.err;
-        System.setErr(new PrintStream(os));
-        
-        String expectedOutput = "Words could not be added to the trie " +
-                "because the dictionary file could not be found or opened. \n";
-        
-        Trie invalidPathTrie1 = new Trie("./not/a/valid-path");
-        Assert.assertEquals(os.toString(), expectedOutput);
-        
-        os.reset();
-
-        Trie invalidPathTrie2 = new Trie("fakeDictionaryFile");
-        Assert.assertEquals(os.toString(), expectedOutput);
-        
-        os.close();
-        System.setErr(oldErr);
-    }
-
 
 }

@@ -7,12 +7,15 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static vaf.PathsAndNames.*;
+import vaf.trieversion.Trie;
+
+import static vaf.PathsAndNames.PATH_TO_B_DICT;
+import static vaf.PathsAndNames.PATH_TO_S_DICT;
 
 /**
  * Created by Chloe on 10/8/16.
  */
-public class DictProcessorTest {
+public class DictRepConstructorTest {
     
     @Before
     public void setUp() throws Exception {
@@ -21,7 +24,7 @@ public class DictProcessorTest {
     }
 
     @Test
-    public void wordsToList() throws Exception {
+    public void constructTrie() throws Exception {
         
         
         List<String> smallDictContents = new ArrayList<>();
@@ -40,15 +43,17 @@ public class DictProcessorTest {
         smallDictContents.add("cereal");
         smallDictContents.add("globe");
         
-        List<String> smallDictComp = DictProcessor.dictToList(PATH_TO_S_DICT);
-
-        Assert.assertTrue(smallDictContents.containsAll(smallDictComp) && 
-                smallDictComp.containsAll(smallDictContents));
-
-        List<String> bigDictComp = DictProcessor.dictToList(PATH_TO_B_DICT);
+        Trie smallDictComp = DictRepConstructor.constructTrie(PATH_TO_S_DICT);
         
-        Assert.assertTrue(bigDictComp.containsAll(smallDictContents));
-        
+        for (String word : smallDictContents){
+            Assert.assertTrue(smallDictComp.contains(word));
+        }
+
+        Trie bigDictComp = DictRepConstructor.constructTrie(PATH_TO_B_DICT);
+
+        for (String word : smallDictContents){
+            Assert.assertTrue(bigDictComp.contains(word));
+        }        
         List<String> otherWords = new ArrayList<>();
         otherWords.add("yellow");
         otherWords.add("fog");
@@ -66,8 +71,13 @@ public class DictProcessorTest {
         otherWords.add("acted");
 
 
-        Assert.assertTrue(bigDictComp.containsAll(otherWords));
-        Assert.assertFalse(smallDictComp.containsAll(otherWords));
+        for (String word : otherWords){
+            Assert.assertTrue(bigDictComp.contains(word));
+        }
+
+        for (String word : otherWords){
+            Assert.assertFalse(smallDictComp.contains(word));
+        }
 
         Assert.assertFalse(bigDictComp.contains("gzgzgzgz"));
         Assert.assertFalse(bigDictComp.contains("ddddd"));

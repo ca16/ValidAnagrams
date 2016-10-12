@@ -1,7 +1,5 @@
-package vaf;
+package vaf.trieversion;
 
-import java.io.CharArrayReader;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,21 +21,6 @@ public class Trie {
      */
     public Trie() {
         this.root = new TrieNode(' ');
-    }
-
-    /**
-     * Constructs the root node and populates the trie with words from the given file if possible.
-     * @param filePath the path to a file containing the words to be added
-     *                 it is expected that there will be one words per line
-     */
-    public Trie(String filePath){
-        this.root = new TrieNode(' ');
-        try {
-            List<String> dictWords = DictProcessor.dictToList(filePath);
-            this.addWordList(dictWords);
-        }catch (IOException ioe){
-            System.err.println(INVALID_CONSTR_PATH);
-        }
     }
 
     /**

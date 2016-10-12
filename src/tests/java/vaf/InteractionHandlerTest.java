@@ -9,6 +9,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.PrintStream;
 
+import vaf.trieversion.Trie;
+
 import static vaf.PathsAndNames.*;
 
 /**
@@ -31,7 +33,7 @@ public class InteractionHandlerTest {
 
         PathsAndNames.populatePaths();
 
-        bigTrie = new Trie(PATH_TO_B_DICT);
+        bigTrie = DictRepConstructor.constructTrie(PATH_TO_B_DICT);
 
         notUnderstood = MISUNDERSTOOD + RESPONSE_INSTR + "\n";
 
@@ -89,7 +91,7 @@ public class InteractionHandlerTest {
 
         // User tries to provide their own file, fails at first, then succeeds
         BufferedReader reader = new BufferedReader(new FileReader(userInputFile));
-        InteractionHandler ih = new InteractionHandler(bigTrie, reader);
+        InteractionHandler ih = new InteractionHandler(reader);
         ih.talkAboutDictionary();
         Assert.assertEquals(expectedOutput, os.toString());
 
@@ -143,7 +145,7 @@ public class InteractionHandlerTest {
         String userInputCase4 = PATH_TO_USER_RESPS + FILE_SEP + manyRound;
         String progOutputCase4 = PATH_TO_PROG_RESPS + FILE_SEP  + manyRoundResp;
         talkAboutInputWordsTestHelper(userInputCase4, progOutputCase4, os);
-//        
+        
         os.close();
         System.setOut(oldOut);
         
@@ -154,7 +156,7 @@ public class InteractionHandlerTest {
                                                ByteArrayOutputStream os) throws Exception{
 
         BufferedReader reader = new BufferedReader(new FileReader(userInputFile));
-        InteractionHandler ih = new InteractionHandler(bigTrie, reader);
+        InteractionHandler ih = new InteractionHandler(reader, bigTrie);
         BufferedReader expRespReader = new BufferedReader(new FileReader(progOutputFile));
         StringBuilder expectedOutput = new StringBuilder();
         String line = null;
@@ -191,19 +193,19 @@ public class InteractionHandlerTest {
         // Case 1: User wants to change anagram finding strategy
         String userInputCase1 = PATH_TO_USER_RESPS + FILE_SEP + yesFile;
         String progOutputCase1 = changeQu + changeInstr + "\n";
-        talkAboutCAFSTestHelper(userInputCase1, progOutputCase1, os);
+        talkAboutCAFSTestHelper(userInputCase1, progOutputCase1, os, changeQu);
 
         // Case 2: User does not want to change anagram finding strategy
         String userInputCase2 = PATH_TO_USER_RESPS + FILE_SEP + noFile;
         String progOutputCase2 = changeQu + changeInstr + "\n";
-        talkAboutCAFSTestHelper(userInputCase2, progOutputCase2, os);
+        talkAboutCAFSTestHelper(userInputCase2, progOutputCase2, os, changeQu);
 
         // Case 3: User wants to change anagram strategy but isn't very good at typing
         String userInputCase3 = PATH_TO_USER_RESPS + FILE_SEP + incomprehensible;
         String progOutputCase3 = changeQu + changeInstr + "\n" + notUnderstood + notUnderstood +
                 notUnderstood + notUnderstood + notUnderstood + notUnderstood + notUnderstood +
                 notUnderstood + notUnderstood;
-        talkAboutCAFSTestHelper(userInputCase3, progOutputCase3, os);
+        talkAboutCAFSTestHelper(userInputCase3, progOutputCase3, os, changeQu);
         
         os.close();
         System.setOut(oldOut);
@@ -211,11 +213,11 @@ public class InteractionHandlerTest {
 
     }
     
-    private void talkAboutCAFSTestHelper(String inputFilePath, String expOutput, ByteArrayOutputStream os) throws Exception{
+    private void talkAboutCAFSTestHelper(String inputFilePath, String expOutput, ByteArrayOutputStream os, String qu) throws Exception{
 
         BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
-        InteractionHandler ih = new InteractionHandler(bigTrie, reader);
-        ih.talkAboutAnagramFindingStrategy();
+        InteractionHandler ih = new InteractionHandler(reader);
+        ih.makeDecision(qu);
         Assert.assertEquals(expOutput, os.toString());
         
         os.reset();

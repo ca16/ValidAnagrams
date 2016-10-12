@@ -1,12 +1,11 @@
-package vaf.anagrammakers;
+package vaf.trieversion;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import vaf.InputWordListProcessor;
-import vaf.Trie;
+import vaf.inputprocessors.AWordsToOutputHandler;
 
 /**
  * A kind of anagram finder that finds anagrams using a graph-based search.
@@ -48,7 +47,7 @@ public class GraphAnagramMaker implements IAnagramMaker {
      * @return a list of anagrams for that word.
      */
     public Set<String> singleWordAnagrams(String word){
-        word = InputWordListProcessor.preprocessWord(word);
+        word = AWordsToOutputHandler.preprocessWord(word);
         this.currWord = word;
         makeGraph();
         pathsSeen = new HashSet<>();

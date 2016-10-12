@@ -3,7 +3,13 @@ package vaf;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import vaf.trieversion.Trie;
+import vaf.inputprocessors.IWordsToOutputHandler;
+import vaf.inputprocessors.TrieWordsToOutput;
+import vaf.inputprocessors.MapWordsToOutput;
 
 /**
  * Responsible for handling the interactions between program and user.
@@ -20,9 +26,11 @@ public class InteractionHandler {
 
     // Questions
     private static final String OWN_DICT_QU = "Would you like to use your own dictionary file? ";
-    private static final String CHANGE_QU = "Would you like to use a different anagram finding method? " +
+    private static final String ANA_STRAT_CHANGE_QU = "Would you like to use a different anagram finding method? " +
             "Default: graph-based. Other option: iterative. For words of 9 characters and above " +
             "it is recommended that you stick to the default. ";
+    private static final String DICT_REP_CHANGE_QU = "Would you like to use a different dictionary representation method? " +
+            "Default: trie representation. Other option: map representation. ";
 
     // Problems
     private static final String MISUNDERSTOOD = "Apologies. I didn't understand your response. ";
@@ -40,11 +48,25 @@ public class InteractionHandler {
 
     private Trie trie;
     private BufferedReader reader;
+    private Map<String, Set<String>> map;
+    private Boolean defDictRep;
 
-    public InteractionHandler(Trie trie, BufferedReader reader){
+    public InteractionHandler(BufferedReader reader){
 
-        this.trie = trie;
         this.reader = reader;
+        this.defDictRep = true;
+    }
+    
+    public InteractionHandler(BufferedReader reader, Trie trie){
+        this.reader = reader;
+        this.defDictRep = true;
+        this.trie = trie;
+    }
+    
+    public InteractionHandler(BufferedReader reader, Map<String, Set<String>> map){
+        this.reader = reader;
+        this.defDictRep = true;
+        this.map = map;
     }
 
     /**
@@ -104,8 +126,7 @@ public class InteractionHandler {
         String defaultPath = getToMain + recDir + fileSep + defDict;
 
         try {
-            List<String> dictWords = DictProcessor.dictToList(defaultPath);
-            trie.addWordList(dictWords);
+            makeStructure(defaultPath);
         }
 
         // default dictionary could not be found
@@ -151,8 +172,7 @@ public class InteractionHandler {
                 System.out.println(DICT_PATH_INSTR);
                 String newFilePath = reader.readLine();
                 try {
-                    List<String> dictWords = DictProcessor.dictToList(newFilePath);
-                    trie.addWordList(dictWords);
+                    makeStructure(newFilePath);
                 }
 
                 // Problems getting the file
@@ -201,22 +221,27 @@ public class InteractionHandler {
             }
 
             // User does not want to quit
-            Boolean defaultPermMethod = talkAboutAnagramFindingStrategy();
-            InputWordListProcessor proc = new InputWordListProcessor(instructions, trie, defaultPermMethod);
+            IWordsToOutputHandler proc;
+            if (defDictRep) {
+                Boolean defaultPermMethod = makeDecision(ANA_STRAT_CHANGE_QU);
+                proc = new TrieWordsToOutput(instructions, trie, defaultPermMethod);
+            }
+            else{
+                proc = new MapWordsToOutput(instructions, map);
+            }
             proc.findAnagramsAndCompare();
         }
     }
 
     /**
-     * Gives the user the option of changing the anagram finding method. Default option: graph
-     * based search. Other option: a more iterative approach. It is recommended to stick to
-     * the default option when handling words of about 9+ characters.
-     * @return true if the default strategy will be used, false otherwise
+     * In charge of handling some yes or no questions.
+     * @param question The question to be asked.
+     * @return true if the user responded no, and false otherwise.
      * @throws IOException if there is a problem with the reader
      */
-    public Boolean talkAboutAnagramFindingStrategy() throws IOException{
+    public Boolean makeDecision(String question) throws IOException{
         Boolean ret = true;
-        System.out.println(CHANGE_QU + CHANGE_INSTR);
+        System.out.println(question + CHANGE_INSTR);
         while (true) {
             String response = reader.readLine();
             if (positiveResponse(response)) {
@@ -229,6 +254,24 @@ public class InteractionHandler {
             }
         }
         return ret;
+    }
+    
+    public void talkAboutDictRep() throws IOException{
+        defDictRep = makeDecision(DICT_REP_CHANGE_QU);
+    }
+
+    /**
+     * Construct either a trie representation or a map representation of the dictionary file.
+     * @param filePath the path to the dictionary file
+     * @throws IOException if there is a problem with reading the file
+     */
+    private void makeStructure(String filePath) throws IOException{
+        if (defDictRep){
+            this.trie = DictRepConstructor.constructTrie(filePath);
+        }
+        else{
+            this.map = DictRepConstructor.constructMap(filePath);
+        }
     }
 
 

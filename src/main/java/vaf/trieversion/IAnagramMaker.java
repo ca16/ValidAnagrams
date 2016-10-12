@@ -1,8 +1,6 @@
-package vaf.anagrammakers;
+package vaf.trieversion;
 import java.util.List;
 import java.util.Set;
-
-import vaf.Trie;
 
 /**
  * Responsible for finding anagrams of words.

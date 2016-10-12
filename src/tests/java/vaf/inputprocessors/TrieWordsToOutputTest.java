@@ -1,4 +1,4 @@
-package vaf;
+package vaf.inputprocessors;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,20 +9,23 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import vaf.anagrammakers.GraphAnagramMaker;
-import vaf.anagrammakers.IAnagramMaker;
-import vaf.anagrammakers.IterAnagramMaker;
+import vaf.DictRepConstructor;
+import vaf.PathsAndNames;
+import vaf.trieversion.GraphAnagramMaker;
+import vaf.trieversion.IAnagramMaker;
+import vaf.trieversion.IterAnagramMaker;
+import vaf.trieversion.Trie;
+import vaf.inputprocessors.TrieWordsToOutput;
+
 import static vaf.PathsAndNames.*;
 
 
 /**
  * Created by Chloe on 10/8/16.
  */
-public class InputWordListProcessorTest {
+public class TrieWordsToOutputTest {
 
     private String emptyInput;
     private String spaceInput;
@@ -61,8 +64,8 @@ public class InputWordListProcessorTest {
     private IAnagramMaker gmSmall;
     private IAnagramMaker imSmall;
 
-    private InputWordListProcessor procBig;
-    private InputWordListProcessor procSmall;
+    private TrieWordsToOutput procBig;
+    private TrieWordsToOutput procSmall;
 
 
     @Before
@@ -123,17 +126,17 @@ public class InputWordListProcessorTest {
         manyWordLst.add(word8);
 
         emptyLst = new ArrayList<>();
-
-        bigTrie = new Trie(PATH_TO_B_DICT);
-        littleTrie = new Trie(PATH_TO_S_DICT);
-
+        
+        bigTrie = DictRepConstructor.constructTrie(PATH_TO_B_DICT);
+        littleTrie = DictRepConstructor.constructTrie(PATH_TO_S_DICT);
+        
         gmBig = new GraphAnagramMaker(bigTrie);
         gmSmall = new GraphAnagramMaker(littleTrie);
         imBig = new IterAnagramMaker(bigTrie);
         imSmall = new IterAnagramMaker(bigTrie);
 
-        procBig = new InputWordListProcessor(emptyInput, bigTrie, true);
-        procSmall = new InputWordListProcessor(emptyInput, littleTrie, true);
+        procBig = new TrieWordsToOutput(emptyInput, bigTrie, true);
+        procSmall = new TrieWordsToOutput(emptyInput, littleTrie, true);
 
 
     }
@@ -150,22 +153,23 @@ public class InputWordListProcessorTest {
         System.setOut(new PrintStream(os));
 
         // One word, the big dictionary, switched anagram finding method
-        InputWordListProcessor bigIterOneWord = new InputWordListProcessor(oneWordInput, bigTrie, false);
+        TrieWordsToOutput bigIterOneWord = new TrieWordsToOutput(oneWordInput, bigTrie, false);
         os.reset();
-        String expectedOutput = "\nFor word: " + word1 + "\nnags\nsang\nsnag\n\n\n";
+        String expectedOutput = "\n\nFor word: " + word1 + "\nnags\nsang\nsnag\n\n\n";
+        System.out.println(os);
         bigIterOneWord.findAnagramsAndCompare();
         Assert.assertEquals(expectedOutput, os.toString());
         os.reset();
 
         // One word, the little dictionary, default anagram finding method
-        InputWordListProcessor littleGraphOneWord = new InputWordListProcessor(oneWordInput, littleTrie, true);
+        TrieWordsToOutput littleGraphOneWord = new TrieWordsToOutput(oneWordInput, littleTrie, true);
         expectedOutput = "\nFor word: " + word1 + "\n\n\n";
         littleGraphOneWord.findAnagramsAndCompare();
         Assert.assertEquals(expectedOutput, os.toString());
         os.reset();
 
         // Many words, the big dictionary, default anagram finding method
-        InputWordListProcessor bigGraphManyWords = new InputWordListProcessor(manyWordInput, bigTrie, true);
+        TrieWordsToOutput bigGraphManyWords = new TrieWordsToOutput(manyWordInput, bigTrie, true);
         String progOutputFileCase3 = PATH_TO_ANA_ANS + FILE_SEP + manyWordsBig;
         BufferedReader expRespReader = new BufferedReader(new FileReader(progOutputFileCase3));
         StringBuilder expOutput = new StringBuilder();
@@ -178,7 +182,7 @@ public class InputWordListProcessorTest {
         os.reset();
 
         // A few words, the little dictionary, switched anagram finding method
-        InputWordListProcessor littleIterFewWords = new InputWordListProcessor(fewWordInput, littleTrie, false);
+        TrieWordsToOutput littleIterFewWords = new TrieWordsToOutput(fewWordInput, littleTrie, false);
         String progOutputFileCase4 = PATH_TO_ANA_ANS + FILE_SEP + threeChangeSmall;
         expRespReader = new BufferedReader(new FileReader(progOutputFileCase4));
         expOutput = new StringBuilder(); 
@@ -194,75 +198,6 @@ public class InputWordListProcessorTest {
         expRespReader.close();
         System.setOut(oldOut);
 
-    }
-
-    @Test
-    public void compareAnagrams() throws Exception {
-
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        PrintStream oldOut = System.out;
-        System.setOut(new PrintStream(os));
-
-        Set<String> allInDict = new HashSet<>();
-        Set<String> noneInDict = new HashSet<>();
-        Set<String> someInDict = new HashSet<>();
-
-        allInDict.add("stab");
-        allInDict.add("harmony");
-        allInDict.add("symmetry");
-        allInDict.add("misty");
-
-        noneInDict.add("osdvoi");
-        noneInDict.add("gggg");
-        noneInDict.add("zbzbzbz");
-
-        someInDict.add("fog");
-        someInDict.add("dddd");
-        someInDict.add("carmine");
-        someInDict.add("slddng");
-        someInDict.add("castle");
-
-        procBig.compareAnagrams(allInDict);
-        String expectedOutput = "harmony\nstab\nsymmetry\nmisty";
-        Assert.assertEquals(expectedOutput, os.toString().trim());
-
-        os.reset();
-
-        //fewer words should be printed because this processor's dictionary is smaller
-        procSmall.compareAnagrams(allInDict);
-        expectedOutput = "stab\nmisty";
-        Assert.assertEquals(expectedOutput, os.toString().trim());
-
-        os.reset();
-
-        procBig.compareAnagrams(noneInDict);
-        expectedOutput = "";
-        Assert.assertEquals(expectedOutput, os.toString().trim());
-
-        os.reset();
-
-        // should have the same behaviour as procBig, no words are in the small dictionary
-        // that aren't in the big one
-        procSmall.compareAnagrams(noneInDict);
-        expectedOutput = "";
-        Assert.assertEquals(expectedOutput, os.toString().trim());
-
-        os.reset();
-
-        procBig.compareAnagrams(someInDict);
-        expectedOutput = "castle\nfog\ncarmine";
-        Assert.assertEquals(expectedOutput, os.toString().trim());
-
-        os.reset();
-
-        // though some fo these words were in the bigger dictionary, none of them are in the
-        // small one
-        procSmall.compareAnagrams(someInDict);
-        expectedOutput = "";
-        Assert.assertEquals(expectedOutput, os.toString().trim());
-
-        os.close();
-        System.setOut(oldOut);
     }
 
     @Test
@@ -291,10 +226,10 @@ public class InputWordListProcessorTest {
     @Test
     public void preprocessWord() throws Exception {
 
-        Assert.assertEquals("quit", InputWordListProcessor.preprocessWord("Qui!t"));
-        Assert.assertEquals("quit", InputWordListProcessor.preprocessWord("quit"));
-        Assert.assertEquals("findme", InputWordListProcessor.preprocessWord("-298findme029!*"));
-        Assert.assertEquals("ohio", InputWordListProcessor.preprocessWord("Ohio"));
+        Assert.assertEquals("quit", TrieWordsToOutput.preprocessWord("Qui!t"));
+        Assert.assertEquals("quit", TrieWordsToOutput.preprocessWord("quit"));
+        Assert.assertEquals("findme", TrieWordsToOutput.preprocessWord("-298findme029!*"));
+        Assert.assertEquals("ohio", TrieWordsToOutput.preprocessWord("Ohio"));
     }
 
 }

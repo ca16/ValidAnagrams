@@ -1,3 +1,4 @@
+no
 yes
 ./src/tests/resources/TestSmallDict.txt
 snag three ponds

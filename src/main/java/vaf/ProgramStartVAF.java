@@ -19,21 +19,26 @@ public class ProgramStartVAF {
 
     public static void main(String[] args){
 
-        Trie trie = new Trie();
+//        Trie trie = new Trie();
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-
-            // Get the interaction handler to handle populating a trie with the contents of a
-            // dictionary file
-            InteractionHandler communicator = new InteractionHandler(trie, reader);
+            
+            // make an interaction handler
+            InteractionHandler communicator = new InteractionHandler(reader);
+            
+            // figure out walk kind of representation the user wants
+            communicator.talkAboutDictRep();
+            
+            // try to construct the dictionary representation 
             Boolean success = communicator.talkAboutDictionary();
 
-            // Trie population was a success, proceed with finding anagrams
+            // dictionary representation construction was a success, 
+            // proceed with finding anagrams
             if (success) {
                 communicator.talkAboutInputWords();
             }
 
-            // Trie population was a failure, inform the user and end.
+            // dictionary representation construction was a failure, inform the user and end.
             else {
                 System.out.println(FAILED_MSG);
             }
