@@ -124,11 +124,6 @@ public class AWordsToOutputHandlerTest {
         bigTrie = DictRepConstructor.constructTrie(PATH_TO_B_DICT);
         littleTrie = DictRepConstructor.constructTrie(PATH_TO_S_DICT);
 
-        gmBig = new GraphAnagramMaker(bigTrie);
-        gmSmall = new GraphAnagramMaker(littleTrie);
-        imBig = new IterAnagramMaker(bigTrie);
-        imSmall = new IterAnagramMaker(bigTrie);
-
         procBig = new TrieWordsToOutput(emptyInput, bigTrie, true);
         procSmall = new TrieWordsToOutput(emptyInput, littleTrie, true);
 
