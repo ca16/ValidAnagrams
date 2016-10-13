@@ -78,21 +78,27 @@ I have included JUnit tests for my project (ValidAnagrams/src/tests). Looking th
 
 ----
 
+## NOTE: 
+
+The rest of the README applies to the anagram finding strategy based on using a Trie to hold the words in the dictionary. I recently added the option of asking the program to do the same task using a Map. More documentation on that coming soon!
+
+The class diagram is also outdated, but does provide a general idea of how the program is structured. 
+
+----
+
 ### On the Structure
 
 The program starts at the ProgramStartVAF class, which sets things in motion:
 
 An InteractionHandler is created. It navigates the communication between program and user. 
 
-When the user provides input words, the InteractionHandler creates an InputWordListProcessor.
+When the user provides input words, the InteractionHandler creates an input words processor (IWordsToOutputHandler).
 
-The InputWordListProcessor brings together the behaviour of the IAnagramMaker (that finds potential anagrams) and the Trie (which checks if stings were in the provided dictionary file), to produce the required output.
+The IWordsToOutputHandler brings together the behaviour of the IAnagramMaker (that finds potential anagrams) and the Trie (which checks if stings were in the provided dictionary file), to produce the required output.
 
-The DictProcessor is in charge of processing the dictionary file being used. 
+The DictRepConstructor is in charge of processing the dictionary file being used. 
 
 Note: two classes implement IAnagramMaker - GraphAnagramMaker and IterAnagramMaker. See section 'on the strategy' below for more information on anagram finding strategies.
-
-I've added a class diagram (ValidAnagrams/VAFClassDiagram.png) to the project. The green star marks where the program starts. 
 
 ----
 
@@ -179,6 +185,16 @@ So even though a hashset may be faster for one role (is a certain word in the di
 
 An outline of how it should go:
 
+1. The program asks you if you would like to switch from a trie representation to a map respresentation of the dictionary file. 
+
+  1. Scenario 1 - You want to use a trie representation.
+  
+    1. Input 'n' or 'no'.
+    
+  1. Senario 2 - You want to use a map representation.
+  
+    1. Input 'y' or 'yes'.
+
 1. The program asks you if you would like to use your own dictionary file.
 
   1. Scenario 1 - You want to use your own dictionary file.
@@ -201,7 +217,7 @@ An outline of how it should go:
 
        snag three pods
 
-1. The program asks you if you would like to stick to the default algorithm used to find anagrams (a graph based search), or switch to the other option (a more iterative version). Note: the default is recommended for longer words (~ 9+ characters).
+1. (Only if you're using a trie representation of the dictionary file) The program asks you if you would like to stick to the default algorithm used to find anagrams (a graph based search), or switch to the other option (a more iterative version). Note: the default is recommended for longer words (~ 9+ characters).
 
   1. Scenario 1 - You want to switch to the more iterative search option.
 
