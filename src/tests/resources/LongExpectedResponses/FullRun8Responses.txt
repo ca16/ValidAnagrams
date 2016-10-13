@@ -6,35 +6,42 @@ Otherwise, to quit please enter 'Quit!'
 
 For word: yes
 
+
 Please enter the word or words you'd like to find anagrams of. 
 Otherwise, to quit please enter 'Quit!' 
 
 For word: ./imquiteobstinate
 
+
 Please enter the word or words you'd like to find anagrams of. 
 Otherwise, to quit please enter 'Quit!' 
 
 For word: yes
+
 
 Please enter the word or words you'd like to find anagrams of. 
 Otherwise, to quit please enter 'Quit!' 
 
 For word: ./justcan'tstop
 
+
 Please enter the word or words you'd like to find anagrams of. 
 Otherwise, to quit please enter 'Quit!' 
 
 For word: yes
+
 
 Please enter the word or words you'd like to find anagrams of. 
 Otherwise, to quit please enter 'Quit!' 
 
 For word: ./okayIgiveup
 
+
 Please enter the word or words you'd like to find anagrams of. 
 Otherwise, to quit please enter 'Quit!' 
 
 For word: no
+
 
 Please enter the word or words you'd like to find anagrams of. 
 Otherwise, to quit please enter 'Quit!' 
@@ -42,10 +49,13 @@ Otherwise, to quit please enter 'Quit!'
 For word: there
 
 
+
 For word: sleep
 
 
+
 For word: dogs
+
 
 Please enter the word or words you'd like to find anagrams of. 
 Otherwise, to quit please enter 'Quit!' 

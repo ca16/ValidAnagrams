@@ -11,14 +11,17 @@ snag
 nags
 
 
+
 For word: three
 ether
 there
 three
 
 
+
 For word: ponds
 ponds
+
 
 Please enter the word or words you'd like to find anagrams of. 
 Otherwise, to quit please enter 'Quit!' 
@@ -28,6 +31,7 @@ bats
 stab
 tabs
 bast
+
 
 Please enter the word or words you'd like to find anagrams of. 
 Otherwise, to quit please enter 'Quit!' 

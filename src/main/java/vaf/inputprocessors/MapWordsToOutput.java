@@ -37,7 +37,7 @@ public class MapWordsToOutput extends AWordsToOutputHandler {
                     System.out.println(containedWord);
                 }
             }
-            System.out.print("\n");
+            System.out.print("\n\n");
         }
     }
     

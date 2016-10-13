@@ -9,10 +9,13 @@ Otherwise, to quit please enter 'Quit!'
 For word: snag
 
 
+
 For word: three
 
 
+
 For word: ponds
+
 
 Please enter the word or words you'd like to find anagrams of. 
 Otherwise, to quit please enter 'Quit!' 
@@ -22,19 +25,24 @@ bats
 stab
 tabs
 
+
 Please enter the word or words you'd like to find anagrams of. 
 Otherwise, to quit please enter 'Quit!' 
 
 For word: silly
 
 
+
 For word: kettle
+
 
 
 For word: misfortune
 
 
+
 For word: helicopter
+
 
 Please enter the word or words you'd like to find anagrams of. 
 Otherwise, to quit please enter 'Quit!' 

@@ -8,24 +8,23 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import vaf.DictRepConstructor;
 import vaf.PathsAndNames;
-import vaf.trieversion.GraphAnagramMaker;
-import vaf.trieversion.IAnagramMaker;
-import vaf.trieversion.IterAnagramMaker;
 import vaf.trieversion.Trie;
-import vaf.inputprocessors.TrieWordsToOutput;
 
-import static vaf.PathsAndNames.*;
-
+import static org.junit.Assert.*;
+import static vaf.PathsAndNames.FILE_SEP;
+import static vaf.PathsAndNames.PATH_TO_ANA_ANS;
+import static vaf.PathsAndNames.PATH_TO_B_DICT;
+import static vaf.PathsAndNames.PATH_TO_S_DICT;
 
 /**
- * Created by Chloe on 10/8/16.
+ * Created by Chloe on 10/13/16.
  */
-public class TrieWordsToOutputTest {
+public class MapWordsToOutputTest {
 
     private String spaceInput;
 
@@ -41,10 +40,9 @@ public class TrieWordsToOutputTest {
     String word6;
     String word7;
     String word8;
-    
-    private Trie bigTrie;
-    private Trie littleTrie;
 
+    private Map<String, Set<String>> bigMap;
+    private Map<String, Set<String>> littleMap;
 
     @Before
     public void setUp() throws Exception {
@@ -66,43 +64,42 @@ public class TrieWordsToOutputTest {
         fewWordInput = word1 + spaceInput + word2 + spaceInput + word3;
         manyWordInput = word1 + spaceInput + word2 + spaceInput + word3 + spaceInput + word4 +
                 spaceInput + word5 + spaceInput + word6 + spaceInput + word7 + spaceInput + word8;
-        
-        
-        bigTrie = DictRepConstructor.constructTrie(PATH_TO_B_DICT);
-        littleTrie = DictRepConstructor.constructTrie(PATH_TO_S_DICT);
 
+
+        bigMap = DictRepConstructor.constructMap(PATH_TO_B_DICT);
+        littleMap = DictRepConstructor.constructMap(PATH_TO_S_DICT);
 
     }
 
     @Test
     public void findAnagramsAndCompare() throws Exception {
-        
+
         // File names
-        String manyWordsBig = "ManyWordsOutputTrie.txt";
+        String manyWordsBig = "ManyWordsOutputMap.txt";
         String threeChangeSmall = "SmallDictThreeWordsChangeOutput.txt";
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         PrintStream oldOut = System.out;
         System.setOut(new PrintStream(os));
 
-        // One word, the big dictionary, switched anagram finding method
-        TrieWordsToOutput bigIterOneWord = new TrieWordsToOutput(oneWordInput, bigTrie, false);
+        // One word, the big dictionary
+        MapWordsToOutput bigOneWord = new MapWordsToOutput(oneWordInput, bigMap);
         os.reset();
-        String expectedOutput = "\n\nFor word: " + word1 + "\nnags\nsang\nsnag\n\n\n";
+        String expectedOutput = "\n\nFor word: " + word1 + "\nsang\nsnag\nnags\n\n\n";
         System.out.println(os);
-        bigIterOneWord.findAnagramsAndCompare();
+        bigOneWord.findAnagramsAndCompare();
         Assert.assertEquals(expectedOutput, os.toString());
         os.reset();
 
-        // One word, the little dictionary, default anagram finding method
-        TrieWordsToOutput littleGraphOneWord = new TrieWordsToOutput(oneWordInput, littleTrie, true);
+        // One word, the little dictionary
+        MapWordsToOutput littleOneWord = new MapWordsToOutput(oneWordInput, littleMap);
         expectedOutput = "\nFor word: " + word1 + "\n\n\n";
-        littleGraphOneWord.findAnagramsAndCompare();
+        littleOneWord.findAnagramsAndCompare();
         Assert.assertEquals(expectedOutput, os.toString());
         os.reset();
 
-        // Many words, the big dictionary, default anagram finding method
-        TrieWordsToOutput bigGraphManyWords = new TrieWordsToOutput(manyWordInput, bigTrie, true);
+        // Many words, the big dictionary
+        MapWordsToOutput bigManyWords = new MapWordsToOutput(manyWordInput, bigMap);
         String progOutputFileCase3 = PATH_TO_ANA_ANS + FILE_SEP + manyWordsBig;
         BufferedReader expRespReader = new BufferedReader(new FileReader(progOutputFileCase3));
         StringBuilder expOutput = new StringBuilder();
@@ -110,20 +107,20 @@ public class TrieWordsToOutputTest {
         while ((line = expRespReader.readLine()) != null){
             expOutput = expOutput.append(line + "\n");
         }
-        bigGraphManyWords.findAnagramsAndCompare();
+        bigManyWords.findAnagramsAndCompare();
         Assert.assertEquals(expOutput.toString(), os.toString());
         os.reset();
 
-        // A few words, the little dictionary, switched anagram finding method
-        TrieWordsToOutput littleIterFewWords = new TrieWordsToOutput(fewWordInput, littleTrie, false);
+        // A few words, the little dictionary
+        MapWordsToOutput littleFewWords = new MapWordsToOutput(fewWordInput, littleMap);
         String progOutputFileCase4 = PATH_TO_ANA_ANS + FILE_SEP + threeChangeSmall;
         expRespReader = new BufferedReader(new FileReader(progOutputFileCase4));
-        expOutput = new StringBuilder(); 
+        expOutput = new StringBuilder();
         line = null;
         while ((line = expRespReader.readLine()) != null){
             expOutput = expOutput.append(line + "\n");
         }
-        littleIterFewWords.findAnagramsAndCompare();
+        littleFewWords.findAnagramsAndCompare();
         Assert.assertEquals(expOutput.toString(), os.toString());
         os.reset();
 
