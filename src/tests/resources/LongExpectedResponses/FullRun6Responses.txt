@@ -1,0 +1,40 @@
+Would you like to use a different dictionary representation method? Default: trie representation. Other option: map representation. Please respond with 'yes' to change or 'no' otherwise. 
+Apologies. I didn't understand your response. Please respond with 'y' or 'n'. 
+Apologies. I didn't understand your response. Please respond with 'y' or 'n'. 
+Would you like to use your own dictionary file? Please respond with 'y' or 'n'. 
+Please enter the path to a dictionary file. 
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
+
+For word: snag
+
+
+For word: three
+
+
+For word: ponds
+
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
+
+For word: stab
+bats
+stab
+tabs
+
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
+
+For word: silly
+
+
+For word: kettle
+
+
+For word: misfortune
+
+
+For word: helicopter
+
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 

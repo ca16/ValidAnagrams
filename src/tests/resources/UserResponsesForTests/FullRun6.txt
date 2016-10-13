@@ -1,0 +1,9 @@
+maybe
+apologies
+yes
+yes
+./src/tests/resources/TestSmallDict.txt
+snag three ponds
+stab
+silly kettle misfortune helicopter
+Quit!

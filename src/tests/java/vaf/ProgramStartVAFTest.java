@@ -33,6 +33,7 @@ public class ProgramStartVAFTest {
         PrintStream oldOut = System.out;
         System.setOut(new PrintStream(os));
 
+        // Trie rep cases
         // Case 1: user uses default dictionary, uses both anagram finding algorithms,
         // messes up replying 'yes' or 'no' occasionally
         
@@ -45,9 +46,14 @@ public class ProgramStartVAFTest {
         // Case 4: user wants to use their own file but fails to provide a good path
         // eventually the default file is used for a few words
         
+        //Map rep cases:
+        // Cases 5 through 8 correspond to cases 1 through 4 above, only a map representation
+        // is used instead of a trie representation for the dictionary, and there is not 
+        // anagram finding strategy choice available.
+        
         // The tests all have a similar format (the main differences are contained in the files
         // passed to them). Run all the cases.
-        for (Integer i = 1; i < 5; i++){
+        for (Integer i = 1; i < 9; i++){
             mainTestHelper(i.toString(), os);
         }
         

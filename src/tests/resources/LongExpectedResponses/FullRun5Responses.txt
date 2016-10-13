@@ -1,0 +1,33 @@
+Would you like to use a different dictionary representation method? Default: trie representation. Other option: map representation. Please respond with 'yes' to change or 'no' otherwise. 
+Would you like to use your own dictionary file? Please respond with 'y' or 'n'. 
+Apologies. I didn't understand your response. Please respond with 'y' or 'n'. 
+Apologies. I didn't understand your response. Please respond with 'y' or 'n'. 
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
+
+For word: snag
+sang
+snag
+nags
+
+
+For word: three
+ether
+there
+three
+
+
+For word: ponds
+ponds
+
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
+
+For word: stab
+bats
+stab
+tabs
+bast
+
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
