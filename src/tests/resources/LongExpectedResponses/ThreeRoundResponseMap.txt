@@ -1,0 +1,57 @@
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
+
+For word: snag
+sang
+snag
+nags
+
+
+
+For word: three
+ether
+there
+three
+
+
+
+For word: pods
+pods
+
+
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
+
+For word: stab
+bats
+stab
+tabs
+bast
+
+
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 
+
+For word: helicopter
+helicopter
+
+
+
+For word: kettle
+kettle
+
+
+
+For word: silly
+silly
+slily
+
+
+
+For word: misfortune
+uniformest
+misfortune
+
+
+Please enter the word or words you'd like to find anagrams of. 
+Otherwise, to quit please enter 'Quit!' 

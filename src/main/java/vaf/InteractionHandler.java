@@ -65,7 +65,7 @@ public class InteractionHandler {
     
     public InteractionHandler(BufferedReader reader, Map<String, Set<String>> map){
         this.reader = reader;
-        this.defDictRep = true;
+        this.defDictRep = false;
         this.map = map;
     }
 
@@ -239,7 +239,7 @@ public class InteractionHandler {
      * @return true if the user responded no, and false otherwise.
      * @throws IOException if there is a problem with the reader
      */
-    public Boolean makeDecision(String question) throws IOException{
+    private Boolean makeDecision(String question) throws IOException{
         Boolean ret = true;
         System.out.println(question + CHANGE_INSTR);
         while (true) {
@@ -255,7 +255,12 @@ public class InteractionHandler {
         }
         return ret;
     }
-    
+
+    /**
+     * In charge of getting the user to specify if they want to use the trie representation
+     * of the dictionary (default), or switch to the map representation.
+     * @throws IOException if there is a problem with the reader
+     */
     public void talkAboutDictRep() throws IOException{
         defDictRep = makeDecision(DICT_REP_CHANGE_QU);
     }

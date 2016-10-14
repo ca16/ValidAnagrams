@@ -8,6 +8,8 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.PrintStream;
+import java.util.Map;
+import java.util.Set;
 
 import vaf.trieversion.Trie;
 
@@ -26,6 +28,7 @@ public class InteractionHandlerTest {
     private String notUnderstood;
 
     private Trie bigTrie;
+    private Map<String, Set<String>> bigMap;
 
 
     @Before
@@ -34,6 +37,7 @@ public class InteractionHandlerTest {
         PathsAndNames.populatePaths();
 
         bigTrie = DictRepConstructor.constructTrie(PATH_TO_B_DICT);
+        bigMap = DictRepConstructor.constructMap(PATH_TO_B_DICT);
 
         notUnderstood = MISUNDERSTOOD + RESPONSE_INSTR + "\n";
 
@@ -103,17 +107,29 @@ public class InteractionHandlerTest {
     public void talkAboutInputWords() throws Exception {
 
         // Response file names
-        // Input
+        // Trie rep
+        // Input 
         String oneWord = "OneWordInput.txt";
         String manyRound = "ManyRoundInput.txt";
         String manyWords = "ManyWordsInput.txt";
         String oneWordChange = "OneWordWithChange.txt";
+
+        //Response
+        String oneWordResp = "OneWordResponseTrie.txt";
+        String manyRoundResp = "ThreeRoundResponseTrie.txt";
+        String manyWordsResp = "ManyWordsResponseTrie.txt";
+        String oneWordChangeResp = "OneWordChangeResponseTrie.txt";
+
+        // Map rep
+        // Input 
+        String oneWordMap = "OneWordInputMap.txt";
+        String manyRoundMap = "ManyRoundInputMap.txt";
+        String manyWordsMap = "ManyWordsInputMap.txt";
         
         //Response
-        String oneWordResp = "OneWordResponse.txt";
-        String manyRoundResp = "ThreeRoundResponse.txt";
-        String manyWordsResp = "ManyWordsResponse.txt";
-        String oneWordChangeResp = "OneWordChangeResponse.txt";
+        String oneWordRespMap = "OneWordResponseMap.txt";
+        String manyRoundRespMap = "ThreeRoundResponseMap.txt";
+        String manyWordsRespMap = "ManyWordsResponseMap.txt";
 
         // Path to long program response files and program response dir name
         String progRespsDir = "LongExpectedResponses";
@@ -122,29 +138,47 @@ public class InteractionHandlerTest {
         PrintStream oldOut = System.out;
         System.setOut(new PrintStream(os));
         
-        
+        // Trie cases
         // Case 1: User enters one word and keeps default strategy
         // Here we're using the word 'quit' to ensure that the user can still search
         // for anagrams of this word, even though the specific string 'Quit!' will end the program.
         String userInputCase1 = PATH_TO_USER_RESPS + FILE_SEP + oneWord;
         String progOutputCase1 = PATH_TO_PROG_RESPS + FILE_SEP  + oneWordResp;
-        talkAboutInputWordsTestHelper(userInputCase1, progOutputCase1, os);
+        talkAboutInputWordsTrieTestHelper(userInputCase1, progOutputCase1, os);
 
         // Case 2: User enters one word and changes strategy
         String userInputCase2 = PATH_TO_USER_RESPS + FILE_SEP + oneWordChange;
         String progOutputCase2 = PATH_TO_PROG_RESPS + FILE_SEP  + oneWordChangeResp;
-        talkAboutInputWordsTestHelper(userInputCase2, progOutputCase2, os);
+        talkAboutInputWordsTrieTestHelper(userInputCase2, progOutputCase2, os);
 
         // Case 3: User enters eight words and keeps the default strategy
         String userInputCase3 = PATH_TO_USER_RESPS + FILE_SEP + manyWords;
         String progOutputCase3 = PATH_TO_PROG_RESPS + FILE_SEP  + manyWordsResp;
-        talkAboutInputWordsTestHelper(userInputCase3, progOutputCase3, os);
+        talkAboutInputWordsTrieTestHelper(userInputCase3, progOutputCase3, os);
 
         // Case 4: User enters three words, then one word, then four words.
         // Changes strategy for the first two, goes to default for the last.  
         String userInputCase4 = PATH_TO_USER_RESPS + FILE_SEP + manyRound;
         String progOutputCase4 = PATH_TO_PROG_RESPS + FILE_SEP  + manyRoundResp;
-        talkAboutInputWordsTestHelper(userInputCase4, progOutputCase4, os);
+        talkAboutInputWordsTrieTestHelper(userInputCase4, progOutputCase4, os);
+
+        // Map cases
+        // Case 5: User enters one word
+        // Here we're using the word 'quit' to ensure that the user can still search
+        // for anagrams of this word, even though the specific string 'Quit!' will end the program.
+        String userInputCase5 = PATH_TO_USER_RESPS + FILE_SEP + oneWordMap;
+        String progOutputCase5 = PATH_TO_PROG_RESPS + FILE_SEP  + oneWordRespMap;
+        talkAboutInputWordsMapTestHelper(userInputCase5, progOutputCase5, os);
+
+        // Case 6: User enters one word
+        String userInputCase6 = PATH_TO_USER_RESPS + FILE_SEP + manyWordsMap;
+        String progOutputCase6 = PATH_TO_PROG_RESPS + FILE_SEP  + manyWordsRespMap;
+        talkAboutInputWordsMapTestHelper(userInputCase6, progOutputCase6, os);
+
+        // Case 7: User enters eight words
+        String userInputCase7 = PATH_TO_USER_RESPS + FILE_SEP + manyRoundMap;
+        String progOutputCase7 = PATH_TO_PROG_RESPS + FILE_SEP  + manyRoundRespMap;
+        talkAboutInputWordsMapTestHelper(userInputCase7, progOutputCase7, os);
         
         os.close();
         System.setOut(oldOut);
@@ -152,8 +186,8 @@ public class InteractionHandlerTest {
     }
     
     
-    private void talkAboutInputWordsTestHelper(String userInputFile, String progOutputFile, 
-                                               ByteArrayOutputStream os) throws Exception{
+    private void talkAboutInputWordsTrieTestHelper(String userInputFile, String progOutputFile,
+                                                   ByteArrayOutputStream os) throws Exception{
 
         BufferedReader reader = new BufferedReader(new FileReader(userInputFile));
         InteractionHandler ih = new InteractionHandler(reader, bigTrie);
@@ -172,13 +206,32 @@ public class InteractionHandlerTest {
         
     }
 
+    private void talkAboutInputWordsMapTestHelper(String userInputFile, String progOutputFile,
+                                                   ByteArrayOutputStream os) throws Exception{
+
+        BufferedReader reader = new BufferedReader(new FileReader(userInputFile));
+        InteractionHandler ih = new InteractionHandler(reader, bigMap);
+        BufferedReader expRespReader = new BufferedReader(new FileReader(progOutputFile));
+        StringBuilder expectedOutput = new StringBuilder();
+        String line = null;
+        while ((line = expRespReader.readLine()) != null){
+            expectedOutput.append(line + "\n");
+        }
+        ih.talkAboutInputWords();
+        Assert.assertEquals(expectedOutput.toString(), os.toString());
+
+        os.reset();
+        reader.close();
+        expRespReader.close();
+
+    }
+    
     @Test
-    public void talkAboutAnagramFindingStrategy() throws Exception {
+    public void talkAboutDictRep() throws Exception {
 
         // What the program should say about changing anagram finding strategy.
-        String changeQu = "Would you like to use a different anagram finding method? " +
-                "Default: graph-based. Other option: iterative. For words of 9 characters and " +
-                "above it is recommended that you stick to the default. ";
+        String changeQu = "Would you like to use a different dictionary representation method? " +
+                "Default: trie representation. Other option: map representation. ";
         String changeInstr = "Please respond with 'yes' to change or 'no' otherwise. ";
 
         // Response file names
@@ -190,39 +243,38 @@ public class InteractionHandlerTest {
         PrintStream oldOut = System.out;
         System.setOut(new PrintStream(os));
 
-        // Case 1: User wants to change anagram finding strategy
+        // Case 1: User wants to change dictionary represention
         String userInputCase1 = PATH_TO_USER_RESPS + FILE_SEP + yesFile;
         String progOutputCase1 = changeQu + changeInstr + "\n";
-        talkAboutCAFSTestHelper(userInputCase1, progOutputCase1, os, changeQu);
+        talkAboutDictRepHelper(userInputCase1, progOutputCase1, os);
 
-        // Case 2: User does not want to change anagram finding strategy
+        // Case 2: User does not want to change dictionary represention
         String userInputCase2 = PATH_TO_USER_RESPS + FILE_SEP + noFile;
         String progOutputCase2 = changeQu + changeInstr + "\n";
-        talkAboutCAFSTestHelper(userInputCase2, progOutputCase2, os, changeQu);
+        talkAboutDictRepHelper(userInputCase2, progOutputCase2, os);
 
-        // Case 3: User wants to change anagram strategy but isn't very good at typing
+        // Case 3: User wants to change dictionary represention but isn't very good at typing
         String userInputCase3 = PATH_TO_USER_RESPS + FILE_SEP + incomprehensible;
         String progOutputCase3 = changeQu + changeInstr + "\n" + notUnderstood + notUnderstood +
                 notUnderstood + notUnderstood + notUnderstood + notUnderstood + notUnderstood +
                 notUnderstood + notUnderstood;
-        talkAboutCAFSTestHelper(userInputCase3, progOutputCase3, os, changeQu);
-        
+        talkAboutDictRepHelper(userInputCase3, progOutputCase3, os);
+
         os.close();
         System.setOut(oldOut);
-
-
+        
     }
-    
-    private void talkAboutCAFSTestHelper(String inputFilePath, String expOutput, ByteArrayOutputStream os, String qu) throws Exception{
+
+    private void talkAboutDictRepHelper(String inputFilePath, String expOutput, ByteArrayOutputStream os) throws Exception{
 
         BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
         InteractionHandler ih = new InteractionHandler(reader);
-        ih.makeDecision(qu);
+        ih.talkAboutDictRep();
         Assert.assertEquals(expOutput, os.toString());
-        
+
         os.reset();
         reader.close();
-        
+
     }
 
 }

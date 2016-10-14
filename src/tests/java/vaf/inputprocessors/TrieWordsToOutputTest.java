@@ -126,6 +126,10 @@ public class TrieWordsToOutputTest {
         littleIterFewWords.findAnagramsAndCompare();
         Assert.assertEquals(expOutput.toString(), os.toString());
         os.reset();
+        
+        Assert.assertFalse(bigTrie.contains(null));
+        Assert.assertFalse(bigTrie.contains(""));
+        Assert.assertFalse(bigTrie.isPrefix(null));
 
         os.close();
         expRespReader.close();
